@@ -29,7 +29,7 @@ class MissionV(commands.Cog):
     @commands.Cog.listener()
     async def on_button_click(self, interaction):
         member = interaction.author
-        v_btn = interaction.component.custome_id
+        v_btn = interaction.component.custom_id
 
         if v_btn == 'mission_v':
             """ Check register players """
