@@ -33,3 +33,93 @@ def player(discord_id):
             return res
     except Error as e:
         print(e)
+
+
+def exp_up(discord_id, exp):
+    conn = None
+    try:
+        conn = MySQLConnection(**db)
+        cur = conn.cursor()
+        sql = 'UPDATE scum_players SET EXP = %s WHERE DISCORD_ID = %s'
+        cur.execute(sql, (exp, discord_id,))
+        conn.commit()
+    except Error as e:
+        print(e)
+    finally:
+        if conn.is_connected():
+            conn.close()
+
+
+def level_up(discord_id, level):
+    conn = None
+    try:
+        conn = MySQLConnection(**db)
+        cur = conn.cursor()
+        sql = 'UPDATE scum_players SET LEVEL = %s WHERE DISCORD_ID = %s'
+        cur.execute(sql, (level, discord_id,))
+        conn.commit()
+    except Error as e:
+        print(e)
+    finally:
+        if conn.is_connected():
+            conn.close()
+
+
+def coin_up(discord_id, coin):
+    conn = None
+    try:
+        conn = MySQLConnection(**db)
+        cur = conn.cursor()
+        sql = 'UPDATE scum_players SET COINS = %s WHERE DISCORD_ID = %s'
+        cur.execute(sql, (coin, discord_id,))
+        conn.commit()
+    except Error as e:
+        print(e)
+    finally:
+        if conn.is_connected():
+            conn.close()
+
+
+def coin_down(discord_id, coin):
+    conn = None
+    try:
+        conn = MySQLConnection(**db)
+        cur = conn.cursor()
+        sql = 'UPDATE scum_players SET COINS = %s WHERE DISCORD_ID = %s'
+        cur.execute(sql, (coin, discord_id,))
+        conn.commit()
+    except Error as e:
+        print(e)
+    finally:
+        if conn.is_connected():
+            conn.close()
+
+
+def mission_up(discord_id):
+    conn = None
+    try:
+        conn = MySQLConnection(**db)
+        cur = conn.cursor()
+        sql = 'UPDATE scum_players SET MISSION = 1 WHERE DISCORD_ID = %s'
+        cur.execute(sql, (discord_id,))
+        conn.commit()
+    except Error as e:
+        print(e)
+    finally:
+        if conn.is_connected():
+            conn.close()
+
+
+def mission_reset(discord_id):
+    conn = None
+    try:
+        conn = MySQLConnection(**db)
+        cur = conn.cursor()
+        sql = 'UPDATE scum_players SET MISSION = 0 WHERE DISCORD_ID = %s'
+        cur.execute(sql, (discord_id,))
+        conn.commit()
+    except Error as e:
+        print(e)
+    finally:
+        if conn.is_connected():
+            conn.close()

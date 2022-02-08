@@ -1,8 +1,12 @@
+import random
+
 import discord
 from discord.ext import commands
 from discord_components import Button, ButtonStyle
 
 from db.players_db import players_exists
+from mission.mission_db import new_mission
+from mission.mission_list import foods, guild_master_img
 
 
 class MissionV(commands.Cog):
@@ -33,9 +37,32 @@ class MissionV(commands.Cog):
 
         if v_btn == 'mission_v':
             """ Check register players """
+            order_code = str(member.id)
+            convert = order_code[:5]
+            gen_code = str(convert)
+            img = random.choice(foods)
+            in_progress = self.bot.get_channel(926894035707244626)
             check = players_exists(member.id)
+            mission_name = "ภารกิจนำส่งผักผลไม้"
+            award = 500
             if check == 1:
-                await interaction.respond(content=f'I found a player {member.name}')
+                embed = discord.Embed(
+                    title=f'ภารกิจหมายเลข {gen_code}',
+                    description='คุณจะได้รับคำแนะนำสำหรับการนำส่งสินค้าเมื่อคุณกดที่ปุ่ม REPORT MISSION '
+                                'ของภารกิจที่คุณเลือก',
+                    colour=discord.Colour.red()
+                )
+                embed.set_thumbnail(url=guild_master_img)
+                embed.set_image(url=img)
+                embed.add_field(name='👨‍🌾 ผู้รับภารกิจ', value=member.mention, inline=False)
+                embed.add_field(name='💰 รางวัลสำหรับภารกิจ', value="${:d} เหรียญ".format(award))
+                embed.add_field(name="🎖 exp", value=f"{award}")
+                embed.set_footer(text="ต้องส่งภารกิจก่อนทุกครั้งผู้เล่นถึงจะสามารถรับภารกิจใหม่ได้")
+                await interaction.respond(content="คุณสามารถดูภารกิจของคุณได้ที่ห้อง <#911285052204257371>", embed=embed)
+                await in_progress.send(embed=embed)
+
+                new_mission(member.id, member.name, mission_name, award)
+
                 return True
             else:
                 await interaction.respond(content=f'Status {check} : your informaion is not found!')
