@@ -16,6 +16,20 @@ def new_mission(discord_id, discord_name, mission_name, award):
             conn.close()
 
 
+def mission_exists(discord_id):
+    try:
+        conn = MySQLConnection(**db)
+        cur = conn.cursor()
+        sql = 'SELECT COUNT(*) FROM scum_guild_mission WHERE discord_id = %s'
+        cur.execute(sql, (discord_id,))
+        row = cur.fetchone()
+        while row is not None:
+            res = list(row)
+            return res[0]
+    except Error as e:
+        print(e)
+
+
 def get_image_status(discord_id):
     try:
         conn = MySQLConnection(**db)

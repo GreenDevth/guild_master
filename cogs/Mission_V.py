@@ -5,7 +5,7 @@ from discord.ext import commands
 from discord_components import Button, ButtonStyle
 
 from db.players_db import players_exists
-from mission.mission_db import new_mission
+from mission.mission_db import new_mission, mission_exists, get_mission_name
 from mission.mission_list import foods, guild_master_img
 
 
@@ -44,8 +44,9 @@ class MissionV(commands.Cog):
             in_progress = self.bot.get_channel(926894035707244626)
             check = players_exists(member.id)
             mission_name = "ภารกิจนำส่งผักผลไม้"
+            mission_check = mission_exists(member.id)
             award = 500
-            if check == 1:
+            if check == 1 and mission_check == 0:
                 embed = discord.Embed(
                     title=f'ภารกิจหมายเลข {gen_code}',
                     description='คุณจะได้รับคำแนะนำสำหรับการนำส่งสินค้าเมื่อคุณกดที่ปุ่ม REPORT MISSION '
@@ -64,6 +65,9 @@ class MissionV(commands.Cog):
                 new_mission(member.id, member.name, mission_name, award)
 
                 return True
+            elif check == 1 and mission_check == 1:
+                your_mission = get_mission_name(member.id)
+                await interaction.respond(content=f'⚠ คุณยังทำ ``{your_mission}`` ไม่สำเร็จ')
             else:
                 await interaction.respond(content=f'Status {check} : your informaion is not found!')
 
