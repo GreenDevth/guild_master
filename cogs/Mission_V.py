@@ -91,7 +91,26 @@ class MissionV(commands.Cog):
                         channel_send = interaction.guild.get_channel(report_channel.id)
                         channel_id_update(member.id, report_channel.id)
                         await interaction.respond(content=f'ไปที่ห้องส่งภารกิจของคุณ <#{report_channel.id}>')
-                        await channel_send.send(f'ห้องส่งภารกิจของ {member.mention}')
+                        await channel_send.send(
+                            '**ขั้นตอนการส่งภารกิจ** '
+                            '\n\nผู้เล่นต้องนำสินค้ามาส่งให้กับ Guild Master ที่ตำแหน่ง C3N1 เท่านั้น '
+                            '\nและต้องสร้างตู้สำหรับใส่สินค้า พร้อมล๊อคกุญแจให้เรียบร้อย หลังจากนั้นให้'
+                            '\nถ่ายภาพสินค้าข้างในตู้ไว้สำหรับส่งให้กับทางแอดมินเพื่อทำการตรวจสอบ '
+                            '\n\nคำอธิบายสำหรับปุ่มคำสั่ง'
+                            '\n- ปุ่ม SEND MISSION กดเพื่อส่งภาพภารกิจให้กับทีมงานแอดมิน '
+                            '\n- ปุ่ม RESET เพื่อรีเซ็ตภารกิจ และปิดระบบส่งภารกิจ ',
+                            file=discord.File('./img/mission/mission_center.png'),
+                            components=[
+                                [
+                                    Button(style=ButtonStyle.green, label='SHOPPING CART', emoji='🛒',
+                                           custom_id='shopping_cart', disabled=True),
+                                    Button(style=ButtonStyle.blue, label='SEND MISSION', emoji='📧',
+                                           custom_id='upload_image'),
+                                    Button(style=ButtonStyle.red, label='RESET', emoji='⏱',
+                                           custom_id='self_reset_mission')
+                                ]
+                            ]
+                            )
                     else:
                         await interaction.respond(content=f'goto <#{channel}>')
                 else:
