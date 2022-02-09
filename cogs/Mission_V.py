@@ -99,7 +99,9 @@ class MissionV(commands.Cog):
                             '\n(SEND MISSION) เพื่ออัพโหลดภาพและส่งให้แอดมิน'
                             '\n\n**คำอธิบายสำหรับปุ่มคำสั่ง** '
                             '\n- ปุ่ม SEND MISSION กดเพื่อส่งภาพภารกิจให้ทีมงานแอดมิน '
-                            '\n- ปุ่ม RESET เพื่อรีเซ็ตภารกิจ และปิดระบบส่งภารกิจ ',
+                            '\n- ปุ่ม RESET เพื่อรีเซ็ตภารกิจ และปิดระบบส่งภารกิจ '
+                        )
+                        await channel_send.send(
                             file=discord.File('./img/mission/mission_center.png'),
                             components=[
                                 [
@@ -119,8 +121,8 @@ class MissionV(commands.Cog):
             else:
                 await interaction.respond(content='⚠ ไม่พบ Steam ID ของคุณในระบบ')
 
-            if v_btn == 'upload_image':
-                await interaction.respond(content='อัพโหลดรูปภาพสินค้าเพื่อส่งให้ทีมงานตรวจสอบ')
+        if v_btn == 'upload_image':
+            await interaction.respond(content='อัพโหลดรูปภาพสินค้าเพื่อส่งให้ทีมงานตรวจสอบ')
 
 
 def setup(bot):
