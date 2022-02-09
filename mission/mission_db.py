@@ -55,6 +55,8 @@ def update_image_status(discord_id):
         cur.execute(sql, (discord_id,))
         conn.commit()
         cur.close()
+        msg = "ระบบได้ส่งรายงานภารกิจไปยังทีมงานแอดมินเป็นที่เรียบร้อยแล้ว"
+        return msg.strip()
     except Error as e:
         print(e)
     finally:
@@ -117,6 +119,20 @@ def mission_id(discord_id):
         conn = MySQLConnection(**db)
         cur = conn.cursor()
         sql = 'SELECT mission_id FROM scum_guild_mission WHERE discord_id = %s'
+        cur.execute(sql, (discord_id,))
+        row = cur.fetchone()
+        while row is not None:
+            res = list(row)
+            return res[0]
+    except Error as e:
+        print(e)
+
+
+def mission_award(discord_id):
+    try:
+        conn = MySQLConnection(**db)
+        cur = conn.cursor()
+        sql = 'SELECT award FROM scum_guild_mission WHERE discord_id = %s'
         cur.execute(sql, (discord_id,))
         row = cur.fetchone()
         while row is not None:

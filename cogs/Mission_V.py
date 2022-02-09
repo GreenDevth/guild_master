@@ -137,8 +137,15 @@ class MissionV(commands.Cog):
 
                 msg = await self.bot.wait_for('message', check=check)
                 image = msg.attachments[0]
-                update_image_status(member.id)
-                await interaction.channel.send(content='ระบบได้ส่งรายงานภารกิจไปยังทีมงานเป็นที่เรียบร้อยแล้ว')
+
+                if msg is not None:
+                    update_image = update_image_status(member.id)
+                    award = mission_award(member.id)
+                    exp = player_exp(member.id)
+                    update_exp = int(award) + int(exp)
+                    total = exp_up(member.id, update_exp)
+                    await discord.DMChannel.send(member, f'ยินดีด้วย คุณได้รับค่า 🎖 exp จำนวน {award} หน่วย ปัจจุบันคุณมีค่า 🎖 exp รวม {total} หน่วย')
+                    await interaction.channel.send(content=f'{update_image}', delete_after=5)
             else:
                 await interaction.respond(
                     content='คุณได้ส่งภารกิจไว้แล้ว กรุณารอทางทีมงานดำเนินการตรวจสอบและจ่ายรางวัลในเวลาต่อไป')

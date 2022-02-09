@@ -35,6 +35,20 @@ def players(discord_id):
         print(e)
 
 
+def player_exp(discord_id):
+    try:
+        conn = MySQLConnection(**db)
+        cur = conn.cursor()
+        sql = 'SELECT EXP FROM scum_players WHERE DISCORD_ID = %s'
+        cur.execute(sql, (discord_id,))
+        row = cur.fetchone()
+        while row is not None:
+            res = list(row)
+            return res[0]
+    except Error as e:
+        print(e)
+
+
 def exp_up(discord_id, exp):
     conn = None
     try:
@@ -43,6 +57,9 @@ def exp_up(discord_id, exp):
         sql = 'UPDATE scum_players SET EXP = %s WHERE DISCORD_ID = %s'
         cur.execute(sql, (exp, discord_id,))
         conn.commit()
+        cur.close()
+        total = player_exp(discord_id)
+        return total
     except Error as e:
         print(e)
     finally:
