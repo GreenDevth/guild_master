@@ -20,7 +20,7 @@ def players_exists(discord_id):
         print(e)
 
 
-def player(discord_id):
+def players(discord_id):
     """ Get player information """
     try:
         conn = MySQLConnection(**db)

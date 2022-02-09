@@ -4,8 +4,7 @@ import discord
 from discord.ext import commands
 from discord_components import Button, ButtonStyle
 
-from db.players_db import player_mission, mission_up
-from mission.mission_db import new_mission, mission_exists, get_mission_name, get_channel_id, mission_id, channel_id_update
+from mission.mission_db import *
 from mission.mission_list import foods, guild_master_img
 
 
@@ -43,12 +42,12 @@ class MissionV(commands.Cog):
 
         if v_btn == 'mission_v':
             img = random.choice(foods)
+            mission_name = "ภารกิจนำส่งผักผลไม้"
+            award = 500
 
             if check is not None:  # Check player already exists.
 
                 if check == 0 and mission_check == 0:  # Check for mission status and mission exists = 0.
-                    mission_name = "ภารกิจนำส่งผักผลไม้"
-                    award = 500
                     mission_up(member.id)
                     new_mission(member.id, member.name, mission_name, award)  # Create new recode.
                     embed = discord.Embed(
@@ -63,7 +62,8 @@ class MissionV(commands.Cog):
                     embed.add_field(name='💰 รางวัลสำหรับภารกิจ', value="${:d} เหรียญ".format(award))
                     embed.add_field(name="🎖 exp", value=f"{award}")
                     embed.set_footer(text="ต้องส่งภารกิจก่อนทุกครั้งผู้เล่นถึงจะสามารถรับภารกิจใหม่ได้")
-                    await interaction.respond(content="คุณสามารถดูภารกิจของคุณได้ที่ห้อง <#911285052204257371>", embed=embed)
+                    await interaction.respond(content="คุณสามารถดูภารกิจของคุณได้ที่ห้อง <#911285052204257371>",
+                                              embed=embed)
                     await in_progress.send(embed=embed)
 
                 else:
@@ -81,7 +81,8 @@ class MissionV(commands.Cog):
                     if channel == 0 or channel_id is None:  # Check for channel or channel id exists.
                         category = discord.utils.get(interaction.guild.categories, name='MISSION')
                         overwrites = {
-                            interaction.guild.default_role: discord.PermissionOverwrite(read_messages=False, connect=False),
+                            interaction.guild.default_role: discord.PermissionOverwrite(read_messages=False,
+                                                                                        connect=False),
                             member: discord.PermissionOverwrite(read_messages=True)
                         }
                         await category.edit(overwrites=overwrites)
@@ -113,7 +114,7 @@ class MissionV(commands.Cog):
                                            custom_id='self_reset_mission')
                                 ]
                             ]
-                            )
+                        )
                     else:
                         await interaction.respond(content=f'goto <#{channel}>')
                 else:
@@ -122,7 +123,26 @@ class MissionV(commands.Cog):
                 await interaction.respond(content='⚠ ไม่พบ Steam ID ของคุณในระบบ')
 
         if v_btn == 'upload_image':
-            await interaction.respond(content='อัพโหลดรูปภาพสินค้าเพื่อส่งให้ทีมงานตรวจสอบ')
+
+            upload_check = get_image_status(member.id)
+            if upload_check == 0:
+                update_image = update_image_status(member.id)
+                await interaction.respond(content=f'{update_image}')
+
+                def check(message):
+                    attachments = message.attachments
+                    if len(attachments) == 0:
+                        return False
+                    attachment = attachments[0]
+                    return attachment.filename.endswith(('.jpg', '.png'))
+
+                msg = await self.bot.wait_for('message', check=check)
+                image = msg.attachments[0]
+
+                if msg is not None:
+                    player = players(member.id)
+                    player_exp = player[7]
+                    await interaction.respond(content=f'{player_exp}')
 
 
 def setup(bot):

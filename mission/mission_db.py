@@ -46,6 +46,24 @@ def get_image_status(discord_id):
         print(e)
 
 
+def update_image_status(discord_id):
+    conn = None
+    try:
+        conn = MySQLConnection(**db)
+        cur = conn.cursor()
+        sql = 'UPDATE scum_guild_mission SET image_status = 1 WHERE discord_id = %s'
+        cur.execute(sql, (discord_id,))
+        conn.commit()
+        cur.close()
+        msg = "อัพโหลดรูปภาพสินค้าเพื่อส่งให้ทีมงานตรวจสอบ"
+        return msg.strip()
+    except Error as e:
+        print(e)
+    finally:
+        if conn.is_connected():
+            conn.close()
+
+
 def get_channel_id(discord_id):
     try:
         conn = MySQLConnection(**db)
