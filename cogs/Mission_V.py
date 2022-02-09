@@ -4,7 +4,7 @@ import discord
 from discord.ext import commands
 from discord_components import Button, ButtonStyle
 
-from db.players_db import players_exists
+from db.players_db import players_exists, player_mission
 from mission.mission_db import new_mission, mission_exists, get_mission_name
 from mission.mission_list import foods, guild_master_img
 
@@ -34,8 +34,11 @@ class MissionV(commands.Cog):
     async def on_button_click(self, interaction):
         member = interaction.author
         v_btn = interaction.component.custom_id
-
         if v_btn == 'mission_v':
+            check = player_mission(member.id)
+            await interaction.respond(content=f'{check}')
+
+        if v_btn == 'mission_va':
             """ Check register players """
             order_code = str(member.id)
             convert = order_code[:5]
@@ -46,7 +49,7 @@ class MissionV(commands.Cog):
             mission_name = "ภารกิจนำส่งผักผลไม้"
             mission_check = mission_exists(member.id)
             award = 500
-            if check == 1 and mission_check == 0:
+            if check == 1 and mission_check == 0:  # check count register player and already exists for mission
                 embed = discord.Embed(
                     title=f'ภารกิจหมายเลข {gen_code}',
                     description='คุณจะได้รับคำแนะนำสำหรับการนำส่งสินค้าเมื่อคุณกดที่ปุ่ม REPORT MISSION '

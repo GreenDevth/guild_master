@@ -123,3 +123,17 @@ def mission_reset(discord_id):
     finally:
         if conn.is_connected():
             conn.close()
+
+
+def player_mission(discord_id):
+    try:
+        conn = MySQLConnection(**db)
+        cur = conn.cursor()
+        sql = 'SELECT MISSION FROM scum_players WHERE DISCORD_ID = %s'
+        cur.execute(sql, (discord_id,))
+        row = cur.fetchone()
+        while row is not None:
+            res = list(row)
+            return res[0]
+    except Error as e:
+        print(e)
