@@ -155,8 +155,9 @@ class MissionV(commands.Cog):
                     embed.add_field(name='ผู้ส่งภารกิจ', value=member.mention, inline=False)
 
                     embed.add_field(name='💰 รางวัลที่ได้รับ', value='${:d}'.format(award), inline=True)
-                    embed.add_field(name='🎚 EXP', value=f"{award}", inline=True)
-                    embed.add_field(name='🏆 Level', value=f'{player_info[6]}')
+                    embed.add_field(name='🎚 EXP ที่ได้รับ', value=f"{award}", inline=True)
+                    embed.add_field(name='🏆 Level ปัจจุบัน', value=f'{player_info[6]}')
+                    embed.add_field(name='🎚 EXP ปัจจุบัน', value=f'{player_info[8]}')
                     msg = await success.send(embed=embed)
                     await msg.add_reaction("✅")
                     await discord.DMChannel.send(member, f'ยินดีด้วย คุณได้รับค่า 🎖 exp จำนวน {award} หน่วย ปัจจุบันคุณมีค่า 🎖 exp รวม {total} หน่วย')
