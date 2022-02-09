@@ -158,3 +158,21 @@ def mission_solf_reset(discord_id):
     finally:
         if conn.is_connected():
             conn.close()
+
+
+def mission_hard_reset(discord_id):
+    conn = None
+    try:
+        conn = MySQLConnection(**db)
+        cur = conn.cursor()
+        sql = 'DELETE FROM scum_guild_mission WHERE discord_id = %s'
+        cur.execute(sql, (discord_id,))
+        conn.commit()
+        cur.close()
+        msg = 'ทำการรีเซ็ตภารกิจของคุณเรียบร้อยแล้ว ขอให้สนุกกับภารกิจใหม่'
+        return msg.strip()
+    except Error as e:
+        print(e)
+    finally:
+        if conn.is_connected():
+            conn.close()

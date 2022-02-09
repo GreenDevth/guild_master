@@ -204,8 +204,8 @@ class MissionV(commands.Cog):
                 cash = player_coin - fine
                 update_coin(member.id, cash)
                 mission_reset(member.id)
-                solf_reset = mission_solf_reset(member.id)
-                await interaction.respond(content=f'{solf_reset}')
+                hard_reset = mission_hard_reset(member.id)
+                await interaction.respond(content=f'{hard_reset}')
                 await discord.DMChannel.send(member,
                                              f'ระบบได้หักค่าบริการรีเซ็ตภารกิจของคุณเรียบร้อย ยอดเงินคงเหลือของคุณ คือ {cash}')
 
