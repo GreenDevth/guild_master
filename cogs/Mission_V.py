@@ -90,7 +90,8 @@ class MissionV(commands.Cog):
                         report_channel = discord.utils.get(interaction.guild.channels, name=str(channel_name))
                         channel_send = interaction.guild.get_channel(report_channel.id)
                         channel_id_update(member.id, report_channel.id)
-                        await interaction.respond(content='create text_channel')
+                        await interaction.respond(content=f'ไปที่ห้องส่งภารกิจของคุณ <#{report_channel.id}>')
+                        await channel_send.send(f'ห้องส่งภารกิจของ {member.mention}')
                     else:
                         await interaction.respond(content=f'goto <#{channel}>')
                 else:
