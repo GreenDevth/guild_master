@@ -119,8 +119,8 @@ class MissionV(commands.Cog):
             else:
                 await interaction.respond(content='⚠ ไม่พบ Steam ID ของคุณในระบบ')
 
-            your_mission = get_mission_name(member.id)
-            await interaction.respond(content=f'{your_mission}')
+            if v_btn == 'upload_image':
+                await interaction.respond(content='อัพโหลดรูปภาพสินค้าเพื่อส่งให้ทีมงานตรวจสอบ')
 
 
 def setup(bot):
