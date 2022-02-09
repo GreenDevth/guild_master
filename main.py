@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 from db.config import get_token, config_cogs
 from discord_components import DiscordComponents
-bot = commands.Bot(command_prefix='.')
+bot = commands.Bot(command_prefix='!')
 DiscordComponents(bot)
 
 token = get_token(7)
