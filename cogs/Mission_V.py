@@ -202,10 +202,12 @@ class MissionV(commands.Cog):
                 await interaction.respond(content='⚠ ขออภัยยอดเงินของคุณไม่เพียงพอสำหรับการใช้งานคำสั่งรีเซ็ตภารกิจ')
             if fine <= player_coin:
                 cash = player_coin - fine
-                await interaction.respond(content=f'{player_coin} {cash}')
-
-
-
+                update_coin(member.id, cash)
+                mission_reset(member.id)
+                solf_reset = mission_solf_reset(member.id)
+                await interaction.respond(content=f'{solf_reset}')
+                await discord.DMChannel.send(member,
+                                             f'ระบบได้หักค่าบริการรีเซ็ตภารกิจของคุณเรียบร้อย ยอดเงินคงเหลือของคุณ คือ {cash}')
 
 
 def setup(bot):
