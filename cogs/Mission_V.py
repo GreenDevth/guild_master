@@ -151,22 +151,27 @@ class MissionV(commands.Cog):
                         description='ทำภารกิจสะสมค่า exp ให้ครบ 100000 หน่วยเพื่ออัพ Level ถัดไป',
                         color=discord.Colour.green()
                     )
-                    embed.set_thumbnail(url=image)
+                    embed.set_image(url=image)
                     embed.add_field(name='ผู้ส่งภารกิจ', value=member.mention, inline=False)
 
                     embed.add_field(name='💰 รางวัลที่ได้รับ', value='${:d}'.format(award), inline=True)
                     embed.add_field(name='🎚 EXP ที่ได้รับ', value=f"{award}", inline=True)
-                    embed.add_field(name='🏆 Level ปัจจุบัน', value=f'{player_info[6]}')
-                    embed.add_field(name='🎚 EXP ปัจจุบัน', value=f'{player_info[8]}')
+                    # embed.add_field(name='🏆 Level ปัจจุบัน', value=f'{player_info[6]}')
+                    # embed.add_field(name='🎚 EXP ปัจจุบัน', value=f'{player_info[8]}')
                     msg = await success.send(embed=embed)
                     await msg.add_reaction("✅")
-                    await discord.DMChannel.send(member, f'ยินดีด้วย คุณได้รับค่า 🎖 exp จำนวน {award} หน่วย ปัจจุบันคุณมีค่า 🎖 exp รวม {total} หน่วย')
+                    await discord.DMChannel.send(member,
+                                                 f'ยินดีด้วย คุณได้รับค่า 🎖 exp จำนวน {award} หน่วย ปัจจุบันคุณมีค่า 🎖 exp รวม {total} หน่วย')
                     await interaction.channel.send(content=f'{update_image}', delete_after=5)
                 else:
                     pass
             else:
                 await interaction.respond(
                     content='คุณได้ส่งภารกิจไว้แล้ว กรุณารอทางทีมงานตรวจสอบและจ่ายรางวัลในเวลาต่อไป กรุณากดปุ่ม RESET เพื่อรับภารกิจใหม่')
+
+        if v_btn == 'self_reset_mission':
+            if check == 1:
+                await interaction.respond(content=f'{check}')
 
 
 def setup(bot):
