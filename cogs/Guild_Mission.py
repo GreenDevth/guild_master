@@ -12,8 +12,8 @@ class GuildMissionCommand(commands.Cog):
     async def guild_mission(self, ctx):
         await ctx.reply('Guild Mission Center', mention_author=False)
 
-    @guild_mission.command(name='framer')
-    async def framer_sub_command(self, ctx):
+    @guild_mission.command(name='famer')
+    async def famer_sub_command(self, ctx):
         await ctx.send(
             f'**🍅 {get_mission(1)}** '
             '\nผู้เล่นจะต้องนำส่งสินค้าที่ได้จากการกดรับภารกิจมาส่ง ที่ Guild Master ตำแหน่ง C1N3 (ทะเลสาบ)'
@@ -27,7 +27,7 @@ class GuildMissionCommand(commands.Cog):
             file=discord.File('./img/mission/vegetable.png'),
             components=[
                 [
-                    Button(style=ButtonStyle.green, label='GET MISSION', emoji='⚔', custom_id='mission_framer'),
+                    Button(style=ButtonStyle.green, label='GET MISSION', emoji='⚔', custom_id='mission_famer'),
                     Button(style=ButtonStyle.blue, label='REPORT MISSION', emoji='📩', custom_id='mission_report'),
                     Button(style=ButtonStyle.red, label='RESET', emoji='⏱', custom_id='mission_reset')
                 ]
