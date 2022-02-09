@@ -36,7 +36,11 @@ class MissionV(commands.Cog):
         v_btn = interaction.component.custom_id
         if v_btn == 'mission_v':
             check = player_mission(member.id)
-            await interaction.respond(content=f'{check}')
+            if check is not None:
+                await interaction.respond(content=f'{check}')
+                return True
+            else:
+                await interaction.respond(content='⚠ ไม่พบ Steam ID ของคุณในระบบ')
 
         if v_btn == 'mission_va':
             """ Check register players """
