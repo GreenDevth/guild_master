@@ -8,7 +8,7 @@ def get_mission():
         conn = MySQLConnection(**db)
         cur = conn.cursor()
         cur.execute('SELECT * FROM scum_mission_name')
-        row = cur.fetchone()
+        row = cur.fetchall()
         while row is not None:
             res = list(row)
             return res
