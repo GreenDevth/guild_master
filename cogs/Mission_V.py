@@ -31,7 +31,7 @@ class MissionV(commands.Cog):
             '\n-RESET กดเพื่อรีเซ็ตและเสียค่าปรับ **100** เหรียญ',
         )
         await ctx.send(
-            file=discord.File('./img/mission/vegetable_1.png'),
+            file=discord.File('./img/mission/vegetable.png'),
             components=[
                 [
                     Button(style=ButtonStyle.green, label='GET MISSION', emoji='⚔', custom_id='mission_v'),
