@@ -5,7 +5,7 @@ from discord.ext import commands
 from discord_components import Button, ButtonStyle
 
 from db.players_db import player_mission, mission_up
-from mission.mission_db import new_mission, mission_exists, get_mission_name
+from mission.mission_db import new_mission, mission_exists, get_mission_name, get_channel_id
 from mission.mission_list import foods, guild_master_img
 
 
@@ -37,12 +37,12 @@ class MissionV(commands.Cog):
         order_code = str(member.id)
         convert = order_code[:5]
         gen_code = str(convert)
+        in_progress = self.bot.get_channel(926894035707244626)
+        check = player_mission(member.id)
+        mission_check = mission_exists(member.id)
 
         if v_btn == 'mission_v':
             img = random.choice(foods)
-            in_progress = self.bot.get_channel(926894035707244626)
-            check = player_mission(member.id)
-            mission_check = mission_exists(member.id)
 
             if check is not None:  # Check player already exists.
 
@@ -73,6 +73,19 @@ class MissionV(commands.Cog):
                 await interaction.respond(content='⚠ ไม่พบ Steam ID ของคุณในระบบ')
 
         if v_btn == 'mission_v_report':
+            channel = get_channel_id(member.id)
+            channel_id = interaction.guild.get_channel(channel)
+            if check is not None:
+                if check == 1 and mission_check == 1:  # Check for already mission exists
+                    if channel == 0 or channel_id is None:
+                        await interaction.respond(content='create text_channel')
+                    else:
+                        await interaction.respond(content=f'goto <#{channel}>')
+                else:
+                    await interaction.respond(content='⚠ คุณยังไม่มีภารกิจที่ต้องส่ง')
+            else:
+                await interaction.respond(content='⚠ ไม่พบ Steam ID ของคุณในระบบ')
+
             your_mission = get_mission_name(member.id)
             await interaction.respond(content=f'{your_mission}')
 
