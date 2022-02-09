@@ -3,11 +3,11 @@ from numpy import random
 from db.players_db import *
 
 
-def get_mission():
+def get_mission(id_mission):
     try:
         conn = MySQLConnection(**db)
         cur = conn.cursor()
-        cur.execute('SELECT * FROM scum_mission_name')
+        cur.execute('SELECT mission_name FROM scum_mission_name WHERE mission_id =%s', (id_mission,))
         row = cur.fetchall()
         while row is not None:
             res = list(row)
