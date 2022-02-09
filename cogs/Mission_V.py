@@ -4,7 +4,7 @@ import discord
 from discord.ext import commands
 from discord_components import Button, ButtonStyle
 
-from db.players_db import players_exists, player_mission
+from db.players_db import player_mission
 from mission.mission_db import new_mission, mission_exists, get_mission_name
 from mission.mission_list import foods, guild_master_img
 
@@ -65,7 +65,7 @@ class MissionV(commands.Cog):
                     await interaction.respond(content="คุณสามารถดูภารกิจของคุณได้ที่ห้อง <#911285052204257371>", embed=embed)
                     await in_progress.send(embed=embed)
 
-                elif check == 1 and mission_check == 1:
+                else:
                     your_mission = get_mission_name(member.id)
                     await interaction.respond(content=f'⚠ คุณยังทำ ``{your_mission}`` ไม่สำเร็จ')
             else:
