@@ -4,8 +4,8 @@ from discord_components import Button, ButtonStyle
 from mission.mission_db import get_mission
 
 mission = get_mission()
-
-print(mission)
+to_list = list(mission)
+print(to_list[1][1])
 class GuildMissionCommand(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
