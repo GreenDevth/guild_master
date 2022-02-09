@@ -143,6 +143,8 @@ class MissionV(commands.Cog):
                     player = players(member.id)
                     player_exp = player[7]
                     await interaction.respond(content=f'{player_exp}')
+            else:
+                await interaction.respond(content='คุณได้ส่งภารกิจไว้แล้ว กรุณารอทางทีมงานดำเนินการตรวจสอบและจ่ายรางวัลในเวลาต่อไป')
 
 
 def setup(bot):
