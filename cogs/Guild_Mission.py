@@ -1,9 +1,9 @@
 import discord
 from discord.ext import commands
 from discord_components import Button, ButtonStyle
-from mission.mission_db import get_mission_name
+from mission.mission_db import get_mission
 
-mission = get_mission_name()
+mission = get_mission()
 
 
 class GuildMissionCommand(commands.Cog):
