@@ -3,7 +3,7 @@ from numpy import random
 from db.players_db import *
 
 
-def get_mission_name():
+def get_mission():
     try:
         conn = MySQLConnection(**db)
         cur = conn.cursor()
