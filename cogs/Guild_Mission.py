@@ -12,7 +12,7 @@ class GuildMissionCommand(commands.Cog):
 
     @commands.group(name='mission', invoke_without_command=True)
     async def guild_mission(self, ctx):
-        await ctx.reply('Guild Mission Center')
+        await ctx.reply('Guild Mission Center', mention_author=False)
 
     @guild_mission.command(name='veget')
     async def veget_sub_command(self, ctx):
