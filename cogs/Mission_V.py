@@ -196,24 +196,22 @@ class MissionV(commands.Cog):
                 await interaction.respond(content='⚠ คุณยังไม่ได้ส่งภาพภารกิจของคุณให้ทีมงานแอดมินตรวจสอบ')
 
         if v_btn == 'mission_v_reset':
-            if check == 1:
-                if mission_check == 1:
-                    player_coin = int(player_info[5])
-                    fine = 100
-                    if player_coin < fine:
-                        await interaction.respond(content='⚠ ขออภัยยอดเงินของคุณไม่เพียงพอสำหรับการใช้งานคำสั่งรีเซ็ตภารกิจ')
-                    if fine <= player_coin:
-                        cash = player_coin - fine
-                        update_coin(member.id, cash)
-                        mission_reset(member.id)
-                        hard_reset = mission_hard_reset(member.id)
-                        await interaction.respond(content=f'{hard_reset}')
-                        await discord.DMChannel.send(member,
-                                                     f'ระบบได้หักค่าบริการรีเซ็ตภารกิจของคุณเรียบร้อย ยอดเงินคงเหลือของคุณ คือ {cash}')
-                else:
-                    await interaction.respond(content='⚠ คุณไม่มีภารกิจที่จะต้องรีเซ็ต')
+            if check == 1 and mission_check == 1:
+                player_coin = int(player_info[5])
+                fine = 100
+                if player_coin < fine:
+                    await interaction.respond(
+                        content='⚠ ขออภัยยอดเงินของคุณไม่เพียงพอสำหรับการใช้งานคำสั่งรีเซ็ตภารกิจ')
+                if fine <= player_coin:
+                    cash = player_coin - fine
+                    update_coin(member.id, cash)
+                    mission_reset(member.id)
+                    hard_reset = mission_hard_reset(member.id)
+                    await interaction.respond(content=f'{hard_reset}')
+                    await discord.DMChannel.send(member,
+                                                 f'ระบบได้หักค่าบริการรีเซ็ตภารกิจของคุณเรียบร้อย ยอดเงินคงเหลือของคุณ คือ {cash}')
             else:
-                await interaction.respond(content='⚠ ไม่พบ Steam ID ของคุณในระบบ')
+                await interaction.respond(content='⚠ คุณไม่มีภารกิจที่จะต้องรีเซ็ต')
 
 
 def setup(bot):
