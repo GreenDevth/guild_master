@@ -137,12 +137,8 @@ class MissionV(commands.Cog):
 
                 msg = await self.bot.wait_for('message', check=check)
                 image = msg.attachments[0]
-
-                if msg is not None:
-                    update_image_status(member.id)
-                    await interaction.respond(content='ระบบได้ส่งรายงานภารกิจไปยังทีมงานเป็นที่เรียบร้อยแล้ว')
-                else:
-                    pass
+                update_image_status(member.id)
+                await interaction.channel.send(content='ระบบได้ส่งรายงานภารกิจไปยังทีมงานเป็นที่เรียบร้อยแล้ว')
             else:
                 await interaction.respond(
                     content='คุณได้ส่งภารกิจไว้แล้ว กรุณารอทางทีมงานดำเนินการตรวจสอบและจ่ายรางวัลในเวลาต่อไป')
