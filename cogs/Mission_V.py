@@ -66,7 +66,19 @@ class MissionV(commands.Cog):
                     embed.set_footer(text="ต้องส่งภารกิจก่อนทุกครั้งผู้เล่นถึงจะสามารถรับภารกิจใหม่ได้")
                     await interaction.respond(content="คุณสามารถดูภารกิจของคุณได้ที่ห้อง <#911285052204257371>",
                                               embed=embed)
-                    await in_progress.send(embed=embed)
+                    await in_progress.send(
+                        embed=embed,
+                        components=[
+                            [
+                                Button(style=ButtonStyle.green, label='GET MISSION', emoji='⚔', custom_id='mission_v',
+                                       disabled=True),
+                                Button(style=ButtonStyle.blue, label='REPORT MISSION', emoji='📩',
+                                       custom_id='mission_v_report'),
+                                Button(style=ButtonStyle.red, label='RESET', emoji='⏱', custom_id='mission_v_reset',
+                                       disabled=True)
+                            ]
+                        ]
+                    )
 
                 else:
                     your_mission = get_mission_name(member.id)
@@ -159,16 +171,7 @@ class MissionV(commands.Cog):
                     embed.add_field(name='🎚 EXP ที่ได้รับ', value=f"{award}", inline=True)
                     # embed.add_field(name='🏆 Level ปัจจุบัน', value=f'{player_info[6]}')
                     # embed.add_field(name='🎚 EXP ปัจจุบัน', value=f'{player_info[8]}')
-                    msg = await success.send(
-                        embed=embed,
-                        components=[
-                            [
-                                Button(style=ButtonStyle.green, label='GET MISSION', emoji='⚔', custom_id='mission_v', disabled=True),
-                                Button(style=ButtonStyle.blue, label='REPORT MISSION', emoji='📩', custom_id='mission_v_report'),
-                                Button(style=ButtonStyle.red, label='RESET', emoji='⏱', custom_id='mission_v_reset', disabled=True)
-                            ]
-                        ]
-                    )
+                    msg = await success.send(embed=embed)
                     await msg.add_reaction("❔")
                     await discord.DMChannel.send(member,
                                                  f'ยินดีด้วย คุณได้รับค่า 🎖 exp จำนวน {award} หน่วย ปัจจุบันคุณมีค่า 🎖 exp รวม {total} หน่วย')
