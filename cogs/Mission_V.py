@@ -36,7 +36,8 @@ class MissionV(commands.Cog):
         order_code = str(member.id)
         convert = order_code[:5]
         gen_code = str(convert)
-        in_progress = self.bot.get_channel(926894035707244626)
+        in_progress = self.bot.get_channel(911285052204257371)
+        success = self.bot.get_channel(936149260540461106)
         check = player_mission(member.id)
         mission_check = mission_exists(member.id)
 
@@ -139,16 +140,32 @@ class MissionV(commands.Cog):
                 image = msg.attachments[0]
 
                 if msg is not None:
+                    player_info = players(member.id)
                     update_image = update_image_status(member.id)
                     award = mission_award(member.id)
                     exp = player_exp(member.id)
                     update_exp = int(award) + int(exp)
                     total = exp_up(member.id, update_exp)
+                    embed = discord.Embed(
+                        title=f'ส่งภารกิจโดย {member.name}',
+                        description='ทำภารกิจสะสมค่า exp ให้ครบ 100000 หน่วยเพื่ออัพ Level ถัดไป',
+                        color=discord.Colour.green()
+                    )
+                    embed.set_thumbnail(url=image)
+                    embed.add_field(name='ผู้ส่งภารกิจ', value=member.mention, inline=False)
+
+                    embed.add_field(name='💰 รางวัลที่ได้รับ', value='${:d}'.format(award), inline=True)
+                    embed.add_field(name='🎚 EXP', value=f"{award}", inline=True)
+                    embed.add_field(name='🏆 Level', value=f'{player_info[5]}')
+                    msg = await success.send(embed=embed)
+                    await msg.add_reaction("✅")
                     await discord.DMChannel.send(member, f'ยินดีด้วย คุณได้รับค่า 🎖 exp จำนวน {award} หน่วย ปัจจุบันคุณมีค่า 🎖 exp รวม {total} หน่วย')
                     await interaction.channel.send(content=f'{update_image}', delete_after=5)
+                else:
+                    pass
             else:
                 await interaction.respond(
-                    content='คุณได้ส่งภารกิจไว้แล้ว กรุณารอทางทีมงานดำเนินการตรวจสอบและจ่ายรางวัลในเวลาต่อไป')
+                    content='คุณได้ส่งภารกิจไว้แล้ว กรุณารอทางทีมงานตรวจสอบและจ่ายรางวัลในเวลาต่อไป กรุณากดปุ่ม RESET เพื่อรับภารกิจใหม่')
 
 
 def setup(bot):
