@@ -3,6 +3,19 @@ from numpy import random
 from db.players_db import *
 
 
+def get_mission_name():
+    try:
+        conn = MySQLConnection(**db)
+        cur = conn.cursor()
+        cur.execute('SELECT * FROM scum_mission_name')
+        row = cur.fetchone()
+        while row is not None:
+            res = list(row)
+            return res
+    except Error as e:
+        print(e)
+
+
 def new_mission(discord_id, discord_name, mission_name, award):
     conn = None
     try:
