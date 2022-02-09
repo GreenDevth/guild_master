@@ -183,12 +183,15 @@ class MissionV(commands.Cog):
                     content='คุณได้ส่งภารกิจไว้แล้ว กรุณารอทางทีมงานตรวจสอบและจ่ายรางวัลในเวลาต่อไป กรุณากดปุ่ม RESET เพื่อรับภารกิจใหม่')
 
         if v_btn == 'self_reset_mission':
-            if check == 1:
+            check_img = get_image_status(member.id)
+            if check == 1 and check_img == 1:
                 mission_reset(member.id)
                 solf_reset = mission_solf_reset(member.id)
                 await interaction.respond(content=f'{solf_reset}')
                 await asyncio.sleep(10)
                 await interaction.channel.delete()
+            else:
+                await interaction.respond(content='⚠ คุณยังไม่ได้ส่งภาพภารกิจของคุณให้ทีมงานแอดมินตรวจสอบ')
 
 
 def setup(bot):
