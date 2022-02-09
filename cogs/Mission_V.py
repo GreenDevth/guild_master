@@ -34,50 +34,42 @@ class MissionV(commands.Cog):
     async def on_button_click(self, interaction):
         member = interaction.author
         v_btn = interaction.component.custom_id
-        if v_btn == 'mission_v':
-            check = player_mission(member.id)
-            if check is not None:
-                await interaction.respond(content=f'{check}')
-                return True
-            else:
-                await interaction.respond(content='⚠ ไม่พบ Steam ID ของคุณในระบบ')
+        order_code = str(member.id)
+        convert = order_code[:5]
+        gen_code = str(convert)
 
-        if v_btn == 'mission_va':
-            """ Check register players """
-            order_code = str(member.id)
-            convert = order_code[:5]
-            gen_code = str(convert)
+        if v_btn == 'mission_v':
             img = random.choice(foods)
             in_progress = self.bot.get_channel(926894035707244626)
-            check = players_exists(member.id)
-            mission_name = "ภารกิจนำส่งผักผลไม้"
+            check = player_mission(member.id)
             mission_check = mission_exists(member.id)
-            award = 500
-            if check == 1 and mission_check == 0:  # check count register player and already exists for mission
-                embed = discord.Embed(
-                    title=f'ภารกิจหมายเลข {gen_code}',
-                    description='คุณจะได้รับคำแนะนำสำหรับการนำส่งสินค้าเมื่อคุณกดที่ปุ่ม REPORT MISSION '
-                                'ของภารกิจที่คุณเลือก',
-                    colour=discord.Colour.red()
-                )
-                embed.set_thumbnail(url=guild_master_img)
-                embed.set_image(url=img)
-                embed.add_field(name='👨‍🌾 ผู้รับภารกิจ', value=member.mention, inline=False)
-                embed.add_field(name='💰 รางวัลสำหรับภารกิจ', value="${:d} เหรียญ".format(award))
-                embed.add_field(name="🎖 exp", value=f"{award}")
-                embed.set_footer(text="ต้องส่งภารกิจก่อนทุกครั้งผู้เล่นถึงจะสามารถรับภารกิจใหม่ได้")
-                await interaction.respond(content="คุณสามารถดูภารกิจของคุณได้ที่ห้อง <#911285052204257371>",
-                                          embed=embed)
-                await in_progress.send(embed=embed)
 
-                new_mission(member.id, member.name, mission_name, award)
+            if check is not None:  # Check player already exists.
 
-                return True
-            elif check == 1 and mission_check == 1:
-                your_mission = get_mission_name(member.id)
-                await interaction.respond(content=f'⚠ คุณยังทำ ``{your_mission}`` ไม่สำเร็จ')
+                if check == 0 and mission_check == 0:  # Check for mission status and mission exists = 0.
+                    mission_name = "ภารกิจนำส่งผักผลไม้"
+                    award = 500
+                    new_mission(member.id, member.name, mission_name, award)  # Create new recode.
+                    embed = discord.Embed(
+                        title=f'ภารกิจหมายเลข {gen_code}',
+                        description='คุณจะได้รับคำแนะนำสำหรับการนำส่งสินค้าเมื่อคุณกดที่ปุ่ม REPORT MISSION '
+                                    'ของภารกิจที่คุณเลือก',
+                        colour=discord.Colour.red()
+                    )
+                    embed.set_thumbnail(url=guild_master_img)
+                    embed.set_image(url=img)
+                    embed.add_field(name='👨‍🌾 ผู้รับภารกิจ', value=member.mention, inline=False)
+                    embed.add_field(name='💰 รางวัลสำหรับภารกิจ', value="${:d} เหรียญ".format(award))
+                    embed.add_field(name="🎖 exp", value=f"{award}")
+                    embed.set_footer(text="ต้องส่งภารกิจก่อนทุกครั้งผู้เล่นถึงจะสามารถรับภารกิจใหม่ได้")
+                    await interaction.respond(content="คุณสามารถดูภารกิจของคุณได้ที่ห้อง <#911285052204257371>", embed=embed)
+                    await in_progress.send(embed=embed)
+
+                elif check == 1 and mission_check == 1:
+                    your_mission = get_mission_name(member.id)
+                    await interaction.respond(content=f'⚠ คุณยังทำ ``{your_mission}`` ไม่สำเร็จ')
             else:
-                await interaction.respond(content=f'Status {check} : your informaion is not found!')
+                await interaction.respond(content='⚠ ไม่พบ Steam ID ของคุณในระบบ')
         if v_btn == 'mission_v_report':
             your_mission = get_mission_name(member.id)
             await interaction.respond(content=f'{your_mission}')
