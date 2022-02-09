@@ -55,8 +55,6 @@ def update_image_status(discord_id):
         cur.execute(sql, (discord_id,))
         conn.commit()
         cur.close()
-        msg = "อัพโหลดรูปภาพสินค้าเพื่อส่งให้ทีมงานตรวจสอบ"
-        return msg.strip()
     except Error as e:
         print(e)
     finally:

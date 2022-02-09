@@ -126,8 +126,7 @@ class MissionV(commands.Cog):
 
             upload_check = get_image_status(member.id)
             if upload_check == 0:
-                update_image = update_image_status(member.id)
-                await interaction.respond(content=f'{update_image}')
+                await interaction.respond(content="อัพโหลดรูปภาพสินค้าเพื่อส่งให้ทีมงานตรวจสอบ")
 
                 def check(message):
                     attachments = message.attachments
@@ -140,11 +139,13 @@ class MissionV(commands.Cog):
                 image = msg.attachments[0]
 
                 if msg is not None:
-                    player = players(member.id)
-                    player_exp = player[7]
-                    await interaction.respond(content=f'{player_exp}')
+                    update_image_status(member.id)
+                    await interaction.respond(content='ระบบได้ส่งรายงานภารกิจไปยังทีมงานเป็นที่เรียบร้อยแล้ว')
+                else:
+                    pass
             else:
-                await interaction.respond(content='คุณได้ส่งภารกิจไว้แล้ว กรุณารอทางทีมงานดำเนินการตรวจสอบและจ่ายรางวัลในเวลาต่อไป')
+                await interaction.respond(
+                    content='คุณได้ส่งภารกิจไว้แล้ว กรุณารอทางทีมงานดำเนินการตรวจสอบและจ่ายรางวัลในเวลาต่อไป')
 
 
 def setup(bot):
