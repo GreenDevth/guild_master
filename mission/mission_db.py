@@ -11,7 +11,7 @@ def get_mission(id_mission):
         row = cur.fetchone()
         while row is not None:
             res = list(row)
-            return res
+            return res[0]
     except Error as e:
         print(e)
 
