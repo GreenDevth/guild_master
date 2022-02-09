@@ -70,17 +70,20 @@ fishing = [
 
 
 animal = [
-    "https://cdn.discordapp.com/attachments/894251225237848134/935908000265306142/a4.png",
-    "https://cdn.discordapp.com/attachments/894251225237848134/935907999980085308/a3.png",
-    "https://cdn.discordapp.com/attachments/894251225237848134/935907999686479932/a2.png",
-    "https://cdn.discordapp.com/attachments/894251225237848134/935907999413858315/a1.png",
-    "https://cdn.discordapp.com/attachments/894251225237848134/935908000521125908/a5.png",
-    "https://cdn.discordapp.com/attachments/894251225237848134/935908000747622400/a6.png",
-    "https://cdn.discordapp.com/attachments/894251225237848134/935908093462724648/a7.png",
-    "https://cdn.discordapp.com/attachments/894251225237848134/935908093680832622/a8.png",
-    "https://cdn.discordapp.com/attachments/894251225237848134/935908093915721729/a9.png",
-    "https://cdn.discordapp.com/attachments/894251225237848134/935908094125416588/a10.png",
-    "https://cdn.discordapp.com/attachments/894251225237848134/935907999413858315/a1.png"
+    "https://cdn.discordapp.com/attachments/894251225237848134/940945081211420672/bear.png",
+    "https://cdn.discordapp.com/attachments/894251225237848134/940945081530208256/boar.png",
+    "https://cdn.discordapp.com/attachments/894251225237848134/940945081844764723/chicken.png",
+    "https://cdn.discordapp.com/attachments/894251225237848134/940945081844764723/chicken.png",
+    "https://cdn.discordapp.com/attachments/894251225237848134/940945082129989652/crow.png",
+    "https://cdn.discordapp.com/attachments/894251225237848134/940945082129989652/crow.png",
+    "https://cdn.discordapp.com/attachments/894251225237848134/940945082754936832/goat.png",
+    "https://cdn.discordapp.com/attachments/894251225237848134/940945083124043776/horse.png",
+    "https://cdn.discordapp.com/attachments/894251225237848134/940945083463790602/rabbit.png",
+    "https://cdn.discordapp.com/attachments/894251225237848134/940945083723821086/seagull.png",
+    "https://cdn.discordapp.com/attachments/894251225237848134/940945122504364122/dee_f.png",
+    "https://cdn.discordapp.com/attachments/894251225237848134/940945122760212500/deer_m.png",
+    "https://cdn.discordapp.com/attachments/894251225237848134/940945123011887185/donkey.png",
+    "https://cdn.discordapp.com/attachments/894251225237848134/940945123271925770/wolf.png"
 ]
 
 
