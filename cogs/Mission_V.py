@@ -59,7 +59,8 @@ class MissionV(commands.Cog):
                 embed.add_field(name='💰 รางวัลสำหรับภารกิจ', value="${:d} เหรียญ".format(award))
                 embed.add_field(name="🎖 exp", value=f"{award}")
                 embed.set_footer(text="ต้องส่งภารกิจก่อนทุกครั้งผู้เล่นถึงจะสามารถรับภารกิจใหม่ได้")
-                await interaction.respond(content="คุณสามารถดูภารกิจของคุณได้ที่ห้อง <#911285052204257371>", embed=embed)
+                await interaction.respond(content="คุณสามารถดูภารกิจของคุณได้ที่ห้อง <#911285052204257371>",
+                                          embed=embed)
                 await in_progress.send(embed=embed)
 
                 new_mission(member.id, member.name, mission_name, award)
@@ -70,6 +71,9 @@ class MissionV(commands.Cog):
                 await interaction.respond(content=f'⚠ คุณยังทำ ``{your_mission}`` ไม่สำเร็จ')
             else:
                 await interaction.respond(content=f'Status {check} : your informaion is not found!')
+        if v_btn == 'mission_v_report':
+            your_mission = get_mission_name(member.id)
+            await interaction.respond(content=f'{your_mission}')
 
 
 def setup(bot):

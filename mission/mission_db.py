@@ -1,3 +1,5 @@
+from numpy import random
+
 from db.players_db import *
 
 
@@ -58,6 +60,23 @@ def get_channel_id(discord_id):
         print(e)
 
 
+def channel_id_update(discord_id, code):
+    conn = None
+    try:
+        conn = MySQLConnection(**db)
+        cur = conn.cursor()
+        sql = 'UPDATE scum_guild_mission SET channel_id = %s WHERE discord_id = %s'
+        cur.execute(sql, (code, discord_id,))
+        conn.commit()
+        cur.close()
+
+    except Error as e:
+        print(e)
+    finally:
+        if conn.is_connected():
+            conn.close()
+
+
 def get_mission_name(discord_id):
     try:
         conn = MySQLConnection(**db)
@@ -70,3 +89,8 @@ def get_mission_name(discord_id):
             return res[0]
     except Error as e:
         print(e)
+
+
+def generate_code():
+    x = random.randint(9, 99999)
+    return x
