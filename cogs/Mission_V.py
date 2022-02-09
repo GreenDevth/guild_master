@@ -5,7 +5,7 @@ from discord.ext import commands
 from discord_components import Button, ButtonStyle
 
 from db.players_db import player_mission, mission_up
-from mission.mission_db import new_mission, mission_exists, get_mission_name, get_channel_id
+from mission.mission_db import new_mission, mission_exists, get_mission_name, get_channel_id, mission_id, channel_id_update
 from mission.mission_list import foods, guild_master_img
 
 
@@ -75,9 +75,21 @@ class MissionV(commands.Cog):
         if v_btn == 'mission_v_report':
             channel = get_channel_id(member.id)
             channel_id = interaction.guild.get_channel(channel)
+            room = mission_id(member.id)
             if check is not None:
-                if check == 1 and mission_check == 1:  # Check for already mission exists
-                    if channel == 0 or channel_id is None:
+                if check == 1 and mission_check == 1:  # Check for already mission exists.
+                    if channel == 0 or channel_id is None:  # Check for channel or channel id exists.
+                        category = discord.utils.get(interaction.guild.categories, name='MISSION')
+                        overwrites = {
+                            interaction.guild.default_role: discord.PermissionOverwrite(read_messages=False, connect=False),
+                            member: discord.PermissionOverwrite(read_messages=True)
+                        }
+                        await category.edit(overwrites=overwrites)
+                        channel_name = f'ห้องส่งภารกิจ-{room}'
+                        await interaction.guild.create_text_channel(channel_name, category=category)
+                        report_channel = discord.utils.get(interaction.guild.channels, name=str(channel_name))
+                        channel_send = interaction.guild.get_channel(report_channel.id)
+                        channel_id_update(member.id, report_channel.id)
                         await interaction.respond(content='create text_channel')
                     else:
                         await interaction.respond(content=f'goto <#{channel}>')

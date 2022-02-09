@@ -94,3 +94,17 @@ def get_mission_name(discord_id):
 def generate_code():
     x = random.randint(9, 99999)
     return x
+
+
+def mission_id(discord_id):
+    try:
+        conn = MySQLConnection(**db)
+        cur = conn.cursor()
+        sql = 'SELECT mission_id FROM scum_guild_mission WHERE discord_id = %s'
+        cur.execute(sql, (discord_id,))
+        row = cur.fetchone()
+        while row is not None:
+            res = list(row)
+            return res[0]
+    except Error as e:
+        print(e)
