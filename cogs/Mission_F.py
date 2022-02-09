@@ -85,7 +85,7 @@ class MissionF(commands.Cog):
                                 Button(style=ButtonStyle.green, label='GET MISSION', emoji='⚔', custom_id='mission_f',
                                        disabled=True),
                                 Button(style=ButtonStyle.blue, label='REPORT MISSION', emoji='📩',
-                                       custom_id='mission_f_report'),
+                                       custom_id='mission_f_report_btn'),
                                 Button(style=ButtonStyle.red, label='RESET', emoji='⏱', custom_id='mission_f_reset',
                                        disabled=True)
                             ]
@@ -97,6 +97,7 @@ class MissionF(commands.Cog):
                     await interaction.respond(content=f'⚠ คุณยังทำ ``{your_mission}`` ไม่สำเร็จ')
             else:
                 await interaction.respond(content='⚠ ไม่พบ Steam ID ของคุณในระบบ')
+        
 
         if f_btn == 'mission_f_report':
             channel = get_channel_id(member.id)
@@ -116,8 +117,8 @@ class MissionF(commands.Cog):
                         await interaction.guild.create_text_channel(channel_name, category=category)
                         report_channel = discord.utils.get(interaction.guild.channels, name=str(channel_name))
                         channel_send = interaction.guild.get_channel(report_channel.id)
-                        channel_id_update(member.id, report_channel.id)
                         await interaction.respond(content=f'ไปที่ห้องส่งภารกิจของคุณ <#{report_channel.id}>')
+                        channel_id_update(member.id, report_channel.id)
                         await channel_send.send(
                             '**ขั้นตอนการส่งภารกิจ** '
                             '\nผู้เล่นต้องนำสินค้ามาส่งให้กับ Guild Master ที่ตำแหน่ง C3N1 '
