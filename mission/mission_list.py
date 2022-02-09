@@ -25,19 +25,28 @@ weapon = [
 
 
 foods = [
-    "https://cdn.discordapp.com/attachments/894251225237848134/935911568640720976/v13.png",
-    "https://cdn.discordapp.com/attachments/894251225237848134/935911568451993680/v12.png",
-    "https://cdn.discordapp.com/attachments/894251225237848134/935911568259043338/v11.png",
-    "https://cdn.discordapp.com/attachments/894251225237848134/935911568045117450/v10.png",
-    "https://cdn.discordapp.com/attachments/894251225237848134/935911487740997632/v9.png",
-    "https://cdn.discordapp.com/attachments/894251225237848134/935911487392854047/v8.png",
-    "https://cdn.discordapp.com/attachments/894251225237848134/935911487153770556/v7.png",
-    "https://cdn.discordapp.com/attachments/894251225237848134/935911486931484723/v6.png",
-    "https://cdn.discordapp.com/attachments/894251225237848134/935911486545621032/v5.png",
-    "https://cdn.discordapp.com/attachments/894251225237848134/935911486335897630/v4.png",
-    "https://cdn.discordapp.com/attachments/894251225237848134/935911486084231188/v3.png",
-    "https://cdn.discordapp.com/attachments/894251225237848134/935911485874520074/v2.png"
-
+    "https://cdn.discordapp.com/attachments/894251225237848134/940824834517135370/banana.png",
+    "https://cdn.discordapp.com/attachments/894251225237848134/940824834768773170/cabbage.png",
+    "https://cdn.discordapp.com/attachments/894251225237848134/940824835142078544/Chili_pepper.png",
+    "https://cdn.discordapp.com/attachments/894251225237848134/940824835452461096/onion.png",
+    "https://cdn.discordapp.com/attachments/894251225237848134/940824836098388018/orange.png",
+    "https://cdn.discordapp.com/attachments/894251225237848134/940824836387790858/peach.png",
+    "https://cdn.discordapp.com/attachments/894251225237848134/940824836618453012/236239b5dd4ea79b.png",
+    "https://cdn.discordapp.com/attachments/894251225237848134/940824836844974160/9a9536ddd5f69a12.png",
+    "https://cdn.discordapp.com/attachments/894251225237848134/940824894696984580/corn.png",
+    "https://cdn.discordapp.com/attachments/894251225237848134/940824894915104839/Cucumber.png",
+    "https://cdn.discordapp.com/attachments/894251225237848134/940824895212892180/Garlic.png",
+    "https://cdn.discordapp.com/attachments/894251225237848134/940824895485517934/grape.png",
+    "https://cdn.discordapp.com/attachments/894251225237848134/940824895703629854/pear.png",
+    "https://cdn.discordapp.com/attachments/894251225237848134/940824895913357332/pineapple.png",
+    "https://cdn.discordapp.com/attachments/894251225237848134/940824896144027658/potato.png",
+    "https://cdn.discordapp.com/attachments/894251225237848134/940824896404086814/red_apple.png",
+    "https://cdn.discordapp.com/attachments/894251225237848134/940824944269475840/green_apple.png",
+    "https://cdn.discordapp.com/attachments/894251225237848134/940824944466599956/lemon.png",
+    "https://cdn.discordapp.com/attachments/894251225237848134/940824944730861618/mango.png",
+    "https://cdn.discordapp.com/attachments/894251225237848134/940824944965713940/tomato.png",
+    "https://cdn.discordapp.com/attachments/894251225237848134/940824945452269568/water_melon.png",
+    "https://cdn.discordapp.com/attachments/894251225237848134/940824945662001212/3241b8f6f18ce27f.png"
 ]
 
 
