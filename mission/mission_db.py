@@ -147,7 +147,7 @@ def mission_solf_reset(discord_id):
     try:
         conn = MySQLConnection(**db)
         cur = conn.cursor()
-        sql = 'DELETE FROM scum_mission WHERE discord_id = %s'
+        sql = 'DELETE FROM scum_guild_mission WHERE discord_id = %s'
         cur.execute(sql, (discord_id,))
         conn.commit()
         cur.close()
