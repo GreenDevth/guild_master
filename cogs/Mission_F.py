@@ -6,7 +6,7 @@ from discord.ext import commands
 from discord_components import Button, ButtonStyle
 
 from mission.mission_db import *
-from mission.mission_list import foods, guild_master_img
+from mission.mission_list import fishing, guild_master_img
 
 
 class MissionF(commands.Cog):
@@ -55,9 +55,9 @@ class MissionF(commands.Cog):
         player_info = players(member.id)
 
         if f_btn == 'mission_f':
-            img = random.choice(foods)
+            img = random.choice(fishing)
             mission_name = "ภารกิจนำส่งปลา"
-            award = 500
+            award = 1500
 
             if check is not None:  # Check player already exists.
 

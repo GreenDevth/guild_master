@@ -51,16 +51,21 @@ foods = [
 
 
 fishing = [
-    "https://cdn.discordapp.com/attachments/894251225237848134/935886032610689072/fishing_03.png",
-    "https://cdn.discordapp.com/attachments/894251225237848134/935886032241565706/fishing_02.png",
-    "https://cdn.discordapp.com/attachments/894251225237848134/935886031880851456/fishing_01.png",
-    "https://cdn.discordapp.com/attachments/894251225237848134/935885932245164102/fishing_10.png",
-    "https://cdn.discordapp.com/attachments/894251225237848134/935885932035461130/fishing_09.png",
-    "https://cdn.discordapp.com/attachments/894251225237848134/935885931779604520/fishing_08.png",
-    "https://cdn.discordapp.com/attachments/894251225237848134/935885931540516884/fishing_07.png",
-    "https://cdn.discordapp.com/attachments/894251225237848134/935885931326631996/fishing_06.png",
-    "https://cdn.discordapp.com/attachments/894251225237848134/935885931108507658/fishing_05.png",
-    "https://cdn.discordapp.com/attachments/894251225237848134/935885931108507658/fishing_05.png"
+    "https://cdn.discordapp.com/attachments/894251225237848134/940893674831765524/amur.png",
+    "https://cdn.discordapp.com/attachments/894251225237848134/940893675121152010/bass.png",
+    "https://cdn.discordapp.com/attachments/894251225237848134/940893675368640512/carp.png",
+    "https://cdn.discordapp.com/attachments/894251225237848134/940893675616092220/catfish.png",
+    "https://cdn.discordapp.com/attachments/894251225237848134/940893675829985320/orata.png",
+    "https://cdn.discordapp.com/attachments/894251225237848134/940893676031336478/pike.png",
+    "https://cdn.discordapp.com/attachments/894251225237848134/940893676274585630/prussian_carp.png",
+    "https://cdn.discordapp.com/attachments/894251225237848134/940893676492714004/ruff.png",
+    "https://cdn.discordapp.com/attachments/894251225237848134/940893726274895892/chub.png",
+    "https://cdn.discordapp.com/attachments/894251225237848134/940893726685933619/Crucian_carp.png",
+    "https://cdn.discordapp.com/attachments/894251225237848134/940893726992125972/dentex.png",
+    "https://cdn.discordapp.com/attachments/894251225237848134/940893726274895892/chub.png",
+    "https://cdn.discordapp.com/attachments/894251225237848134/940893676274585630/prussian_carp.png",
+    "https://cdn.discordapp.com/attachments/894251225237848134/940893726274895892/chub.png",
+    "https://cdn.discordapp.com/attachments/894251225237848134/940893727281528892/tuna.png"
 ]
 
 
