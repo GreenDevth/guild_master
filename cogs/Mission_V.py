@@ -1,3 +1,4 @@
+import asyncio
 import random
 
 import discord
@@ -159,7 +160,7 @@ class MissionV(commands.Cog):
                     # embed.add_field(name='🏆 Level ปัจจุบัน', value=f'{player_info[6]}')
                     # embed.add_field(name='🎚 EXP ปัจจุบัน', value=f'{player_info[8]}')
                     msg = await success.send(embed=embed)
-                    await msg.add_reaction("✅")
+                    await msg.add_reaction("❔")
                     await discord.DMChannel.send(member,
                                                  f'ยินดีด้วย คุณได้รับค่า 🎖 exp จำนวน {award} หน่วย ปัจจุบันคุณมีค่า 🎖 exp รวม {total} หน่วย')
                     await interaction.channel.send(content=f'{update_image}', delete_after=5)
@@ -171,7 +172,11 @@ class MissionV(commands.Cog):
 
         if v_btn == 'self_reset_mission':
             if check == 1:
-                await interaction.respond(content=f'{check}')
+                mission_reset(member.id)
+                solf_reset = mission_solf_reset(member.id)
+                await interaction.respond(content=f'{solf_reset}')
+                await asyncio.sleep(10)
+                await interaction.channel.delete()
 
 
 def setup(bot):

@@ -140,3 +140,21 @@ def mission_award(discord_id):
             return res[0]
     except Error as e:
         print(e)
+
+
+def mission_solf_reset(discord_id):
+    conn = None
+    try:
+        conn = MySQLConnection(**db)
+        cur = conn.cursor()
+        sql = 'DELETE FROM scum_mission WHERE discord_id = %s'
+        cur.execute(sql, (discord_id,))
+        conn.commit()
+        cur.close()
+        msg = 'ทำการรีเซ็ตภารกิจของคุณเรียบร้อยแล้ว ขอให้สนุกกับภารกิจใหม่ กำลังทำการปิดระบบใน 10 วินาที'
+        return msg.strip()
+    except Error as e:
+        print(e)
+    finally:
+        if conn.is_connected():
+            conn.close()
