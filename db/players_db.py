@@ -82,22 +82,7 @@ def level_up(discord_id, level):
             conn.close()
 
 
-def coin_up(discord_id, coin):
-    conn = None
-    try:
-        conn = MySQLConnection(**db)
-        cur = conn.cursor()
-        sql = 'UPDATE scum_players SET COINS = %s WHERE DISCORD_ID = %s'
-        cur.execute(sql, (coin, discord_id,))
-        conn.commit()
-    except Error as e:
-        print(e)
-    finally:
-        if conn.is_connected():
-            conn.close()
-
-
-def coin_down(discord_id, coin):
+def update_coin(discord_id, coin):
     conn = None
     try:
         conn = MySQLConnection(**db)

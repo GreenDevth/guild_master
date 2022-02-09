@@ -41,6 +41,7 @@ class MissionV(commands.Cog):
         success = self.bot.get_channel(936149260540461106)
         check = player_mission(member.id)
         mission_check = mission_exists(member.id)
+        player_info = players(member.id)
 
         if v_btn == 'mission_v':
             img = random.choice(foods)
@@ -153,7 +154,7 @@ class MissionV(commands.Cog):
                 image = msg.attachments[0]
 
                 if msg is not None:
-                    player_info = players(member.id)
+
                     update_image = update_image_status(member.id)
                     award = mission_award(member.id)
                     exp = player_exp(member.id)
@@ -187,11 +188,24 @@ class MissionV(commands.Cog):
             if check == 1 and check_img == 1:
                 mission_reset(member.id)
                 solf_reset = mission_solf_reset(member.id)
+                await asyncio.sleep(1)
                 await interaction.respond(content=f'{solf_reset}')
                 await asyncio.sleep(10)
                 await interaction.channel.delete()
             else:
                 await interaction.respond(content='⚠ คุณยังไม่ได้ส่งภาพภารกิจของคุณให้ทีมงานแอดมินตรวจสอบ')
+
+        if v_btn == 'mission_v_reset':
+            player_coin = int(player_info[5])
+            fine = 100
+            if player_coin < fine:
+                await interaction.respond(content='⚠ ขออภัยยอดเงินของคุณไม่เพียงพอสำหรับการใช้งานคำสั่งรีเซ็ตภารกิจ')
+            if fine <= player_coin:
+                cash = player_coin - fine
+                await interaction.respond(content=f'{player_coin} {cash}')
+
+
+
 
 
 def setup(bot):
