@@ -1,6 +1,9 @@
+import random
+
 import discord
 from discord.ext import commands
 from mission.mission_db import *
+from mission.mission_list import foods, fishing, animal, guild_master_img
 
 
 class MissionButtonEventCommand(commands.Cog):
@@ -14,16 +17,33 @@ class MissionButtonEventCommand(commands.Cog):
         current_mission = get_mission_name(member.id)
         channel_id = get_channel_id(member.id)
         channel_name = interaction.guild.get_channel(channel_id)
+        in_progress = self.bot.get_channel(911285052204257371)
+        success = self.bot.get_channel(936149260540461106)
+
         if interaction.component.custom_id == 'mission_hunter':
+            img = random.choice(animal)
             award = 1000
+            embed = discord.Embed(
+                title=f'ภารกิจหมายเลข {random.randint(9,99999)}',
+                description=f'ผู้เล่นต้องนำสินค้าภารกิจมาส่งที่ ตำแหน่ง C3N1 พื้นที่ของ Guild Master เท่านั้น ',
+                colour=discord.Colour.red()
+            )
+            embed.set_thumbnail(url=guild_master_img)
+            embed.set_image(url=img)
+            embed.add_field(name='👨‍🌾 ผู้รับภารกิจ', value=member.mention, inline=False)
+            embed.add_field(name='💰 รางวัลสำหรับภารกิจ', value="${:d} เหรียญ".format(award))
+            embed.add_field(name="🎖 exp", value=f"{award}")
+            embed.set_footer(text="ต้องส่งภารกิจก่อนทุกครั้งผู้เล่นถึงจะสามารถรับภารกิจใหม่ได้")
+
             if mission_check == 0:
                 """ Create New Misson """
                 new_mission(member.id, member.name, get_mission(2), award)
                 print(f'New Mission recode by {member.id}')
+                await in_progress.send(embed=embed)
             else:
                 await interaction.respond(content=f'Your current mission is a **{current_mission}**')
 
-            await interaction.respond(content=f'{member.name} are clicked.')
+            await interaction.respond(content='ขอให้สนุกกับการทำภารกิจในครั้งนี้ ภารกิจของคุณคือ ', embed=embed)
 
         if interaction.component.custom_id == 'mission_report':
             print(mission_check)
