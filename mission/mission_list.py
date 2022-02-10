@@ -30,7 +30,7 @@ foods = [
     "https://cdn.discordapp.com/attachments/894251225237848134/940824835142078544/Chili_pepper.png",
     "https://cdn.discordapp.com/attachments/894251225237848134/940824835452461096/onion.png",
     "https://cdn.discordapp.com/attachments/894251225237848134/940824836098388018/orange.png",
-    "https://cdn.discordapp.com/attachments/894251225237848134/940824836387790858/peach.png",
+    "https://cdn.discordapp.com/attachments/894251225237848134/941341991218843689/peach.png",
     "https://cdn.discordapp.com/attachments/894251225237848134/940824836618453012/236239b5dd4ea79b.png",
     "https://cdn.discordapp.com/attachments/894251225237848134/940824836844974160/9a9536ddd5f69a12.png",
     "https://cdn.discordapp.com/attachments/894251225237848134/940824894696984580/corn.png",
