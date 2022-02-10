@@ -101,11 +101,12 @@ class MissionButtonEventCommand(commands.Cog):
                 coin = player_coin - 100
                 if player_coin < 100:
                     await interaction.respond(content='ขออภัยทำรายการไม่สำเหร็จ : ยอดเงินของคุณไม่เพียงพอ')
-                update_coin(member.id, coin)
-                await interaction.respond(content='รีเซ็ตภารกิจใหม่เรียบร้อย ระบบกำลังจะทำการปิดใน 10 วินาที ')
-                await discord.DMChannel.send(member, f'ระบบทำการหักเงินจำนวน 100 จาก {player_coin} จำนวนเงินคงเหลือของคุณคือ {coin}')
-                await asyncio.sleep(9)
-                await interaction.channel.delete()
+                else:
+                    update_coin(member.id, coin)
+                    await interaction.respond(content='รีเซ็ตภารกิจใหม่เรียบร้อย ระบบกำลังจะทำการปิดใน 10 วินาที ')
+                    await discord.DMChannel.send(member, f'ระบบทำการหักเงินจำนวน 100 จาก {player_coin} จำนวนเงินคงเหลือของคุณคือ {coin}')
+                    await asyncio.sleep(9)
+                    await interaction.channel.delete()
             await interaction.respond(content='⚠ คุณยังไม่มีภารกิจให้รีเซ็ต')
 
         if interaction.component.custom_id == 'upload_image_mission':
