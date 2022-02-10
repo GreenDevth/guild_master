@@ -4,6 +4,7 @@ import discord
 from discord.ext import commands
 from mission.mission_db import *
 from mission.mission_list import foods, fishing, animal, guild_master_img
+from discord_components import Button, ButtonStyle
 
 
 class MissionButtonEventCommand(commands.Cog):
@@ -24,7 +25,7 @@ class MissionButtonEventCommand(commands.Cog):
             img = random.choice(animal)
             award = 1000
             embed = discord.Embed(
-                title=f'ภารกิจหมายเลข {random.randint(9,99999)}',
+                title=f'ภารกิจหมายเลข {random.randint(9, 99999)}',
                 description=f'ผู้เล่นต้องนำสินค้าภารกิจมาส่งที่ ตำแหน่ง C3N1 พื้นที่ของ Guild Master เท่านั้น ',
                 colour=discord.Colour.red()
             )
@@ -61,12 +62,33 @@ class MissionButtonEventCommand(commands.Cog):
                     await interaction.guild.create_text_channel(new_channel_name, category=category)
                     channel = discord.utils.get(interaction.guild.channels, name=str(new_channel_name))
                     include_channel = self.bot.get_channel(channel.id)
-                    await include_channel.send('ok')
+                    await include_channel.send(
+                        '**ขั้นตอนการส่งภารกิจ** '
+                        '\nผู้เล่นต้องนำสินค้ามาส่งให้กับ Guild Master ที่ตำแหน่ง C3N1 ที่โรงนาชั้น 2 ให้ผู้เล่นนำสินค้าใส่ไว้ในตู้ และล็อคกุญแจตู้ '
+                        'หลังจากนั้นให้ผู้เล่นถ่ายภาพสินค้าข้างในตู้ และกดที่ปุ่มสีฟ้า (SEND MISSION) เพื่ออัพโหลดภาพและส่งให้แอดมิน'
+                        '\n\n**คำอธิบายสำหรับปุ่มคำสั่ง** '
+                        '\n- ปุ่ม SEND MISSION กดเพื่อส่งภาพภารกิจให้ทีมงานแอดมิน '
+                        '\n- ปุ่ม RESET เพื่อรีเซ็ตภารกิจ และปิดระบบส่งภารกิจ '
+                    )
+                    await include_channel.send(
+                        file=discord.File('./img/mission/mission_center.png'),
+                        components=[
+                            [
+                                Button(style=ButtonStyle.green, label='SHOPPING CART', emoji='🛒',
+                                       custom_id='shopping_cart', disabled=True),
+                                Button(style=ButtonStyle.blue, label='SEND MISSION', emoji='📧',
+                                       custom_id='upload_image_mission'),
+                                Button(style=ButtonStyle.red, label='RESET', emoji='⏱',
+                                       custom_id='self_reset_mission')
+                            ]
+                        ]
+                    )
                     channel_id_update(member.id, channel.id)
                 if channel_name is not None:
-                    await interaction.respond(content=f'goto your report mission channel <#{channel_id}>')
+                    await interaction.respond(content=f'ไปยังห้องส่งภารกิจ <#{channel_id}>')
                 channel_id = get_channel_id(member.id)
-                await interaction.respond(content=f' goto your report mission channel <#{channel_id}> {round(self.bot.latency*1000)}ms')
+                await interaction.respond(
+                    content=f'ไปยังห้องส่งภารกิจ <#{channel_id}> ')  # {round(self.bot.latency * 1000)}ms
                 # await interaction.respond(content='⚠ คุณยังไม่มีภารกิจที่ต้องส่ง')
             await interaction.respond(content='⚠ คุณยังไม่มีภารกิจที่ต้องส่ง')
 
@@ -75,7 +97,6 @@ class MissionButtonEventCommand(commands.Cog):
                 print('continue reset')
                 await interaction.respond(content='continue reset command')
             await interaction.respond(content='⚠ คุณยังไม่มีภารกิจให้รีเซ็ต')
-
 
 
 def setup(bot):
