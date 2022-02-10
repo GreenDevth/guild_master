@@ -8,7 +8,7 @@ class GuildMasterCommand(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name='famer')
+    @commands.command(name='hunter')
     async def famer_command(self, ctx):
         await ctx.send(
             f'**🥩 {get_mission(2)}** '
