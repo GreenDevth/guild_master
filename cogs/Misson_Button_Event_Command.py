@@ -41,7 +41,7 @@ class MissionButtonEventCommand(commands.Cog):
                 print(f'New Mission recode by {member.id}')
                 await in_progress.send(embed=embed)
             else:
-                await interaction.respond(content=f'Your current mission is a **{current_mission}**')
+                await interaction.respond(content=f'คุณยังทำ **{current_mission}** ไม่สำเร็จ ')
 
             await interaction.respond(content='ขอให้สนุกกับการทำภารกิจในครั้งนี้ ภารกิจของคุณคือ ', embed=embed)
 
