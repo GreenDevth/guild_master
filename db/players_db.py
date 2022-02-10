@@ -35,7 +35,7 @@ def players(discord_id):
         print(e)
 
 
-def player_exp(discord_id):
+def players_exp(discord_id):
     try:
         conn = MySQLConnection(**db)
         cur = conn.cursor()
@@ -80,6 +80,20 @@ def level_up(discord_id, level):
     finally:
         if conn.is_connected():
             conn.close()
+
+
+def players_coins(discord_id):
+    try:
+        conn = MySQLConnection(**db)
+        cur = conn.cursor()
+        sql = 'SELECT COINS FROM scum_players WHERE DISCORD_ID = %s'
+        cur.execute(sql, (discord_id,))
+        row = cur.fetchone()
+        while row is not None:
+            res = list(row)
+            return res[0]
+    except Error as e:
+        print(e)
 
 
 def update_coin(discord_id, coin):

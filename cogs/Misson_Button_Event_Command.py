@@ -1,3 +1,4 @@
+import asyncio
 import random
 
 import discord
@@ -21,6 +22,9 @@ class MissionButtonEventCommand(commands.Cog):
         in_progress = self.bot.get_channel(911285052204257371)
         success = self.bot.get_channel(936149260540461106)
         image_check = get_image_status(member.id)
+        player_exp = players_exp(member.id)
+        player_coin = players_coins(member.id)
+
 
         if interaction.component.custom_id == 'mission_hunter':
             img = random.choice(animal)
@@ -94,7 +98,14 @@ class MissionButtonEventCommand(commands.Cog):
         if interaction.component.custom_id == 'mission_reset':
             if mission_check == 1:
                 print('continue reset')
-                await interaction.respond(content='continue reset command')
+                coin = player_coin - 100
+                if player_coin < 100:
+                    await interaction.respond(content='ขออภัยทำรายการไม่สำเหร็จ : ยอดเงินของคุณไม่เพียงพอ')
+                update_coin(member.id, coin)
+                await interaction.respond(content='รีเซ็ตภารกิจใหม่เรียบร้อย ระบบกำลังจะทำการปิดใน 10 วินาที ')
+                await discord.DMChannel.send(member, f'ระบบทำการหักเงินจำนวน 100 จาก {player_coin} จำนวนเงินคงเหลือของคุณคือ {coin}')
+                await asyncio.sleep(9)
+                await interaction.channel.delete()
             await interaction.respond(content='⚠ คุณยังไม่มีภารกิจให้รีเซ็ต')
 
         if interaction.component.custom_id == 'upload_image_mission':
@@ -113,6 +124,8 @@ class MissionButtonEventCommand(commands.Cog):
                 msg = await self.bot.wait_for('message', check=check)
                 if msg is not None:
                     update_image_status(member.id)
+                    exp = player_exp + award
+                    exp_up(member.id, exp)
                     await interaction.channel.send(
                         f'🎉 ยินดีด้วยคุณได้รับค่า 🎖exp จำนวน {award} ในภารกิจนี้\nโปรดรอการตรวจสอบและจ่ายรางวัลจากทีมงานในเวลาต่อไป')
                 image = msg.attachments[0]
@@ -134,7 +147,10 @@ class MissionButtonEventCommand(commands.Cog):
         if interaction.component.custom_id == 'self_reset_mission':
             if image_check == 1:
                 print('continue for reset player mission')
-                await interaction.respond(content='continue to reset mission')
+                mission_solf_reset(member.id)
+                await interaction.respond(content='รีเซ็ตภารกิจใหม่เรียบร้อย ระบบกำลังจะทำการปิดใน 10 วินาที ')
+                await asyncio.sleep(9)
+                await interaction.channel.delete()
             await interaction.respond(
                 content='⚠ คุณยังไม่ส่งภารกิจให้สำเร็จ การรีเซ็ตนี้จะไม่ทำงาน โปรดส่งภารกิจให้เรียบร้อย')
 
