@@ -54,7 +54,7 @@ class MissionButtonEventCommand(commands.Cog):
             if mission_check == 1:
                 print('continue reset')
                 await interaction.respond(content='continue reset command')
-            await interaction.respond('⚠ คุณยังไม่มีภารกิจให้รีเซ็ต')
+            await interaction.respond(content='⚠ คุณยังไม่มีภารกิจให้รีเซ็ต')
 
 
 
