@@ -113,7 +113,8 @@ class MissionButtonEventCommand(commands.Cog):
                 msg = await self.bot.wait_for('message', check=check)
                 if msg is not None:
                     update_image_status(member.id)
-                    await interaction.channel.send('📢 ระบบได้แจ้งเตือนการส่งภารกิจของคุณไปยังทีมงานเรียบร้อยแล้ว โปรดรอการตรวจสอบและจ่ายรางวัลในเวลาต่อไป')
+                    await interaction.channel.send(
+                        f'🎉 ยินดีด้วยคุณได้รับค่า 🎖exp จำนวน {award} ในภารกิจนี้\nโปรดรอการตรวจสอบและจ่ายรางวัลจากทีมงานในเวลาต่อไป')
                 image = msg.attachments[0]
                 embed = discord.Embed(
                     title=f'ส่งภารกิจโดย {member.name}',
@@ -128,7 +129,14 @@ class MissionButtonEventCommand(commands.Cog):
                 # embed.add_field(name='🎚 EXP ปัจจุบัน', value=f'{player_info[8]}')
                 msg = await success.send(embed=embed)
                 await msg.add_reaction("❔")
-            await interaction.respond(content='⚠ คุณยัง')
+            await interaction.respond(content='⚠ คุณยังไม่มีภารกิจที่ต้องส่งในตอนนี้')
+
+        if interaction.component.custom_id == 'self_reset_mission':
+            if image_check == 1:
+                print('continue for reset player mission')
+                await interaction.respond(content='continue to reset mission')
+            await interaction.respond(
+                content='⚠ คุณยังไม่ส่งภารกิจให้สำเร็จ การรีเซ็ตนี้จะไม่ทำงาน โปรดส่งภารกิจให้เรียบร้อย')
 
 
 def setup(bot):
