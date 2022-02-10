@@ -99,8 +99,34 @@ class MissionButtonEventCommand(commands.Cog):
 
         if interaction.component.custom_id == 'upload_image_mission':
             if image_check == 0:
+                award = mission_award(member.id)
                 print('continue upload image and update image status to 1')
                 await interaction.respond(content='กรุณาอัพโหลดภาพถ่ายสินค้าภารกิจของคุณ')
+
+                def check(message):
+                    attachments = message.attachments
+                    if len(attachments) == 0:
+                        return False
+                    attachment = attachments[0]
+                    return attachment.filename.endswith(('.jpg', '.png'))
+
+                msg = await self.bot.wait_for('message', check=check)
+                if msg is not None:
+                    await interaction.channel.send('📢 ระบบได้แจ้งเตือนการส่งภารกิจของคุณไปยังทีมงานเรียบร้อยแล้ว โปรดรอการตรวจสอบและจ่ายรางวัลในเวลาต่อไป')
+                image = msg.attachments[0]
+                embed = discord.Embed(
+                    title=f'ส่งภารกิจโดย {member.name}',
+                    description='ขอแสดงความยินดีกับรางวัลความสำเร็จของภารกิจในครั้งนี้ ',
+                    color=discord.Colour.green()
+                )
+                embed.set_image(url=image)
+                embed.add_field(name='ผู้ส่งภารกิจ', value=member.mention, inline=False)
+                embed.add_field(name='💰 รางวัลที่ได้รับ', value='${:d}'.format(award), inline=True)
+                embed.add_field(name='🎚 EXP ที่ได้รับ', value=f"{award}", inline=True)
+                # embed.add_field(name='🏆 Level ปัจจุบัน', value=f'{player_info[6]}')
+                # embed.add_field(name='🎚 EXP ปัจจุบัน', value=f'{player_info[8]}')
+                msg = await success.send(embed=embed)
+                await msg.add_reaction("❔")
             await interaction.respond(content='⚠ คุณยัง')
 
 
