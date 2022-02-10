@@ -25,7 +25,6 @@ class MissionButtonEventCommand(commands.Cog):
         player_exp = players_exp(member.id)
         player_coin = players_coins(member.id)
 
-
         if interaction.component.custom_id == 'mission_hunter':
             img = random.choice(animal)
             award = 1000
@@ -44,6 +43,56 @@ class MissionButtonEventCommand(commands.Cog):
             if mission_check == 0:
                 """ Create New Misson """
                 new_mission(member.id, member.name, get_mission(2), award)
+                print(f'New Mission recode by {member.id}')
+                await in_progress.send(embed=embed)
+            else:
+                await interaction.respond(content=f'คุณยังทำ **{current_mission}** ไม่สำเร็จ ')
+
+            await interaction.respond(content='ขอให้สนุกกับการทำภารกิจในครั้งนี้ ภารกิจของคุณคือ ', embed=embed)
+
+        if interaction.component.custom_id == 'mission_fishing':
+            img = random.choice(fishing)
+            award = 1500
+            embed = discord.Embed(
+                title=f'ภารกิจหมายเลข {random.randint(9, 99999)}',
+                description=f'ผู้เล่นต้องนำสินค้าภารกิจมาส่งที่ ตำแหน่ง C3N1 พื้นที่ของ Guild Master เท่านั้น ',
+                colour=discord.Colour.red()
+            )
+            embed.set_thumbnail(url=guild_master_img)
+            embed.set_image(url=img)
+            embed.add_field(name='👨‍🌾 ผู้รับภารกิจ', value=member.mention, inline=False)
+            embed.add_field(name='💰 รางวัลสำหรับภารกิจ', value="${:d} เหรียญ".format(award))
+            embed.add_field(name="🎖 exp", value=f"{award}")
+            embed.set_footer(text="ต้องส่งภารกิจก่อนทุกครั้งผู้เล่นถึงจะสามารถรับภารกิจใหม่ได้")
+
+            if mission_check == 0:
+                """ Create New Misson """
+                new_mission(member.id, member.name, get_mission(3), award)
+                print(f'New Mission recode by {member.id}')
+                await in_progress.send(embed=embed)
+            else:
+                await interaction.respond(content=f'คุณยังทำ **{current_mission}** ไม่สำเร็จ ')
+
+            await interaction.respond(content='ขอให้สนุกกับการทำภารกิจในครั้งนี้ ภารกิจของคุณคือ ', embed=embed)
+
+        if interaction.component.custom_id == 'mission_famer':
+            img = random.choice(foods)
+            award = 500
+            embed = discord.Embed(
+                title=f'ภารกิจหมายเลข {random.randint(9, 99999)}',
+                description=f'ผู้เล่นต้องนำสินค้าภารกิจมาส่งที่ ตำแหน่ง C3N1 พื้นที่ของ Guild Master เท่านั้น ',
+                colour=discord.Colour.red()
+            )
+            embed.set_thumbnail(url=guild_master_img)
+            embed.set_image(url=img)
+            embed.add_field(name='👨‍🌾 ผู้รับภารกิจ', value=member.mention, inline=False)
+            embed.add_field(name='💰 รางวัลสำหรับภารกิจ', value="${:d} เหรียญ".format(award))
+            embed.add_field(name="🎖 exp", value=f"{award}")
+            embed.set_footer(text="ต้องส่งภารกิจก่อนทุกครั้งผู้เล่นถึงจะสามารถรับภารกิจใหม่ได้")
+
+            if mission_check == 0:
+                """ Create New Misson """
+                new_mission(member.id, member.name, get_mission(1), award)
                 print(f'New Mission recode by {member.id}')
                 await in_progress.send(embed=embed)
             else:
@@ -104,8 +153,10 @@ class MissionButtonEventCommand(commands.Cog):
                 else:
                     update_coin(member.id, coin)
                     mission_solf_reset(member.id)
-                    await interaction.respond(content='รีเซ็ตภารกิจใหม่เรียบร้อย ระบบกำลังจะทำการปิดใน 10 วินาที ')
-                    await discord.DMChannel.send(member, f'ระบบทำการหักเงินจำนวน 100 จาก {player_coin} จำนวนเงินคงเหลือของคุณคือ {coin}')
+                    await interaction.respond(
+                        content='รีเซ็ตภารกิจใหม่เรียบร้อย ระบบกำลังจะทำการปิดห้องส่งภารกิจของคุณใน 10 วินาที ')
+                    await discord.DMChannel.send(member,
+                                                 f'ระบบทำการหักเงินจำนวน 100 จาก {player_coin} จำนวนเงินคงเหลือของคุณคือ {coin}')
                     await asyncio.sleep(9)
                     delete_channel = self.bot.get_channel(channel_id)
                     await delete_channel.delete()
@@ -152,7 +203,8 @@ class MissionButtonEventCommand(commands.Cog):
             if image_check == 1:
                 print('continue for reset player mission')
                 mission_solf_reset(member.id)
-                await interaction.respond(content='รีเซ็ตภารกิจใหม่เรียบร้อย ระบบกำลังจะทำการปิดใน 10 วินาที ')
+                await interaction.respond(
+                    content='รีเซ็ตภารกิจใหม่เรียบร้อย ระบบกำลังจะทำการปิดห้องส่งภารกิจของคุณใน 10 วินาที ')
                 await asyncio.sleep(9)
                 await interaction.channel.delete()
             await interaction.respond(
