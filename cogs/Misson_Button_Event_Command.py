@@ -84,11 +84,9 @@ class MissionButtonEventCommand(commands.Cog):
                         ]
                     )
                     channel_id_update(member.id, channel.id)
+                    await interaction.respond(content=f'ไปยังห้องส่งภารกิจ <#{channel_id}>')
                 if channel_name is not None:
                     await interaction.respond(content=f'ไปยังห้องส่งภารกิจ <#{channel_id}>')
-                channel_id = get_channel_id(member.id)
-                await interaction.respond(content=f'ไปยังห้องส่งภารกิจ <#{channel_id}>') # {round(self.bot.latency * 1000)}ms
-                # await interaction.respond(content='⚠ คุณยังไม่มีภารกิจที่ต้องส่ง')
             await interaction.respond(content='⚠ คุณยังไม่มีภารกิจที่ต้องส่ง')
 
         if interaction.component.custom_id == 'mission_reset':
