@@ -20,6 +20,7 @@ class MissionButtonEventCommand(commands.Cog):
         channel_name = interaction.guild.get_channel(channel_id)
         in_progress = self.bot.get_channel(911285052204257371)
         success = self.bot.get_channel(936149260540461106)
+        image_check = get_image_status(member.id)
 
         if interaction.component.custom_id == 'mission_hunter':
             img = random.choice(animal)
@@ -95,6 +96,12 @@ class MissionButtonEventCommand(commands.Cog):
                 print('continue reset')
                 await interaction.respond(content='continue reset command')
             await interaction.respond(content='⚠ คุณยังไม่มีภารกิจให้รีเซ็ต')
+
+        if interaction.component.custom_id == 'upload_image_mission':
+            if image_check == 0:
+                print('continue upload image and update image status to 1')
+                await interaction.respond(content='กรุณาอัพโหลดภาพถ่ายสินค้าภารกิจของคุณ')
+            await interaction.respond(content='⚠ คุณยัง')
 
 
 def setup(bot):
