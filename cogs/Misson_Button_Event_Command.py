@@ -50,6 +50,13 @@ class MissionButtonEventCommand(commands.Cog):
                 # await interaction.respond(content='⚠ คุณยังไม่มีภารกิจที่ต้องส่ง')
             await interaction.respond(content='⚠ คุณยังไม่มีภารกิจที่ต้องส่ง')
 
+        if interaction.component.custom_id == 'mission_reset':
+            if mission_check == 1:
+                print('continue reset')
+                await interaction.respond(content='continue reset command')
+            await interaction.respond('⚠ คุณยังไม่มีภารกิจให้รีเซ็ต')
+
+
 
 def setup(bot):
     bot.add_cog(MissionButtonEventCommand(bot))
