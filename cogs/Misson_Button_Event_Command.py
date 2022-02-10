@@ -62,6 +62,7 @@ class MissionButtonEventCommand(commands.Cog):
                     await interaction.guild.create_text_channel(new_channel_name, category=category)
                     channel = discord.utils.get(interaction.guild.channels, name=str(new_channel_name))
                     include_channel = self.bot.get_channel(channel.id)
+                    await interaction.respond(content=f'ไปยังห้องส่งภารกิจ <#{channel.id}>')
                     await include_channel.send(
                         '**ขั้นตอนการส่งภารกิจ** '
                         '\nผู้เล่นต้องนำสินค้ามาส่งให้กับ Guild Master ที่ตำแหน่ง C3N1 ที่โรงนาชั้น 2 ให้ผู้เล่นนำสินค้าใส่ไว้ในตู้ และล็อคกุญแจตู้ '
@@ -84,7 +85,7 @@ class MissionButtonEventCommand(commands.Cog):
                         ]
                     )
                     channel_id_update(member.id, channel.id)
-                    await interaction.respond(content=f'ไปยังห้องส่งภารกิจ <#{channel_id}>')
+
                 if channel_name is not None:
                     await interaction.respond(content=f'ไปยังห้องส่งภารกิจ <#{channel_id}>')
             await interaction.respond(content='⚠ คุณยังไม่มีภารกิจที่ต้องส่ง')
