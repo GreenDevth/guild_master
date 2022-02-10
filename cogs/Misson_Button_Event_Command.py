@@ -75,6 +75,8 @@ class MissionButtonEventCommand(commands.Cog):
                         file=discord.File('./img/mission/mission_center.png'),
                         components=[
                             [
+                                Button(style=ButtonStyle.green, label='SHOPPING CART', emoji='🛒',
+                                       custom_id='shopping_cart', disabled=True),
                                 Button(style=ButtonStyle.blue, label='SEND MISSION', emoji='📧',
                                        custom_id='upload_image_mission'),
                                 Button(style=ButtonStyle.red, label='RESET', emoji='⏱',
