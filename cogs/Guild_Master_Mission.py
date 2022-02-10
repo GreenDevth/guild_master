@@ -20,7 +20,7 @@ class GuildMasterCommand(commands.Cog):
             '\nRESET ปุ่มสำหรับรีเซ็ตภารกิจโดยต้องเสียค่าปรับ **100** เหรียญ'
         )
         await ctx.send(
-            file=discord.File('./img/mission/animals.jpg'),
+            file=discord.File('./img/mission/animal_1.png'),
             components=[
                 [
                     Button(style=ButtonStyle.green, label='GET MISSION', emoji='⚔', custom_id='mission_hunter'),
@@ -64,7 +64,7 @@ class GuildMasterCommand(commands.Cog):
             '\nRESET ปุ่มสำหรับรีเซ็ตภารกิจโดยต้องเสียค่าปรับ **100** เหรียญ'
         )
         await ctx.send(
-            file=discord.File('./img/mission/animals.jpg'),
+            file=discord.File('./img/mission/vegetable.png'),
             components=[
                 [
                     Button(style=ButtonStyle.green, label='GET MISSION', emoji='⚔', custom_id='mission_famer'),
