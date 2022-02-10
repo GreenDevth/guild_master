@@ -112,6 +112,7 @@ class MissionButtonEventCommand(commands.Cog):
 
                 msg = await self.bot.wait_for('message', check=check)
                 if msg is not None:
+                    update_image_status(member.id)
                     await interaction.channel.send('📢 ระบบได้แจ้งเตือนการส่งภารกิจของคุณไปยังทีมงานเรียบร้อยแล้ว โปรดรอการตรวจสอบและจ่ายรางวัลในเวลาต่อไป')
                 image = msg.attachments[0]
                 embed = discord.Embed(
