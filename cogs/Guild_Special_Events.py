@@ -4,6 +4,7 @@ from discord.ext import commands
 from discord_components import Button, ButtonStyle
 from db.players_db import player_mission, mission_up
 
+
 class GuildSpecialEventCommand(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -15,17 +16,18 @@ class GuildSpecialEventCommand(commands.Cog):
         check = player_mission(member.id)
         if event_btn == 'event_1':
             if check == 0:
-                await interaction.respond(content='Continue get new event mission')
+                mission_up(member.id)
+                await interaction.respond(content='ระบบได้บันทึกการลงทะเบียนรับภารกิจของคุณเรียบร้อยแล้ว')
             if check == 1:
-                await interaction.respond(content='event mission already exists')
+                await interaction.respond(content='คุณได้กดรับภารกิจนี้เรียบร้อยแล้ว')
             await interaction.respond(content='Your steam id not found.')
 
         if event_btn == 'report_event_1':
             await interaction.respond(content='ok')
 
         if event_btn == 'detail_event_1':
-            await interaction.respond(content=
-                '**นำส่งเซ็ตอาวุธปืน SDASS 12M** ซึ่งประกอบด้วย '
+            await interaction.respond(
+                content='**นำส่งเซ็ตอาวุธปืน SDASS 12M** ซึ่งประกอบด้วย '
                 '\n- ปืน SDASS 12M 1 กระบอก'
                 '\n- Improvised Flashlight 1 อัน '
                 '\n- OKP-7 Holographic 1 อัน '

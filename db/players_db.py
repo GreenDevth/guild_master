@@ -58,7 +58,7 @@ def exp_up(discord_id, exp):
         cur.execute(sql, (exp, discord_id,))
         conn.commit()
         cur.close()
-        total = player_exp(discord_id)
+        total = players_exp(discord_id)
         return total
     except Error as e:
         print(e)
