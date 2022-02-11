@@ -55,7 +55,7 @@ def channel_id_update(discord_id, ch_id):
             conn.close()
 
 
-def event_image_upload_status(discord_id):
+def image_status(discord_id):
     try:
         conn = MySQLConnection(**db)
         cur = conn.cursor()

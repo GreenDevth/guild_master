@@ -17,11 +17,7 @@ class GuildSpecialEventCommand(commands.Cog):
         check = player_mission(member.id)
         channel_id = get_channel_id(member.id)
         channel_name = interaction.guild.get_channel(channel_id)
-        check_img = event_image_upload_status(member.id)
-        event_award = get_event_exp(member.id)
-        event_coins = get_event_coin(member.id)
-        player_exp = players_exp(member.id)
-        success = self.bot.get_channel(936149260540461106)
+
         if event_btn == 'event_1':
             if check == 0:
                 coin = 4000
@@ -56,7 +52,7 @@ class GuildSpecialEventCommand(commands.Cog):
                     f'นำสินค้ามาส่งยัง C3N1 ตำแหน่งที่ตั้ง Guild Master เพื่อทำการส่งสินค้า '
                     f'โดยให้ผู้เล่นนำสินค้าใส่ไว้ในตู้และล็อคกุญแจตู้ หลังจากนั้นให้ผู้เล่นถ่ายภาพสินค้าข้างในตู้ '
                     f'และกดที่ปุ่มสีฟ้า (SEND MISSION)เพื่ออัพโหลดภาพและส่งให้แอดมิน ',
-                    file=discord.File('./img/mission_center.png'),
+                    file=discord.File('./img/mission/mission_center.png'),
                     components=[
                         [
                             Button(
@@ -79,37 +75,35 @@ class GuildSpecialEventCommand(commands.Cog):
                 await interaction.respond(content=f'ไปยังห้องส่งภารกิจ <#{channel_id}>')
 
         if event_btn == 'event_upload':
-            if check_img == 0:
+            img_check = image_status(member.id)
+            if img_check == 0:
+                print("Continue upload image")
+                await interaction.respond(content='กรุณาอัพโหลดภาพสินค้าของภารกิจ เพื่อให้ทางแอดมินตรวจสอบ')
+                def check(message):
+                    attachments = message.attachments
+                    if len(attachments) == 0:
+                        return False
+                    attachment = attachments[0]
+                    return attachment.filename.endswith(('.jpg', '.png'))
+
+                msg = await self.bot.wait_for('message', check=check)
+                image = msg.attachments[0]
+                player_exp = players_exp(member.id)
+                coin = get_event_coin(member.id)
+                award = get_event_exp(member.id)
                 update_image_status(member.id)
-                await interaction.respond(content='กรุณาอัพโหลดภาพสินค้าที่คุณนำมาส่ง')
-                #
-                # def check(message):
-                #     attachments = message.attachments
-                #     if len(attachments) == 0:
-                #         return False
-                #     attachment = attachments[0]
-                #     return attachment.filename.endswith(('.jpg', '.png'))
-                #
-                # msg = await self.bot.wait_for('message', check=check)
-                # if msg is not None:
-                #     update_image_status(member.id)
-                #     exp = player_exp + event_award
-                #     exp_up(member.id, exp)
-                #     await interaction.channel.send(
-                #         f'🎉 ยินดีด้วยคุณได้รับค่า 🎖exp จำนวน {event_award} ในภารกิจนี้\n'
-                #         f'โปรดรอการตรวจสอบและจ่ายรางวัลจากทีมงานในเวลาต่อไป')
-                # image = msg.attachments[0]
-                # embed = discord.Embed(
-                #     title=f'ส่งภารกิจโดย {member.name}',
-                #     description='ขอแสดงความยินดีกับรางวัลความสำเร็จของภารกิจในครั้งนี้ ',
-                #     color=discord.Colour.green()
-                # )
-                # embed.set_image(url=image)
-                # embed.add_field(name='ผู้ส่งภารกิจ', value=member.mention, inline=False)
-                # embed.add_field(name='💰 รางวัลที่ได้รับ', value='${:d}'.format(event_coins), inline=True)
-                # embed.add_field(name='🎚 EXP ที่ได้รับ', value=f"{event_award}", inline=True)
-                # msg = await success.send(embed=embed)
-                # await msg.add_reaction("❔")
+                exp = player_exp + award
+                exp_up(member.id, exp)
+                embed = discord.Embed(
+                    title=f'ส่งภารกิจโดย {member.name}',
+                    description='ขอแสดงความยินดีกับรางวัลความสำเร็จของภารกิจในครั้งนี้ ',
+                    color=discord.Colour.green()
+                )
+                embed.set_image(url=image)
+                embed.add_field(name='ผู้ส่งภารกิจ', value=member.mention, inline=False)
+                embed.add_field(name='💰 รางวัลที่ได้รับ', value='${:d}'.format(coin), inline=True)
+                embed.add_field(name='🎚 EXP ที่ได้รับ', value=f"{award}", inline=True)
+                await interaction.channel.send(embed=embed)
             await interaction.respond(content='⚠ คุณยังไม่มีภารกิจที่ต้องส่งในตอนนี้')
 
         if event_btn == 'detail_event_1':
