@@ -108,6 +108,7 @@ class MissionButtonEventCommand(commands.Cog):
             if mission_check == 1:
                 if channel_name is None:
                     print('Create new text_channel')
+                    await interaction.respond(content=f'ระบบกำลังสร้างห้องส่งภารกิจให้คุณที่ <#930048940823433217>')
                     """ Create text_channel """
                     category = discord.utils.get(interaction.guild.categories, name='MISSION')
                     overwrites = {
@@ -119,8 +120,8 @@ class MissionButtonEventCommand(commands.Cog):
                     await interaction.guild.create_text_channel(new_channel_name, category=category)
                     channel = discord.utils.get(interaction.guild.channels, name=str(new_channel_name))
                     include_channel = self.bot.get_channel(channel.id)
-                    await interaction.respond(content=f'ไปยังห้องส่งภารกิจ <#{channel.id}>')
                     await include_channel.send(
+                        f'{member.mention}\n'
                         '**ขั้นตอนการส่งภารกิจ** '
                         '\nผู้เล่นต้องนำสินค้ามาส่งให้กับ Guild Master ที่ตำแหน่ง C3N1 ที่โรงนาชั้น 2 ให้ผู้เล่นนำสินค้าใส่ไว้ในตู้\nและล็อคกุญแจตู้ '
                         'หลังจากนั้นให้ผู้เล่นถ่ายภาพสินค้าข้างในตู้ และกดที่ปุ่มสีฟ้า (SEND MISSION)\nเพื่ออัพโหลดภาพและส่งให้แอดมิน'
