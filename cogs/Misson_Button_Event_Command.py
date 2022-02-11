@@ -42,10 +42,10 @@ class MissionButtonEventCommand(commands.Cog):
 
             if mission_check == 0:
                 """ Create New Misson """
+                await interaction.respond(content='คุณสามารถดูภารกิจที่ได้รับจากระบบ ได้ที่ <#911285052204257371>')
                 new_mission(member.id, member.name, get_mission(2), award)
                 print(f'New Mission recode by {member.id}')
                 await in_progress.send(f'{member.mention}',embed=embed)
-                await interaction.respond(content='คุณสามารถดูภารกิจที่ได้รับจากระบบ ได้ที่ <#911285052204257371>')
             else:
                 await interaction.respond(content=f'คุณยังทำ **{current_mission}** ไม่สำเร็จ ')
 
@@ -68,10 +68,10 @@ class MissionButtonEventCommand(commands.Cog):
 
             if mission_check == 0:
                 """ Create New Misson """
+                await interaction.respond(content='คุณสามารถดูภารกิจที่ได้รับจากระบบ ได้ที่ <#911285052204257371>')
                 new_mission(member.id, member.name, get_mission(3), award)
                 print(f'New Mission recode by {member.id}')
                 await in_progress.send(f'{member.mention}',embed=embed)
-                await interaction.respond(content='คุณสามารถดูภารกิจที่ได้รับจากระบบ ได้ที่ <#911285052204257371>')
             else:
                 await interaction.respond(content=f'คุณยังทำ **{current_mission}** ไม่สำเร็จ ')
 
@@ -94,10 +94,10 @@ class MissionButtonEventCommand(commands.Cog):
 
             if mission_check == 0:
                 """ Create New Misson """
+                await interaction.respond(content='คุณสามารถดูภารกิจที่ได้รับจากระบบ ได้ที่ <#911285052204257371>')
                 new_mission(member.id, member.name, get_mission(1), award)
                 print(f'New Mission recode by {member.id}')
                 await in_progress.send(f'{member.mention}',embed=embed)
-                await interaction.respond(content='คุณสามารถดูภารกิจที่ได้รับจากระบบ ได้ที่ <#911285052204257371>')
             else:
                 await interaction.respond(content=f'คุณยังทำ **{current_mission}** ไม่สำเร็จ ')
 
