@@ -39,13 +39,12 @@ class GuildSpecialEventCommand(commands.Cog):
 
                 new_channel_name = f'ภารกิจพิเศษ-{players_bank_id(member.id)}'
                 if channel_name is None:
-                    await interaction.respond(content='ระบบได้สร้างห้องส่งภารกิจของของไว้ที่ EVENT เรียบร้อยแล้ว')
                     await category.edit(overwrites=overwrites)
                     await interaction.guild.create_text_channel(new_channel_name, category=category)
                     channel = discord.utils.get(interaction.guild.channels, name=str(new_channel_name))
                     channel_send = interaction.guild.get_channel(channel.id)
                     channel_id_update(member.id, channel.id)
-                    await discord.DMChannel.send(member, f'ไปยังห้องส่งภารกิจของคุณ <#{channel.id}>')
+                    await interaction.respond(content='ระบบได้สร้างห้องส่งภารกิจของของไว้ที่ EVENT เรียบร้อยแล้ว')
                 await discord.DMChannel.send(member, f'ไปยังห้องส่งภารกิจของคุณ <#{channel_id}>')
 
             if check == 0:
