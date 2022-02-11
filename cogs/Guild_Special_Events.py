@@ -2,8 +2,9 @@ import discord
 import random
 from discord.ext import commands
 from discord_components import Button, ButtonStyle
-from db.players_db import player_mission, mission_up
-
+from db.players_db import player_mission, mission_up, players_bank_id
+from db.special_event import events_recode
+from db.config import expire_date
 
 class GuildSpecialEventCommand(commands.Cog):
     def __init__(self, bot):
@@ -16,14 +17,31 @@ class GuildSpecialEventCommand(commands.Cog):
         check = player_mission(member.id)
         if event_btn == 'event_1':
             if check == 0:
+                coin = 4000
+                exp = 10000
+                ex_date = '2020-02-15'
+                events_recode(member.id, coin, exp, ex_date)
                 mission_up(member.id)
-                await interaction.respond(content='ระบบได้บันทึกการลงทะเบียนรับภารกิจของคุณเรียบร้อยแล้ว')
+                await interaction.respond(content=f'บันทึกข้อมูลเรียบร้อย กรุณาส่งภารกิจภายใร {ex_date}')
             if check == 1:
                 await interaction.respond(content='คุณได้กดรับภารกิจนี้เรียบร้อยแล้ว')
-            await interaction.respond(content='Your steam id not found.')
+            await interaction.respond(content='ไมพบหมายเลข Steam id ของคุณในระบบ')
 
         if event_btn == 'report_event_1':
-            await interaction.respond(content='ok')
+            category = discord.utils.get(interaction.guild.categories, name='EVENT')
+            overwrites = {
+                interaction.guild.default_role: discord.PermissionOverwrite(read_messages=False, connect=False),
+                member: discord.PermissionOverwrite(read_messages=True)
+            }
+            if check == 1:
+                await category.edit(overwrites=overwrites)
+                channel_name = f'ภารกิจพิเศษ-{players_bank_id(member.id)}'
+                await interaction.guild.create_text_channel(channel_name, category=category)
+
+                await interaction.respond(content='continue create channel')
+            if check == 0:
+                await interaction.respond(content='คุณไม่มีภารกิจพิเศษที่ต้องส่ง')
+            await interaction.respond(content='ไมพบหมายเลข Steam id ของคุณในระบบ')
 
         if event_btn == 'detail_event_1':
             await interaction.respond(

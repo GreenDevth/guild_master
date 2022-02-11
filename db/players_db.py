@@ -5,6 +5,20 @@ from db.db_config import read_db_config
 db = read_db_config()
 
 
+def players_bank_id(discord_id):
+    try:
+        conn = MySQLConnection(**db)
+        cur = conn.cursor()
+        sql = 'SELECT BANK_ID FROM scum_players WHERE DISCORD_ID=%s'
+        cur.execute(sql, (discord_id,))
+        row = cur.fetchone()
+        while row is not None:
+            res = list(row)
+            return res[0]
+    except Error as e:
+        print(e)
+
+
 def players_exists(discord_id):
     """ Check register players """
     try:
