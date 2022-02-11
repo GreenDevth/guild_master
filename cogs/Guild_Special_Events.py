@@ -22,9 +22,9 @@ class GuildSpecialEventCommand(commands.Cog):
                 coin = 4000
                 exp = 10000
                 ex_date = '2020-02-15'
+                await interaction.respond(content=f'บันทึกข้อมูลเรียบร้อย กรุณาส่งภารกิจภายใน **{ex_date}**')
                 events_recode(member.id, coin, exp, ex_date)
                 mission_up(member.id)
-                await interaction.respond(content=f'บันทึกข้อมูลเรียบร้อย กรุณาส่งภารกิจภายใน **{ex_date}**')
             if check == 1:
                 await interaction.respond(content='คุณได้กดรับภารกิจนี้เรียบร้อยแล้ว')
             await interaction.respond(content='ไมพบหมายเลข Steam id ของคุณในระบบ')
@@ -33,9 +33,6 @@ class GuildSpecialEventCommand(commands.Cog):
             expire = expire_date('2022-02-15')
             if expire == 0:
                 await interaction.respond(content='⚠ Mission Expire : ไว้รอภารกิจพิเศษในครั้งต่อไปนะครับ')
-
-            if check == 1:
-
                 if channel_name is None:
                     await interaction.respond(content=f'ไปยังห้องส่งภารกิจของคุณที่ EVENT')
                     category = discord.utils.get(interaction.guild.categories, name='EVENT')
@@ -52,8 +49,6 @@ class GuildSpecialEventCommand(commands.Cog):
                     await channel_send.send(f'{member.mention}')
                 if channel_name is not None:
                     await interaction.respond(content=f'ไปยังห้องส่งภารกิจ <#{channel_id}>')
-
-            await interaction.respond(content='คุณไม่มีภารกิจพิเศษที่ต้องส่ง')
 
         if event_btn == 'detail_event_1':
             await interaction.respond(
