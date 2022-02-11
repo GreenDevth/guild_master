@@ -27,7 +27,7 @@ class GuildSpecialEventCommand(commands.Cog):
             components=[
                 [
                     Button(style=ButtonStyle.green, label='GET MISSION', emoji='⚔', custom_id='event_1'),
-                    Button(style=ButtonStyle.blue, label='SEND MISSION', emoji='⚔', custom_id='report_event_1'),
+                    Button(style=ButtonStyle.blue, label='SEND MISSION', emoji='📩', custom_id='report_event_1'),
                     Button(style=ButtonStyle.red, label='RESET', emoji='⏱', disabled=True)
                 ]
             ]
