@@ -33,22 +33,22 @@ class GuildSpecialEventCommand(commands.Cog):
             expire = expire_date('2022-02-15')
             if expire == 0:
                 await interaction.respond(content='⚠ Mission Expire : ไว้รอภารกิจพิเศษในครั้งต่อไปนะครับ')
-                if channel_name is None:
-                    await interaction.respond(content=f'ไปยังห้องส่งภารกิจของคุณที่ EVENT')
-                    category = discord.utils.get(interaction.guild.categories, name='EVENT')
-                    overwrites = {
-                        interaction.guild.default_role: discord.PermissionOverwrite(read_messages=False, connect=False),
-                        member: discord.PermissionOverwrite(read_messages=True)
-                    }
-                    new_channel_name = f'ภารกิจพิเศษ-{players_bank_id(member.id)}'
-                    await category.edit(overwrites=overwrites)
-                    await interaction.guild.create_text_channel(new_channel_name, category=category)
-                    channel = discord.utils.get(interaction.guild.channels, name=str(new_channel_name))
-                    channel_send = interaction.guild.get_channel(channel.id)
-                    channel_id_update(member.id, channel.id)
-                    await channel_send.send(f'{member.mention}')
-                if channel_name is not None:
-                    await interaction.respond(content=f'ไปยังห้องส่งภารกิจ <#{channel_id}>')
+            if channel_name is None:
+                await interaction.respond(content=f'ไปยังห้องส่งภารกิจของคุณที่ EVENT')
+                category = discord.utils.get(interaction.guild.categories, name='EVENT')
+                overwrites = {
+                    interaction.guild.default_role: discord.PermissionOverwrite(read_messages=False, connect=False),
+                    member: discord.PermissionOverwrite(read_messages=True)
+                }
+                new_channel_name = f'ภารกิจพิเศษ-{players_bank_id(member.id)}'
+                await category.edit(overwrites=overwrites)
+                await interaction.guild.create_text_channel(new_channel_name, category=category)
+                channel = discord.utils.get(interaction.guild.channels, name=str(new_channel_name))
+                channel_send = interaction.guild.get_channel(channel.id)
+                channel_id_update(member.id, channel.id)
+                await channel_send.send(f'{member.mention}')
+            if channel_name is not None:
+                await interaction.respond(content=f'ไปยังห้องส่งภารกิจ <#{channel_id}>')
 
         if event_btn == 'detail_event_1':
             await interaction.respond(
