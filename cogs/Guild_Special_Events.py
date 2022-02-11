@@ -14,21 +14,15 @@ class GuildSpecialEventCommand(commands.Cog):
         await ctx.send(
             f'**ภารกิจพิเศษหมายเลข {code}**'
             f'\nเงินรางวัล **4000** ค่าประสบการณ์ **10000** exp'
-            f'\nโดยให้ผู้เล่นตามหาและนำส่งอาวุธปืน ซึ่งจะประกอบด้วย '
-            '\n- ปืน SDASS 12M 1 กระบอก'
-            '\n- Improvised Flashlight 1 อัน '
-            '\n- OKP-7 Holographic 1 อัน '
-            '\n- Bridshot 1 กล่อง (สีเขียว) '
-            '\n- Buckshot 1 กล่อง (สีแดง) '
-            '\n- Slug 1 กล่อง (สีดำ) '
+            f'\nMission Expire in 15 February 2022'
         )
         await ctx.send(
             file=discord.File('./img/events/special_event.png'),
             components=[
                 [
-                    Button(style=ButtonStyle.green, label='GET MISSION', emoji='⚔', custom_id='event_1'),
-                    Button(style=ButtonStyle.blue, label='SEND MISSION', emoji='📩', custom_id='report_event_1'),
-                    Button(style=ButtonStyle.red, label='RESET', emoji='⏱', disabled=True)
+                    Button(style=ButtonStyle.green, label='รับภารกิจ', emoji='⚔', custom_id='event_1'),
+                    Button(style=ButtonStyle.blue, label='ส่งภารกิจ', emoji='📩', custom_id='report_event_1'),
+                    Button(style=ButtonStyle.gray, label='รายละเอียดภารกิจ', emoji='📃', custom_id='detail_event_1')
                 ]
             ]
         )
