@@ -42,9 +42,10 @@ class GuildSpecialEventCommand(commands.Cog):
                     await category.edit(overwrites=overwrites)
                     await interaction.guild.create_text_channel(new_channel_name, category=category)
                     channel = discord.utils.get(interaction.guild.channels, name=str(new_channel_name))
+                    await interaction.respond(content=f'ไปยังห้องส่งภารกิจของคุณ <#{channel.id}>')
                     channel_send = interaction.guild.get_channel(channel.id)
                     channel_id_update(member.id, channel.id)
-                    await interaction.respond(content=f'ไปยังห้องส่งภารกิจของคุณ <#{channel_id}>')
+                    await channel_send.send(f'{member.mention}')
                 await interaction.respond(content=f'ไปยังห้องส่งภารกิจของคุณ <#{channel_id}>')
 
             if check == 0:
