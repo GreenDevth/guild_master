@@ -22,8 +22,7 @@ def expire_date(ex_date):
     expire = datetime.strptime(ex_date, "%Y-%m-%d").date()
     now = date.today()
     if expire >= now:
-        msg = "Misssion Expire."
-        return msg.strip()
+        return 0
 
 
 def get_channel_id(discord_id):

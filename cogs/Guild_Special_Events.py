@@ -30,8 +30,10 @@ class GuildSpecialEventCommand(commands.Cog):
             await interaction.respond(content='ไมพบหมายเลข Steam id ของคุณในระบบ')
 
         if event_btn == 'report_event_1':
-            error_sending = expire_date('2022-02-11')
-            print(error_sending)
+            expire = expire_date('2022-02-11')
+            if expire == 0:
+                await interaction.respond(content='ภารกิจหมดอายุแล้วไม่สามารถส่งภารกิจนี้ได้')
+
             if check == 1:
 
                 if channel_name is None:
