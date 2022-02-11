@@ -1,7 +1,7 @@
 from db.players_db import db, MySQLConnection, Error
 
 
-def events_recode(discord_id, channel_id, coin, exp, expire_date):
+def events_recode(discord_id, coin, exp, expire_date):
     conn = None
     try:
         conn = MySQLConnection(**db)
