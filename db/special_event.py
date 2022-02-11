@@ -21,7 +21,7 @@ def events_recode(discord_id, coin, exp, ex_date):
 def expire_date(ex_date):
     expire = datetime.strptime(ex_date,"%Y-%m-%d").date()
     now = date.today()
-    if now <= expire:
+    if expire <= now:
         return 0
 
 
