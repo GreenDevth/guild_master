@@ -1,7 +1,7 @@
 import os
 from mysql.connector import MySQLConnection, Error
 from db.db_config import read_db_config
-from datetime import datetime, date
+
 
 db = read_db_config()
 
@@ -26,9 +26,3 @@ def config_cogs(client):
             client.load_extension(f'cogs.{filename[:-3]}')
 
 
-def expire_date(ex_date):
-    expire = datetime.strptime(ex_date, "%Y-%m-%d").date()
-    now = date.today()
-    if expire >= now:
-        msg = "Misssion Expire."
-        return msg.strip()

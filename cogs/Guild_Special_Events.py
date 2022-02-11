@@ -3,8 +3,8 @@ import random
 from discord.ext import commands
 from discord_components import Button, ButtonStyle
 from db.players_db import player_mission, mission_up, players_bank_id
-from db.special_event import events_recode
-from db.config import expire_date
+from db.special_event import events_recode, expire_date
+
 
 class GuildSpecialEventCommand(commands.Cog):
     def __init__(self, bot):
@@ -22,7 +22,7 @@ class GuildSpecialEventCommand(commands.Cog):
                 ex_date = '2020-02-15'
                 events_recode(member.id, coin, exp, ex_date)
                 mission_up(member.id)
-                await interaction.respond(content=f'บันทึกข้อมูลเรียบร้อย กรุณาส่งภารกิจภายใร {ex_date}')
+                await interaction.respond(content=f'บันทึกข้อมูลเรียบร้อย กรุณาส่งภารกิจภายใน **{ex_date}**')
             if check == 1:
                 await interaction.respond(content='คุณได้กดรับภารกิจนี้เรียบร้อยแล้ว')
             await interaction.respond(content='ไมพบหมายเลข Steam id ของคุณในระบบ')
