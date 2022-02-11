@@ -24,7 +24,7 @@ class GuildSpecialEventCommand(commands.Cog):
             await interaction.respond(content='ok')
 
         if event_btn == 'detail_event_1':
-            await interaction.respond(
+            await interaction.respond(content=
                 '**นำส่งเซ็ตอาวุธปืน SDASS 12M** ซึ่งประกอบด้วย '
                 '\n- ปืน SDASS 12M 1 กระบอก'
                 '\n- Improvised Flashlight 1 อัน '
