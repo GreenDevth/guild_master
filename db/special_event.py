@@ -19,7 +19,7 @@ def events_recode(discord_id, coin, exp, ex_date):
 
 
 def expire_date(ex_date):
-    expire = datetime.strptime(ex_date,"%Y-%m-%d").date()
+    expire = datetime.strptime(ex_date, "%Y-%m-%d").date()
     now = date.today()
     if expire <= now:
         return 0
@@ -53,3 +53,61 @@ def channel_id_update(discord_id, ch_id):
     finally:
         if conn.is_connected():
             conn.close()
+
+
+def event_image_upload_status(discord_id):
+    try:
+        conn = MySQLConnection(**db)
+        cur = conn.cursor()
+        sql = 'SELECT IMAGE FROM scum_special_events WHERE DISCORD_ID=%s'
+        cur.execute(sql, (discord_id,))
+        row = cur.fetchone()
+        while row is not None:
+            res = list(row)
+            return res[0]
+    except Error as e:
+        print(e)
+
+
+def update_image_status(discord_id):
+    conn = None
+    try:
+        conn = MySQLConnection(**db)
+        cur = conn.cursor()
+        sql = 'UPDATE scum_special_events SET IMAGE = 1 WHERE DISCORD_ID = %s'
+        cur.execute(sql, (discord_id,))
+        conn.commit()
+        cur.close()
+    except Error as e:
+        print(e)
+    finally:
+        if conn.is_connected():
+            conn.close()
+
+
+def get_event_coin(discord_id):
+    try:
+        conn = MySQLConnection(**db)
+        cur = conn.cursor()
+        sql = 'SELECT COIN FROM scum_special_events WHERE DISCORD_ID=%s'
+        cur.execute(sql, (discord_id,))
+        row = cur.fetchone()
+        while row is not None:
+            res = list(row)
+            return res[0]
+    except Error as e:
+        print(e)
+
+
+def get_event_exp(discord_id):
+    try:
+        conn = MySQLConnection(**db)
+        cur = conn.cursor()
+        sql = 'SELECT EXP FROM scum_special_events WHERE DISCORD_ID=%s'
+        cur.execute(sql, (discord_id,))
+        row = cur.fetchone()
+        while row is not None:
+            res = list(row)
+            return res[0]
+    except Error as e:
+        print(e)
