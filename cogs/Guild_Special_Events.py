@@ -8,6 +8,14 @@ class GuildSpecialEventCommand(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    @commands.Cog.listener()
+    async def on_button_click(self, interaction):
+        member = interaction.author
+        event_btn = interaction.component.custom_id
+
+        if event_btn == 'event_1':
+            await interaction.respond(content='ok')
+
     @commands.command(name='special_event')
     async def special_event_command(self, ctx):
         code = random.randint(9, 99999)
