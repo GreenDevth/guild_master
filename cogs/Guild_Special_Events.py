@@ -16,7 +16,9 @@ class GuildSpecialEventCommand(commands.Cog):
         if event_btn == 'event_1':
             if check == 0:
                 await interaction.respond(content='Continue get new event mission')
-            await interaction.respond(content='event mission already exists')
+            if check == 1:
+                await interaction.respond(content='event mission already exists')
+            await interaction.respond(content='Your steam id not found.')
 
         if event_btn == 'report_event_1':
             await interaction.respond(content='ok')
