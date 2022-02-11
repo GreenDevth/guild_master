@@ -108,7 +108,7 @@ class MissionButtonEventCommand(commands.Cog):
             if mission_check == 1:
                 if channel_name is None:
                     print('Create new text_channel')
-                    await interaction.respond(content=f'ระบบกำลังสร้างห้องส่งภารกิจให้คุณที่ <#930048940823433217>')
+                    await interaction.respond(content=f'ระบบกำลังสร้างห้องส่งภารกิจให้คุณที่ MISSION')
                     """ Create text_channel """
                     category = discord.utils.get(interaction.guild.categories, name='MISSION')
                     overwrites = {

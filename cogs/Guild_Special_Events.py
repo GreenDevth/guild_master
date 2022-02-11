@@ -3,7 +3,7 @@ import random
 from discord.ext import commands
 from discord_components import Button, ButtonStyle
 from db.players_db import player_mission, mission_up, players_bank_id
-from db.special_event import events_recode, expire_date
+from db.special_event import events_recode, expire_date, get_channel_id, channel_id_update
 
 
 class GuildSpecialEventCommand(commands.Cog):
@@ -34,11 +34,17 @@ class GuildSpecialEventCommand(commands.Cog):
                 member: discord.PermissionOverwrite(read_messages=True)
             }
             if check == 1:
-                await category.edit(overwrites=overwrites)
-                channel_name = f'ภารกิจพิเศษ-{players_bank_id(member.id)}'
-                await interaction.guild.create_text_channel(channel_name, category=category)
+                ch_id = get_channel_id(member.id)
+                if ch_id is None:
+                    await interaction.respond(content='ระบบได้สร้างห้องส่งภารกิจของของไว้ที่ EVENT เรียบร้อยแล้ว')
+                    await category.edit(overwrites=overwrites)
+                    channel_name = f'ภารกิจพิเศษ-{players_bank_id(member.id)}'
+                    await interaction.guild.create_text_channel(channel_name, category=category)
+                    channel = discord.utils.get(interaction.guild.channels, name=str(channel_name))
+                    channel_send = interaction.guild.get_channel(channel.id)
+                    await discord.DMChannel.send(member, f'ไปยังห้องส่งภารกิจของคุณ <#{channel.id}>')
+                await discord.DMChannel.send(member, f'ไปยังห้องส่งภารกิจของคุณ <#{ch_id}>')
 
-                await interaction.respond(content='continue create channel')
             if check == 0:
                 await interaction.respond(content='คุณไม่มีภารกิจพิเศษที่ต้องส่ง')
             await interaction.respond(content='ไมพบหมายเลข Steam id ของคุณในระบบ')
