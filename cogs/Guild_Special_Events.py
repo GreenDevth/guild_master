@@ -30,7 +30,7 @@ class GuildSpecialEventCommand(commands.Cog):
             await interaction.respond(content='ไมพบหมายเลข Steam id ของคุณในระบบ')
 
         if event_btn == 'report_event_1':
-            expire = expire_date('2022-02-11')
+            expire = expire_date('2022-02-15')
             if expire == 0:
                 await interaction.respond(content='⚠ Mission Expire : ไว้รอภารกิจพิเศษในครั้งต่อไปนะครับ')
 
