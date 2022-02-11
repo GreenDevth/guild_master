@@ -157,12 +157,13 @@ class MissionButtonEventCommand(commands.Cog):
                     update_coin(member.id, coin)
                     mission_solf_reset(member.id)
                     await interaction.respond(
-                        content='รีเซ็ตภารกิจใหม่เรียบร้อย ระบบกำลังจะทำการปิดห้องส่งภารกิจของคุณใน 10 วินาที ')
+                        content='รีเซ็ตภารกิจใหม่เรียบร้อย และระบบกำลังจะทำการปิดห้องส่งภารกิจที่คุณสร้างไว้ใน 10 วินาที ')
                     await discord.DMChannel.send(member,
                                                  f'ระบบทำการหักเงินจำนวน 100 จาก {player_coin} จำนวนเงินคงเหลือของคุณคือ {coin}')
                     await asyncio.sleep(9)
                     delete_channel = self.bot.get_channel(channel_id)
-                    await delete_channel.delete()
+                    if delete_channel is not None:
+                        await delete_channel.delete()
 
             await interaction.respond(content='⚠ คุณยังไม่มีภารกิจให้รีเซ็ต')
 
