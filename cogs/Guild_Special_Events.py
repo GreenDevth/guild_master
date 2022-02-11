@@ -44,8 +44,8 @@ class GuildSpecialEventCommand(commands.Cog):
                     channel = discord.utils.get(interaction.guild.channels, name=str(new_channel_name))
                     channel_send = interaction.guild.get_channel(channel.id)
                     channel_id_update(member.id, channel.id)
-                    await interaction.respond(content='ระบบได้สร้างห้องส่งภารกิจของของไว้ที่ EVENT เรียบร้อยแล้ว')
-                await discord.DMChannel.send(member, f'ไปยังห้องส่งภารกิจของคุณ <#{channel_id}>')
+                    await interaction.respond(content=f'ไปยังห้องส่งภารกิจของคุณ <#{channel_id}>')
+                await interaction.respond(content=f'ไปยังห้องส่งภารกิจของคุณ <#{channel_id}>')
 
             if check == 0:
                 await interaction.respond(content='คุณไม่มีภารกิจพิเศษที่ต้องส่ง')
