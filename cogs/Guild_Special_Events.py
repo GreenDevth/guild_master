@@ -34,7 +34,7 @@ class GuildSpecialEventCommand(commands.Cog):
             if expire == 0:
                 await interaction.respond(content='⚠ Mission Expire : ไว้รอภารกิจพิเศษในครั้งต่อไปนะครับ')
             if channel_name is None:
-                await interaction.respond(content=f'ไปยังห้องส่งภารกิจของคุณที่ EVENT')
+                await interaction.respond(content=f'ระบบกำลังสร้างห้องสำหรับส่งภารกิจพิเศษให้คุณกรุณารอสักครู่')
                 category = discord.utils.get(interaction.guild.categories, name='EVENT')
                 overwrites = {
                     interaction.guild.default_role: discord.PermissionOverwrite(read_messages=False, connect=False),
@@ -47,6 +47,7 @@ class GuildSpecialEventCommand(commands.Cog):
                 channel_send = interaction.guild.get_channel(channel.id)
                 channel_id_update(member.id, channel.id)
                 await channel_send.send(f'{member.mention}')
+                await interaction.respond(content='ok')
             if channel_name is not None:
                 await interaction.respond(content=f'ไปยังห้องส่งภารกิจ <#{channel_id}>')
 
