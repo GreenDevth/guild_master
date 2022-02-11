@@ -19,11 +19,13 @@ def events_recode(discord_id, coin, exp, ex_date):
 
 
 def expire_date(ex_date):
-    expire = datetime.strptime(ex_date, "%Y-%m-%d").date()
+    expire = ex_date.replace('-', '')
     now = date.today()
-    print(now, expire, "\n")
-    if expire >= now:
-        return 0
+    to_string = str(now)
+    today = to_string.replace('-', '')
+    if today <= expire:
+        msg = '⚠ Mission Expire : ไว้ติดตามภารกิจพิเศษได้ใหม่ทุก วันพุธนะครับ'
+        return msg.strip()
 
 
 def get_channel_id(discord_id):

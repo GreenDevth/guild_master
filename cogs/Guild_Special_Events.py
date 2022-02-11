@@ -1,5 +1,6 @@
 import discord
 import random
+from datetime import datetime, date
 from discord.ext import commands
 from discord_components import Button, ButtonStyle
 from db.players_db import player_mission, mission_up, players_bank_id
@@ -30,8 +31,12 @@ class GuildSpecialEventCommand(commands.Cog):
             await interaction.respond(content='ไมพบหมายเลข Steam id ของคุณในระบบ')
 
         if event_btn == 'report_event_1':
-            expire = expire_date('2022-02-15')
-            if expire == 0:
+            ex_date = '2020-02-11'
+            expire = ex_date.replace('-', '')
+            now = date.today()
+            to_string = str(now)
+            today = to_string.replace('-', '')
+            if today <= expire:
                 await interaction.respond(content='⚠ Mission Expire : ไว้รอภารกิจพิเศษในครั้งต่อไปนะครับ')
 
             if check == 1:
