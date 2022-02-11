@@ -47,7 +47,7 @@ class GuildSpecialEventCommand(commands.Cog):
                 channel_send = interaction.guild.get_channel(channel.id)
                 channel_id_update(member.id, channel.id)
                 await channel_send.send(f'{member.mention}')
-                await interaction.respond(content='ok')
+                await interaction.channel.send(f'ไปยังห้องส่งภารกิจ <#{channel.id}>', delete_after=10)
             if channel_name is not None:
                 await interaction.respond(content=f'ไปยังห้องส่งภารกิจ <#{channel_id}>')
 
