@@ -30,37 +30,37 @@ class GuildSpecialEventCommand(commands.Cog):
             await interaction.respond(content='ไมพบหมายเลข Steam id ของคุณในระบบ')
 
         if event_btn == 'report_event_1':
-            category = discord.utils.get(interaction.guild.categories, name='EVENT')
-            overwrites = {
-                interaction.guild.default_role: discord.PermissionOverwrite(read_messages=False, connect=False),
-                member: discord.PermissionOverwrite(read_messages=True)
-            }
+
             if check == 1:
 
-                new_channel_name = f'ภารกิจพิเศษ-{players_bank_id(member.id)}'
                 if channel_name is None:
+                    await interaction.respond(content=f'ไปยังห้องส่งภารกิจของคุณที่ EVENT')
+                    category = discord.utils.get(interaction.guild.categories, name='EVENT')
+                    overwrites = {
+                        interaction.guild.default_role: discord.PermissionOverwrite(read_messages=False, connect=False),
+                        member: discord.PermissionOverwrite(read_messages=True)
+                    }
+                    new_channel_name = f'ภารกิจพิเศษ-{players_bank_id(member.id)}'
                     await category.edit(overwrites=overwrites)
                     await interaction.guild.create_text_channel(new_channel_name, category=category)
                     channel = discord.utils.get(interaction.guild.channels, name=str(new_channel_name))
-                    await interaction.respond(content=f'ไปยังห้องส่งภารกิจของคุณที่ EVENT')
                     channel_send = interaction.guild.get_channel(channel.id)
                     channel_id_update(member.id, channel.id)
                     await channel_send.send(f'{member.mention}')
-                await interaction.respond(content=f'ไปยังห้องส่งภารกิจของคุณ <#{channel_id}>')
+                if channel_name is not None:
+                    await interaction.respond(content=f'ไปยังห้องส่งภารกิจ <#{channel_id}>')
 
-            if check == 0:
-                await interaction.respond(content='คุณไม่มีภารกิจพิเศษที่ต้องส่ง')
-            await interaction.respond(content='ไมพบหมายเลข Steam id ของคุณในระบบ')
+            await interaction.respond(content='คุณไม่มีภารกิจพิเศษที่ต้องส่ง')
 
         if event_btn == 'detail_event_1':
             await interaction.respond(
                 content='**นำส่งเซ็ตอาวุธปืน SDASS 12M** ซึ่งประกอบด้วย '
-                '\n- ปืน SDASS 12M 1 กระบอก'
-                '\n- Improvised Flashlight 1 อัน '
-                '\n- OKP-7 Holographic 1 อัน '
-                '\n- Bridshot 1 กล่อง (สีเขียว) '
-                '\n- Buckshot 1 กล่อง (สีแดง) '
-                '\n- Slug 1 กล่อง (สีดำ) ',
+                        '\n- ปืน SDASS 12M 1 กระบอก'
+                        '\n- Improvised Flashlight 1 อัน '
+                        '\n- OKP-7 Holographic 1 อัน '
+                        '\n- Bridshot 1 กล่อง (สีเขียว) '
+                        '\n- Buckshot 1 กล่อง (สีแดง) '
+                        '\n- Slug 1 กล่อง (สีดำ) ',
             )
 
     @commands.command(name='special_event')
