@@ -19,11 +19,12 @@ class AtGuildMasterCommand(commands.Cog):
             file=discord.File('./img/mission/mission_center.png'),
             components=[
                 [
-                    Button(style=ButtonStyle.blue, label='บริการ taxi', emoji='🚘', custom_id='taxi_to_guild'),
+                    Button(style=ButtonStyle.green, label='เรียกใช้บริการ taxi', emoji='🚘', custom_id='taxi_to_guild'),
                     Button(style=ButtonStyle.gray, label='ค่าบริการ 100 เหรียญ', emoji='💵', disabled=True)
                 ]
             ]
         )
+
 
 def setup(bot):
     bot.add_cog(AtGuildMasterCommand(bot))
