@@ -152,6 +152,7 @@ class MissionEvent(commands.Cog):
                         message = f'ระบบได้หักค่าปรับจำนวน $100 สำเร็จ : ยอดเงินคงเหลือของคุณคือ : {total}' \
                                   f'\nคุณสามารถกดรับภารกิจใหม่ได้แล้ว'
                         # await discord.DMChannel.send(member, message)
+
                     elif scum_player[5] < fine:
                         message = '⚠ Error, ยอดเงินของคุณไม่เพียงพอสำหรับการจ่ายค่ารีเซ็ตภารกิจ'
                     await interaction.respond(content=message)
@@ -230,7 +231,10 @@ class MissionEvent(commands.Cog):
                     return
                 elif player[5] == 1:
                     reset_mission(member.id)
-                    message = 'ระบบได้ทำการรีเซ็ตภารกิจให้คุณแล้ว อีก 10 วินาที ระบบจะทำการปิดห้องส่งภารกิจนี้'
+                    message = 'ระบบได้ทำการรีเซ็ตภารกิจให้คุณแล้ว'
+                    await interaction.edit_origin(
+                            components=[]
+                        )
                 await interaction.respond(content=message)
                 await asyncio.sleep(10)
                 await interaction.channel.delete()
