@@ -8,7 +8,7 @@ class GuildMasterCommand(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name='group_misson')
+    @commands.command(name='group_mission')
     async def group_mission_command(self, ctx):
         await ctx.send(
             '📋 **Guild Master Missoin.**'
@@ -19,12 +19,13 @@ class GuildMasterCommand(commands.Cog):
             file=discord.File('./img/mission/board.png'),
             components=[
                 [
-                    Button(style=ButtonStyle.green, label='HUNTER MISSION', emoji='🥩', custom_id='mission_hunter'),
-                    Button(style=ButtonStyle.blue, label='FISHING MISSION', emoji='🎣', custom_id='mission_fishing'),
-                    Button(style=ButtonStyle.red, label='FAMER MISSION', emoji='🍅', custom_id='mission_famer')
+                    Button(style=ButtonStyle.green, label='HUNTER', emoji='🥩', custom_id='mission_hunter'),
+                    Button(style=ButtonStyle.blue, label='FISHING', emoji='🎣', custom_id='mission_fishing'),
+                    Button(style=ButtonStyle.red, label='FAMER', emoji='🍅', custom_id='mission_famer')
                 ]
             ]
         )
+        await ctx.message.delete()
 
     @commands.command(name='hunter')
     async def hunter_command(self, ctx):
