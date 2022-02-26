@@ -217,7 +217,7 @@ class MissionEvent(commands.Cog):
                         )
                     await interaction.channel.send(message, delete_after=5)
                     await asyncio.sleep(5.5)
-                    await msg.delete()
+                    # await msg.delete()
                     await msg_send.delete()
                     return
                 else:
@@ -231,13 +231,11 @@ class MissionEvent(commands.Cog):
                     return
                 elif player[5] == 1:
                     reset_mission(member.id)
-                    message = 'ระบบได้ทำการรีเซ็ตภารกิจให้คุณแล้ว'
+                    message = 'ระบบได้ทำการรีเซ็ตภารกิจให้คุณแล้ว ระบบจะทำการปิดห้องให้คุณหลังจากทีมงานได้ตอบสอบความถูกต้องของสินค้าเรียบร้อยแล้ว'
                     await interaction.edit_origin(
                             components=[]
                         )
-                await interaction.respond(content=message)
-                await asyncio.sleep(10)
-                await interaction.channel.delete()
+                await interaction.channel.send(content=message)
                 return
             elif mission_btn == 'mission_check':
                 check = check_players_mission(member.id)
