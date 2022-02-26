@@ -11,18 +11,29 @@ class GuildMasterCommand(commands.Cog):
     @commands.command(name='group_mission')
     async def group_mission_command(self, ctx):
         await ctx.send(
-            '📋 **Guild Master Missoin.**'
-            '\nผู้เล่นจะต้องนำส่งสินค้าที่ได้จากการกดรับภารกิจมาส่ง ที่ Guild Master ตำแหน่ง C1N3 (ทะเลสาบ)'
-            '\nโดยจำนวนสินค้า ชนิด และรางวัลประจำภารกิจจะถูกระบุไวในภาพที่ได้จากการกดรับภารกิจ '
+            file=discord.File('./img/mission/mission_ban.png')
         )
         await ctx.send(
-            file=discord.File('./img/mission/board.png'),
+            '\nผู้เล่นจะต้องนำส่งสินค้าที่ได้จากการกดรับภารกิจมาส่ง ที่ Guild Master ตำแหน่ง C3N1 (ทะเลสาบ)'
+            '\nโดยจำนวนสินค้า ชนิด และรางวัลประจำภารกิจจะถูกระบุไวในภาพที่ได้จากการกดรับภารกิจ '
+            '\n\n📋 **คำอธิบายสำหรับปุ่มคำสั่ง** '
+            '\n- ปุ่ม REPORT MISSION กดเพื่อเปิดห้องส่งภารกิจ '
+            '\n- ปุ่ม RESET MISSION เพื่อรีเซ็ตภารกิจ ระบบจะหักค่าปรับจำนวน $100 จากบัญชีของคุณ'
+        )
+        await ctx.send(
+            file=discord.File('./img/mission/mission.png'),
             components=[
                 [
-                    Button(style=ButtonStyle.green, label='HUNTER', emoji='🥩', custom_id='mission_hunter'),
-                    Button(style=ButtonStyle.blue, label='FISHING', emoji='🎣', custom_id='mission_fishing'),
-                    Button(style=ButtonStyle.gray, label='FAMER', emoji='🍅', custom_id='mission_famer')
+                    Button(style=ButtonStyle.gray, label='HUNTING QUEST', emoji='🥩', custom_id='mission_hunter'),
+                    Button(style=ButtonStyle.gray, label='FISHING QUEST', emoji='🎣', custom_id='mission_fishing'),
+                    Button(style=ButtonStyle.gray, label='FAMER QUEST', emoji='👨‍🌾', custom_id='mission_famer')
+                ],
+                [
+                    Button(style=ButtonStyle.blue, label=' REPORT MISSION ', emoji='✉', custom_id='mission_report'),
+                    Button(style=ButtonStyle.red, label=' RESET MISSION', emoji='⏱', custom_id='mission_reset'),
+                    Button(style=ButtonStyle.blue, label=' YOUR STATUS', emoji='📃', custom_id='mission_check')
                 ]
+
             ]
         )
         await ctx.message.delete()
@@ -75,7 +86,7 @@ class GuildMasterCommand(commands.Cog):
     async def famer_command(self, ctx):
         await ctx.send(
             f'**🍅 {get_mission(1)}** '
-            '\nผู้เล่นจะต้องนำส่งสินค้าที่ได้จากการกดรับภารกิจมาส่ง ที่ Guild Master ตำแหน่ง C1N3 (ทะเลสาบ)'
+            '\nผู้เล่นจะต้องนำส่งสินค้าที่ได้จากการกดรับภารกิจมาส่ง ที่ Guild Master ตำแหน่ง C3N1 (ทะเลสาบ)'
             '\nโดยจำนวนสินค้า ชนิด และรางวัลประจำภารกิจจะถูกระบุไวในภาพที่ได้จากการกดรับภารกิจ '
             '\n\n**คำอธิบายปุ่มต่าง ๆ** '
             '\nGET MISSION ปุ่มสำหรับรับภารกิจ '
