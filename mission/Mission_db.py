@@ -80,7 +80,7 @@ def players_mission(discord_id):
     try:
         conn = MySQLConnection(**db)
         cur = conn.cursor()
-        cur.execute('SELECT MISSION_NAME FROM scum_players_mission WHERE DISCORD_ID = %s', (discord_id,))
+        cur.execute('SELECT MISSION_STATUS FROM scum_players_mission WHERE DISCORD_ID = %s', (discord_id,))
         row = cur.fetchone()
         while row is not None:
             res = list(row)
@@ -173,3 +173,99 @@ def get_img_from_mission(mission_name):
             return res[0]
     except Error as e:
         print(e)
+
+
+def update_mission_img(discord_id):
+    conn = None
+    try:
+        conn = MySQLConnection(**db)
+        cur = conn.cursor()
+        cur.execute('UPDATE scum_players_mission SET MISSION_IMG = 1 WHERE DISCORD_ID = %s', (discord_id,))
+        conn.commit()
+        cur.close()
+    except Error as e:
+        print(e)
+    finally:
+        if conn.is_connected():
+            conn.close()
+
+
+def get_scum_players(discord_id):
+    try:
+        conn = MySQLConnection(**db)
+        cur = conn.cursor()
+        cur.execute('SELECT * FROM scum_players WHERE DISCORD_ID = %s', (discord_id,))
+        row = cur.fetchall()
+        while row is not None:
+            for x in row:
+                return x
+    except Error as e:
+        print(e)
+
+
+def update_player_exp(discord_id, exp):
+    conn = None
+    try:
+        conn = MySQLConnection(**db)
+        cur = conn.cursor()
+        cur.execute('UPDATE scum_players SET EXP = %s WHERE DISCORD_ID = %s', (exp, discord_id,))
+        print('Update exp successfully.')
+        conn.commit()
+        cur.close()
+    except Error as e:
+        print(e)
+    finally:
+        if conn.is_connected():
+            conn.close()
+
+
+def reset_mission(discord_id):
+    conn = None
+    try:
+        conn = MySQLConnection(**db)
+        cur = conn.cursor()
+        cur.execute('DELETE FROM scum_players_mission WHERE DISCORD_ID = %s',
+                    (discord_id,))
+        conn.commit()
+        cur.close()
+    except Error as e:
+        print(e)
+    finally:
+        if conn.is_connected():
+            conn.close()
+
+
+def update_mission(discord_id, mission_name, award):
+    conn = None
+    try:
+        conn = MySQLConnection(**db)
+        cur = conn.cursor()
+        cur.execute('UPDATE scum_players_mission SET MISSION_NAME = %s, MISSION_AWARD = %s WHERE DISCORD_ID = %s',
+                    (mission_name, award, discord_id,))
+        conn.commit()
+        cur.close()
+    except Error as e:
+        print(e)
+    finally:
+        if conn.is_connected():
+            conn.close()
+
+
+def update_coins(discord_id, coins):
+    conn = None
+    try:
+        conn = MySQLConnection(**db)
+        cur = conn.cursor()
+        cur.execute('UPDATE scum_players SET COINS = %s WHERE DISCORD_ID = %s ', (coins, discord_id,))
+        conn.commit()
+        cur.execute('SELECT COINS FROM scum_players WHERE DISCORD_ID = %s', (discord_id,))
+        row = cur.fetchone()
+        while row is not None:
+            res = list(row)
+            return res[0]
+        cur.close()
+    except Error as e:
+        print(e)
+    finally:
+        if conn.is_connected():
+            conn.close()
