@@ -36,9 +36,7 @@ def hunter_mission():
         cur = conn.cursor()
         cur.execute('SELECT * FROM scum_mission WHERE MISSION_AWARD = 1000;')
         row = cur.fetchall()
-        while row is not None:
-            for x in row:
-                return x
+        return row
     except Error as e:
         print(e)
 
