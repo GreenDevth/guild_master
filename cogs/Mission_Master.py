@@ -21,7 +21,7 @@ class GuildMasterCommand(commands.Cog):
                 [
                     Button(style=ButtonStyle.green, label='HUNTER', emoji='🥩', custom_id='mission_hunter'),
                     Button(style=ButtonStyle.blue, label='FISHING', emoji='🎣', custom_id='mission_fishing'),
-                    Button(style=ButtonStyle.red, label='FAMER', emoji='🍅', custom_id='mission_famer')
+                    Button(style=ButtonStyle.gray, label='FAMER', emoji='🍅', custom_id='mission_famer')
                 ]
             ]
         )
