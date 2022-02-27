@@ -257,7 +257,7 @@ class MissionEvent(commands.Cog):
             else:
                 pass
             embed = discord.Embed(
-                title=f'🥩 **{data[1]}**',
+                title=f'🥃 **{data[1]}**',
                 description=f'{data[1]} ที่ Guild Master ตำแหน่ง C1N3 (ทะเลสาบ)',
                 timestamp=datetime.datetime.utcnow(),
                 color=discord.Colour.orange()
