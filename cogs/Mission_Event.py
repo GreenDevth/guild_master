@@ -234,8 +234,8 @@ class MissionEvent(commands.Cog):
                     message = 'ระบบได้ทำการรีเซ็ตภารกิจให้คุณแล้ว ระบบจะทำการปิดห้องให้คุณ' \
                               'หลังจากทีมงานได้ตอบสอบความถูกต้องของสินค้าเรียบร้อยแล้ว'
                     await interaction.edit_origin(
-                            components=[]
-                        )
+                        components=[]
+                    )
                 await interaction.channel.send(content=message)
                 return
             elif mission_btn == 'mission_check':
@@ -249,7 +249,7 @@ class MissionEvent(commands.Cog):
                     embed.set_author(name=member.name, icon_url=member.avatar_url)
                     embed.set_thumbnail(url=member.avatar_url)
                     embed.set_image(url=img)
-                    await interaction.respond(content=embed)
+                    await interaction.respond(content=f'{member.name} Your mission', embed=embed)
                     return
                 else:
                     await interaction.respond(content='คุณยังไม่ได้กดรับภารกิจ')
