@@ -231,7 +231,8 @@ class MissionEvent(commands.Cog):
                     return
                 elif player[5] == 1:
                     reset_mission(member.id)
-                    message = 'ระบบได้ทำการรีเซ็ตภารกิจให้คุณแล้ว ระบบจะทำการปิดห้องให้คุณหลังจากทีมงานได้ตอบสอบความถูกต้องของสินค้าเรียบร้อยแล้ว'
+                    message = 'ระบบได้ทำการรีเซ็ตภารกิจให้คุณแล้ว ระบบจะทำการปิดห้องให้คุณ' \
+                              'หลังจากทีมงานได้ตอบสอบความถูกต้องของสินค้าเรียบร้อยแล้ว'
                     await interaction.edit_origin(
                             components=[]
                         )
@@ -241,14 +242,14 @@ class MissionEvent(commands.Cog):
                 check = check_players_mission(member.id)
                 if check == 1:
                     player = get_players_mission(member.id)
-                    print(player)
-                    if player[4] == 1:
-                        message = "INPROGRESS"
-
-                    await interaction.respond(
-                        content=f'MISSION OWN : {player[2]}\nMISSION NAME : {player[3]}'
-                                f'\nMISSION STATUS : {message}\nAWARD : {player[7]}'
+                    img = get_img_from_mission(player[3])
+                    embed = discord.Embed(
+                        title=f'ภารกิจ {player[3]} โดย {player[2]}'
                     )
+                    embed.set_author(name=member.name, icon_url=member.avatar_url)
+                    embed.set_thumbnail(url=member.avatar_url)
+                    embed.set_image(url=img)
+                    await interaction.respond(content=embed)
                     return
                 else:
                     await interaction.respond(content='คุณยังไม่ได้กดรับภารกิจ')
@@ -271,7 +272,7 @@ class MissionEvent(commands.Cog):
             embed.set_footer(text='กรุณานำส่งภารกิจให้เสร็จก่อนรับภารกิจใหม่')
             inprogress = self.bot.get_channel(911285052204257371)
             await interaction.respond(embed=embed)
-            await inprogress.send(member.mention, embed=embed)
+            await discord.DMChannel.send(member, embed=embed)
         elif mission_status == 1:
             await interaction.respond(content='คุณกำลังรับภารกิจพิเศษอยู่ กรุณาส่งภารกิจก่อนเพื่อรับภารกิจทั่วไป')
 
