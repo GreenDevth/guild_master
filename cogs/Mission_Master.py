@@ -31,7 +31,7 @@ class GuildMasterCommand(commands.Cog):
                 [
                     Button(style=ButtonStyle.blue, label=' REPORT MISSION ', emoji='✉', custom_id='mission_report'),
                     Button(style=ButtonStyle.red, label=' RESET MISSION', emoji='⏱', custom_id='mission_reset'),
-                    Button(style=ButtonStyle.blue, label=' YOUR MISSION', emoji='📃', custom_id='mission_check')
+                    Button(style=ButtonStyle.blue, label=' YOU MISSION', emoji='📃', custom_id='mission_check')
                 ]
 
             ]
