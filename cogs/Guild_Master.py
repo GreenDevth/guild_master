@@ -236,16 +236,7 @@ class GuildMasster(commands.Cog):
             total_coins = plus_coins(member.id, award)
             all_coins = '${:,d}'.format(total_coins)
             update_mission_img(member.id, 2)
-            statement = self.bot.get_channel(949609279277633536)
-            await statement.send(
-                f"📃 **Mission Statement**\n\n"
-                f"```=====================================\n"
-                f"ผู้ทำภารกิจ : {member.display_name}\n"
-                f"เงินรางวัล : {coins}\n"
-                f"ค่าประสบการณ์ : {award}\n"
-                f"สถานะ : จ่ายแล้ว ✅\n"
-                f"=====================================\n"
-            )
+
             if m_player[5] == 1:
                 await interaction.edit_origin(
                     components=[
@@ -265,7 +256,17 @@ class GuildMasster(commands.Cog):
                                                          f' : ค่าประสบการณ์ปัจจุบันของคุณคือ {exp}exp')
                 else:
                     await discord.DMChannel.send(member, exp)
-                return
+
+            statement = self.bot.get_channel(949609279277633536)
+            await statement.send(
+                f"📃 **Mission Statement**\n\n"
+                f"```=====================================\n"
+                f"ผู้ทำภารกิจ : {member.display_name}\n"
+                f"เงินรางวัล : {coins}\n"
+                f"ค่าประสบการณ์ : {award}\n"
+                f"สถานะ : จ่ายแล้ว ✅\n"
+                f"=====================================\n```"
+            )
 
             return
 
