@@ -97,6 +97,7 @@ class GuildMasster(commands.Cog):
                     if channel_name is None:
                         print('Create new report channel')
                         """ Update MISSION STATUS TO 0 """
+                        await interaction.respond(content='โปรดรอสักครู่ ระบบกำลังสร้างห้องส่งภารกิจให้กับคุณ')
                         category = discord.utils.get(interaction.guild.categories, name='MISSION')
                         overwrites = {
                             interaction.guild.default_role: discord.PermissionOverwrite(read_messages=False,
@@ -139,6 +140,9 @@ class GuildMasster(commands.Cog):
                             ]
                         )
                         message = 'ไปยังห้องส่งภารกิจของคุณ <#{}>'.format(channel.id)
+                        await interaction.channel.send(message, delete_after=5)
+                        return
+
                     elif channel_name is not None:
                         channel = player[6]
                         message = f'ไปยังห้องส่งภารกิจของคุณ <#{channel}>'
