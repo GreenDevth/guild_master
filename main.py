@@ -5,7 +5,7 @@ from discord_components import DiscordComponents
 bot = commands.Bot(command_prefix='.')
 DiscordComponents(bot)
 
-token = get_token(7)
+token = get_token(7)  # old 7
 
 
 @bot.event

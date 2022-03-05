@@ -6,6 +6,7 @@ import discord
 from discord.ext import commands
 from discord_components import Button, ButtonStyle
 from mission.Mission_db import *
+from db.Players_db import players_info, plus_coins, coins_update
 
 
 class MissionEvent(commands.Cog):
@@ -73,6 +74,7 @@ class MissionEvent(commands.Cog):
                     await interaction.respond(content='⚠ Error: Mission inprogress !'
                                                       '\nคุณยังนำสั่งภารกิจ **{}** ไม่สำเร็จ'.format(player[3]))
                     return
+
             elif mission_btn == 'mission_report':
                 check_report = players_mission(member.id)
                 if check_report == 1:
@@ -103,17 +105,8 @@ class MissionEvent(commands.Cog):
                         embed.set_thumbnail(url=member.avatar_url)
                         embed.set_image(url=img)
                         await include.send(
-                            f'{member.mention}',
-                            file=discord.File('./img/mission/mission_center.png')
-                        )
-                        await include.send(
-                            '**📃 ขั้นตอนการส่งภารกิจ** '
-                            '\nผู้เล่นต้องนำสินค้ามาส่งให้กับ Guild Master ที่ตำแหน่ง '
-                            '\nC3N1 ที่โรงนาชั้น 2 ให้ผู้เล่นนำสินค้าใส่ไว้ในตู้ และล็อคกุญแจตู้ให้เรียบร้อย '
-                            '\nหลังจากนั้นให้ผู้เล่นถ่ายภาพสินค้าข้างในตู้ และกดที่ปุ่มสีฟ้า 🟦 (UPLOAD IMAGE) '
-                            '\nเพื่ออัพโหลดภาพ หลังระบบจะส่งขอมูลภารกิจให้แอดมินเพื่อแจ้งให้ทีมงานจ่ายรางวัล '
-                            '\nและเมื่อผู้เล่นอัพโหลดภาพสินเค้าเรียบร้อย ปุ่มรีเซ็ตภารกิจใหม่จะทำงาน 🟥 (RESET) '
-                            '\nให้ผู้เล่นกดที่ปุ่ม RESET เพื่อปิดห้องส่งภารกิจ และจะสามารถกดรับภารกิจใหม่ได้'
+                            f'{member.mention}'
+                            'ศึกษาคู่การใช้งานได้ที่ <#932164700479828008>'
                         )
                         coins = '${:,d}'.format(player[7])
                         await include.send(
@@ -124,7 +117,7 @@ class MissionEvent(commands.Cog):
                                            custom_id='shopping_cart', disabled=True),
                                     Button(style=ButtonStyle.blue, label='UPLOAD IMAGE', emoji='📷',
                                            custom_id='upload_image_mission'),
-                                    Button(style=ButtonStyle.red, emoji='⏱',
+                                    Button(style=ButtonStyle.red, label='CLOSE', emoji='💥',
                                            custom_id='self_reset_mission', disabled=True)
                                 ]
                             ]
@@ -141,6 +134,7 @@ class MissionEvent(commands.Cog):
                     await interaction.respond(content=message)
                     return
                 return
+
             elif mission_btn == 'mission_reset':
                 check = check_players_mission(member.id)
                 if check == 1:
@@ -151,7 +145,7 @@ class MissionEvent(commands.Cog):
                         reset_mission(member.id)
                         message = f'ระบบได้หักค่าปรับจำนวน $100 สำเร็จ : ยอดเงินคงเหลือของคุณคือ : {total}' \
                                   f'\nคุณสามารถกดรับภารกิจใหม่ได้แล้ว'
-                        # await discord.DMChannel.send(member, message)
+                        await discord.DMChannel.send(member, message)
 
                     elif scum_player[5] < fine:
                         message = '⚠ Error, ยอดเงินของคุณไม่เพียงพอสำหรับการจ่ายค่ารีเซ็ตภารกิจ'
@@ -160,6 +154,7 @@ class MissionEvent(commands.Cog):
                 else:
                     await interaction.respond(content='คุณไม่มีภารกิจที่ต้อง รีเซ็ตใหม่')
                     return
+
             elif mission_btn == 'upload_image_mission':
                 player = get_players_mission(member.id)
                 coins = '${:,d}'.format(player[7])
@@ -172,7 +167,7 @@ class MissionEvent(commands.Cog):
                                        custom_id='shopping_cart', disabled=True),
                                 Button(style=ButtonStyle.green, label='DISABLE', emoji='📷',
                                        custom_id='upload_image_mission', disabled=True),
-                                Button(style=ButtonStyle.red, label='RESET MISSION', emoji='⏱',
+                                Button(style=ButtonStyle.green, label='CLOSE', emoji='💥',
                                        custom_id='self_reset_mission', disabled=False)
                             ]
                         ]
@@ -195,9 +190,10 @@ class MissionEvent(commands.Cog):
                         exp = int(player[7])
                         update = exp + scum_player[7]
                         update_player_exp(member.id, update)
-
-                        message = f"🎉 ยินดีด้วยคุณได้รับ 🎖 {exp} exp" \
-                                  f" โปรดรอการตรวจสอบความถูกต้องของสินค้าเพื่อจ่ายรางวัลจำนวน {exp} จากทีมงานนะครับ"
+                        player = players_info(member.id)
+                        coin = player[5]
+                        update_coins(member.id, player[5] + exp)
+                        message = f"🎉 คุณส่งภาจกิจสำเร็จแล้ว : กดที่ปุ่ม สีแดงเพื่อปิดห้องและรับภารกิจใหม่"
                         embed = discord.Embed(
                             title=f'ภารกิจ {player[3]} สำเร็จ โดย {player[2]}',
                             colour=discord.Colour.green()
@@ -213,7 +209,8 @@ class MissionEvent(commands.Cog):
                         await success_channel.send(member.mention, embed=embed)
                         await discord.DMChannel.send(
                             member,
-                            f"🎉 ส่งภารกิจเรียบร้อย คุณได้รับ 🎖{exp} exp ค่าประสบการณ์ของคุณตอนนี้คือ 🎖 {update} exp"
+                            f"🎉 คุณได้รับ 🎖{exp} exp ค่าประสบการณ์ของคุณตอนนี้คือ 🎖 {update} exp \n"
+                            f"🎉 คุณได้รับ 💵{exp} สรุปยอดเงินทั้งหมดของคุณตอนนี้คือ {update}"
                         )
                     await interaction.channel.send(message, delete_after=5)
                     await asyncio.sleep(5.5)
@@ -223,6 +220,7 @@ class MissionEvent(commands.Cog):
                 else:
                     await interaction.respond(content='คุณไม่มีภารกิจที่ต้อง รีเซ็ตใหม่')
                     return
+
             elif mission_btn == 'self_reset_mission':
                 player = get_players_mission(member.id)
                 if player[5] == 0:
@@ -238,6 +236,7 @@ class MissionEvent(commands.Cog):
                     )
                 await interaction.channel.send(content=message)
                 return
+
             elif mission_btn == 'mission_check':
                 check = check_players_mission(member.id)
                 if check == 1:
@@ -270,9 +269,10 @@ class MissionEvent(commands.Cog):
             embed.add_field(name='รางวัลภารกิจ', value=f"{data[2]} 💵")
             embed.add_field(name='ค่าประสบการณ์', value=f"{data[3]} 🎖")
             embed.set_footer(text='กรุณานำส่งภารกิจให้เสร็จก่อนรับภารกิจใหม่')
-            inprogress = self.bot.get_channel(911285052204257371)
+            # inprogress = self.bot.get_channel(911285052204257371)
             await interaction.respond(embed=embed)
             await discord.DMChannel.send(member, embed=embed)
+
         elif mission_status == 1:
             await interaction.respond(content='คุณกำลังรับภารกิจพิเศษอยู่ กรุณาส่งภารกิจก่อนเพื่อรับภารกิจทั่วไป')
 

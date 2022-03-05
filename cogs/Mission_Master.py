@@ -24,9 +24,9 @@ class GuildMasterCommand(commands.Cog):
             file=discord.File('./img/mission/mission.png'),
             components=[
                 [
-                    Button(style=ButtonStyle.gray, label='HUNTING QUEST', emoji='🥩', custom_id='mission_hunter'),
-                    Button(style=ButtonStyle.gray, label='FISHING QUEST', emoji='🎣', custom_id='mission_fishing'),
-                    Button(style=ButtonStyle.gray, label='FAMER QUEST', emoji='👨‍🌾', custom_id='mission_famer')
+                    Button(style=ButtonStyle.gray, label='HUNTING QUEST', emoji='🥩', custom_id='1000'),
+                    Button(style=ButtonStyle.gray, label='FISHING QUEST', emoji='🎣', custom_id='1500'),
+                    Button(style=ButtonStyle.gray, label='FAMER QUEST', emoji='👨‍🌾', custom_id='500')
                 ],
                 [
                     Button(style=ButtonStyle.blue, label=' REPORT MISSION ', emoji='✉', custom_id='mission_report'),
