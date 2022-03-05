@@ -199,7 +199,7 @@ class GuildMasster(commands.Cog):
                         embed.add_field(name='รางวันภารกิจ', value=f'💵 {coins}')
                         embed.add_field(name='รางวัล exp', value=f'🎖 {award}')
                         embed.set_footer(text='หากตรวจพบว่าโกงการส่งภารกิจ จะทำการยึดเงินและค่าประสบการณ์ทั้งหมดทันที')
-                        success_channel = self.bot.get_channel(949210678533705768)
+                        success_channel = self.bot.get_channel(936149260540461106)
                         await success_channel.send(member.mention, embed=embed)
                         await interaction.channel.send(
                             f"{message}",
@@ -232,6 +232,16 @@ class GuildMasster(commands.Cog):
             total_coins = plus_coins(member.id, award)
             all_coins = '${:,d}'.format(total_coins)
             update_mission_img(member.id, 2)
+            statement = self.bot.get_channel(949609279277633536)
+            await statement.send(
+                f"📃 **Mission Statement**\n\n"
+                f"```=====================================\n"
+                f"ผู้ทำภารกิจ : {member.display_name}\n"
+                f"เงินรางวัล : {coins}\n"
+                f"ค่าประสบการณ์ : {award}\n"
+                f"สถานะ : จ่ายแล้ว ✅\n"
+                f"=====================================\n"
+            )
             if m_player[5] == 1:
                 await interaction.edit_origin(
                     components=[
