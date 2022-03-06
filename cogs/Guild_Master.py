@@ -212,7 +212,7 @@ class GuildMasster(commands.Cog):
                                     Button(style=ButtonStyle.green, label=f'GET AWORD {coins}', emoji='💵',
                                            custom_id='receipt'),
                                     Button(style=ButtonStyle.red, label=f'CLOSE THIS CHANNEL', emoji='⚠',
-                                           custom_id='self_reset')
+                                           custom_id='self_reset', disabled=True)
                                 ]
                             ]
                         )
@@ -225,45 +225,46 @@ class GuildMasster(commands.Cog):
             await interaction.respond(content=message)
             return
         elif btn == 'receipt':
-            m_player = players_mission(member.id)
-            player = players_info(member.id)
-            award = int(m_player[7])
-            coins = int(player[5])
-            exp = int(player[7])
-            exp = exp_update(member.id, award)
-            y_int = isinstance(exp, int)
-            coins = '${:,d}'.format(award)
-            total_coins = plus_coins(member.id, award)
-            all_coins = '${:,d}'.format(total_coins)
-            update_mission_img(member.id, 2)
+            award = players_mission(member.id)[7]
+            coins = players_info(member.id)[5]
+            # player = players_info(member.id)
+            # # award = int(m_player[7])
+            # coins = '${:,d}'.format(award)
+            # # coins = int(player[5])
+            # # exp = int(player[7])
+            # # exp = exp_update(member.id, award)
+            # # y_int = isinstance(exp, int)
+            # # total_coins = plus_coins(member.id, award)
+            # # all_coins = '${:,d}'.format(total_coins)
+            # # update_mission_img(member.id, 2)
             await interaction.edit_origin(
                 components=[
                     [
-                        Button(style=ButtonStyle.green, label=f'GET AWORD {coins}', emoji='💵',
+                        Button(style=ButtonStyle.green, label='GET AWORD ${:,d}'.format(award), emoji='💵',
                                custom_id='receipt', disabled=True),
                         Button(style=ButtonStyle.red, label=f'CLOSE THIS CHANNEL', emoji='⚠',
                                custom_id='self_reset')
                     ]
                 ]
             )
-            await discord.DMChannel.send(member, f'คุณได้รับรางวัลภารกิจจำนวน {coins}'
-                                                 f' : จำนวนเงินปัจจุบันของคุณคือ {all_coins}')
-            if y_int is True:
-                await discord.DMChannel.send(member, f'คุณได้รับค่าประสบการณ์จำนวน {award}exp'
-                                                     f' : ค่าประสบการณ์ปัจจุบันของคุณคือ {exp}exp')
-            else:
-                await discord.DMChannel.send(member, exp)
-
-            statement = self.bot.get_channel(949609279277633536)
-            await statement.send(
-                f"📃 **Mission Statement**\n"
-                f"```=====================================\n"
-                f"ผู้ทำภารกิจ : {member.display_name}\n"
-                f"เงินรางวัล : {coins}\n"
-                f"ค่าประสบการณ์ : {award}\n"
-                f"สถานะ : จ่ายแล้ว ✅\n"
-                f"=====================================\n```"
-            )
+            # await discord.DMChannel.send(member, f'คุณได้รับรางวัลภารกิจจำนวน {coins}'
+            #                                      f' : จำนวนเงินปัจจุบันของคุณคือ {all_coins}')
+            # if y_int is True:
+            #     await discord.DMChannel.send(member, f'คุณได้รับค่าประสบการณ์จำนวน {award}exp'
+            #                                          f' : ค่าประสบการณ์ปัจจุบันของคุณคือ {exp}exp')
+            # else:
+            #     await discord.DMChannel.send(member, exp)
+            #
+            # statement = self.bot.get_channel(949609279277633536)
+            # await statement.send(
+            #     f"📃 **Mission Statement**\n"
+            #     f"```=====================================\n"
+            #     f"ผู้ทำภารกิจ : {member.display_name}\n"
+            #     f"เงินรางวัล : {coins}\n"
+            #     f"ค่าประสบการณ์ : {award}\n"
+            #     f"สถานะ : จ่ายแล้ว ✅\n"
+            #     f"=====================================\n```"
+            # )
 
             return
 
