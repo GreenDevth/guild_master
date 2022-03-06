@@ -148,7 +148,7 @@ class GuildMasster(commands.Cog):
                         message = f'ไปยังห้องส่งภารกิจของคุณ <#{channel}>'
 
             elif in_mission == 0:
-                message = 'no data'
+                message = 'คุณยังไม่มีภารกิจในระบบ'
             await interaction.respond(content=message)
             return
         elif btn in report_mission_list:
