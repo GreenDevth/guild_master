@@ -209,10 +209,9 @@ class GuildMasster(commands.Cog):
                             f"{message}",
                             components=[
                                 [
-                                    Button(style=ButtonStyle.green, label=f'GET AWORD {coins}', emoji='💵',
+                                    Button(style=ButtonStyle.green, label=f'GET YOUR MISSION AWORD ', emoji='🎖',
                                            custom_id='receipt'),
-                                    Button(style=ButtonStyle.red, label=f'CLOSE THIS CHANNEL', emoji='⚠',
-                                           custom_id='self_reset', disabled=True)
+                                    Button(style=ButtonStyle.gray, label=f'AWARD {coins}', emoji='💵', disabled=True)
                                 ]
                             ]
                         )
@@ -225,36 +224,43 @@ class GuildMasster(commands.Cog):
             await interaction.respond(content=message)
             return
         elif btn == 'receipt':
-            message = '⚠ คุณได้ส่งภารกิจเรียบร้อยแล้ว กรุณากดปุ่ม Close ' \
-                      'เพิ่อรีเซ็ตภารกิจและปิดห้องส่งสินค้าของคุณ '
-            award = players_mission(member.id)[7]
-            coins = players_info(member.id)[5]
-            exp = exp_update(member.id, award)
-            y_int = isinstance(exp, int)
-            total_coins = plus_coins(member.id, award)
-            update_mission_img(member.id, 2)
-
-            await discord.DMChannel.send(member, 'คุณได้รับรางวัลภารกิจจำนวน {}'
-                                                 ' : จำนวนเงินปัจจุบันของคุณคือ ${:,d}'.format(coins, total_coins))
-            if y_int is True:
-                await discord.DMChannel.send(member, f'คุณได้รับค่าประสบการณ์จำนวน {award}exp'
-                                                     f' : ค่าประสบการณ์ปัจจุบันของคุณคือ {exp}exp')
+            if players_mission(member.id)[5] == 2:
+                message = '⚠ Error : ระบบจ่ายรางวัลภารกิจให้กับคุณไปแล้ว'
+                await interaction.respond(content=message)
             else:
-                await discord.DMChannel.send(member, exp)
+                message = 'กรุณารอสักครู่ระบบกำลังจ่ายรางวัลภารกิจและค่าประสบการณ์ให้กับคุณ'
+                await interaction.respond(content=message)
+                award = players_mission(member.id)[7]
+                coins = players_info(member.id)[5]
+                exp = exp_update(member.id, award)
+                y_int = isinstance(exp, int)
+                total_coins = plus_coins(member.id, award)
+                update_mission_img(member.id, 2)
 
-            statement = self.bot.get_channel(949609279277633536)
-            await statement.send(
-                "📃 **Mission Statement**\n"
-                "```=====================================\n"
-                "ผู้ทำภารกิจ : {}\n"
-                "เงินรางวัล : {}\n"
-                "ค่าประสบการณ์ : ${:,d}\n"
-                "สถานะ : จ่ายแล้ว ✅\n"
-                "=====================================\n```".format(member.display_name, award, award)
-            )
-        await interaction.respond(content=message)
+                await discord.DMChannel.send(member, 'คุณได้รับรางวัลภารกิจจำนวน {}'
+                                                     ' : จำนวนเงินปัจจุบันของคุณคือ ${:,d}'.format(coins, total_coins))
+                if y_int is True:
+                    await discord.DMChannel.send(member, f'คุณได้รับค่าประสบการณ์จำนวน {award}exp'
+                                                         f' : ค่าประสบการณ์ปัจจุบันของคุณคือ {exp}exp')
+                else:
+                    await discord.DMChannel.send(member, exp)
+
+                statement = self.bot.get_channel(949609279277633536)
+                await statement.send(
+                    "📃 **Mission Statement**\n"
+                    "```=====================================\n"
+                    "ผู้ทำภารกิจ : {}\n"
+                    "เงินรางวัล : {}\n"
+                    "ค่าประสบการณ์ : ${:,d}\n"
+                    "สถานะ : จ่ายแล้ว ✅\n"
+                    "=====================================\n```".format(member.display_name, award, award)
+                )
+                await interaction.channel.send(
+                    "⚠ **กดปุ่มเพื่อปิดห้องส่งภารกิจ**",
+                    components=[Button(style=ButtonStyle.red, label='CLOSE', emoji='⛔', custom_id='self_reset')]
+                )
+                return
         return
-
 
 def setup(bot):
     bot.add_cog(GuildMasster(bot))
