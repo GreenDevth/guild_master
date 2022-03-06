@@ -225,22 +225,14 @@ class GuildMasster(commands.Cog):
             await interaction.respond(content=message)
             return
         elif btn == 'receipt':
+            message = '⚠ คุณได้ส่งภารกิจเรียบร้อยแล้ว กรุณากดปุ่ม Close ' \
+                      'เพิ่อรีเซ็ตภารกิจและปิดห้องส่งสินค้าของคุณ '
             award = players_mission(member.id)[7]
             coins = players_info(member.id)[5]
             exp = exp_update(member.id, award)
             y_int = isinstance(exp, int)
             total_coins = plus_coins(member.id, award)
             update_mission_img(member.id, 2)
-            await interaction.edit_origin(
-                components=[
-                    [
-                        Button(style=ButtonStyle.green, label=f'GET AWORD {coins}', emoji='💵',
-                               custom_id='receipt', disabled=True),
-                        Button(style=ButtonStyle.red, label=f'CLOSE THIS CHANNEL', emoji='⚠',
-                               custom_id='self_reset', disabled=False)
-                    ]
-                ]
-            )
 
             await discord.DMChannel.send(member, 'คุณได้รับรางวัลภารกิจจำนวน {}'
                                                  ' : จำนวนเงินปัจจุบันของคุณคือ ${:,d}'.format(coins, total_coins))
@@ -260,8 +252,8 @@ class GuildMasster(commands.Cog):
                 "สถานะ : จ่ายแล้ว ✅\n"
                 "=====================================\n```".format(member.display_name, award, award)
             )
-
-            return
+        await interaction.respond(content=message)
+        return
 
 
 def setup(bot):
