@@ -231,16 +231,16 @@ class GuildMasster(commands.Cog):
             y_int = isinstance(exp, int)
             total_coins = plus_coins(member.id, award)
             update_mission_img(member.id, 2)
-            await interaction.edit_origin(
-                components=[
-                    [
-                        Button(style=ButtonStyle.green, label='GET AWORD ${:,d}'.format(award), emoji='💵',
-                               custom_id='receipt', disabled=True),
-                        Button(style=ButtonStyle.red, label=f'CLOSE THIS CHANNEL', emoji='⚠',
-                               custom_id='self_reset')
-                    ]
-                ]
-            )
+            # await interaction.edit_origin(
+            #     components=[
+            #         [
+            #             Button(style=ButtonStyle.green, label='GET AWORD ${:,d}'.format(award), emoji='💵',
+            #                    custom_id='receipt', disabled=True),
+            #             Button(style=ButtonStyle.red, label=f'CLOSE THIS CHANNEL', emoji='⚠',
+            #                    custom_id='self_reset')
+            #         ]
+            #     ]
+            # )
             await discord.DMChannel.send(member, 'คุณได้รับรางวัลภารกิจจำนวน {}'
                                                  ' : จำนวนเงินปัจจุบันของคุณคือ ${:,d}'.format(coins, total_coins))
             if y_int is True:
