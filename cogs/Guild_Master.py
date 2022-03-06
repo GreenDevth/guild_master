@@ -227,16 +227,9 @@ class GuildMasster(commands.Cog):
         elif btn == 'receipt':
             award = players_mission(member.id)[7]
             coins = players_info(member.id)[5]
-            # player = players_info(member.id)
-            # # award = int(m_player[7])
-            # coins = '${:,d}'.format(award)
-            # # coins = int(player[5])
-            # # exp = int(player[7])
-            # # exp = exp_update(member.id, award)
-            # # y_int = isinstance(exp, int)
-            # # total_coins = plus_coins(member.id, award)
-            # # all_coins = '${:,d}'.format(total_coins)
-            # # update_mission_img(member.id, 2)
+            exp = update_exp(member.id, award)
+            y_int = isinstance(exp, int)
+            total_coins = plus_coins(member.id, award)
             await interaction.edit_origin(
                 components=[
                     [
@@ -247,25 +240,26 @@ class GuildMasster(commands.Cog):
                     ]
                 ]
             )
-            # await discord.DMChannel.send(member, f'คุณได้รับรางวัลภารกิจจำนวน {coins}'
-            #                                      f' : จำนวนเงินปัจจุบันของคุณคือ {all_coins}')
-            # if y_int is True:
-            #     await discord.DMChannel.send(member, f'คุณได้รับค่าประสบการณ์จำนวน {award}exp'
-            #                                          f' : ค่าประสบการณ์ปัจจุบันของคุณคือ {exp}exp')
-            # else:
-            #     await discord.DMChannel.send(member, exp)
-            #
-            # statement = self.bot.get_channel(949609279277633536)
-            # await statement.send(
-            #     f"📃 **Mission Statement**\n"
-            #     f"```=====================================\n"
-            #     f"ผู้ทำภารกิจ : {member.display_name}\n"
-            #     f"เงินรางวัล : {coins}\n"
-            #     f"ค่าประสบการณ์ : {award}\n"
-            #     f"สถานะ : จ่ายแล้ว ✅\n"
-            #     f"=====================================\n```"
-            # )
+            await discord.DMChannel.send(member, 'คุณได้รับรางวัลภารกิจจำนวน {}'
+                                                 ' : จำนวนเงินปัจจุบันของคุณคือ ${:,d}'.format(coins, total_coins))
+            if y_int is True:
+                await discord.DMChannel.send(member, f'คุณได้รับค่าประสบการณ์จำนวน {award}exp'
+                                                     f' : ค่าประสบการณ์ปัจจุบันของคุณคือ {exp}exp')
+            else:
+                await discord.DMChannel.send(member, exp)
 
+            statement = self.bot.get_channel(949609279277633536)
+            await statement.send(
+                "📃 **Mission Statement**\n"
+                "```=====================================\n"
+                "ผู้ทำภารกิจ : {}\n"
+                "เงินรางวัล : {}\n"
+                "ค่าประสบการณ์ : ${:,d}\n"
+                "สถานะ : จ่ายแล้ว ✅\n"
+                "=====================================\n```".format(member.display_name, award, award)
+            )
+
+            update_mission_img(member.id, 2)
             return
 
 
