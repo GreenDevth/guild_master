@@ -230,6 +230,7 @@ class GuildMasster(commands.Cog):
             exp = update_exp(member.id, award)
             y_int = isinstance(exp, int)
             total_coins = plus_coins(member.id, award)
+            update_mission_img(member.id, 2)
             await interaction.edit_origin(
                 components=[
                     [
@@ -259,7 +260,6 @@ class GuildMasster(commands.Cog):
                 "=====================================\n```".format(member.display_name, award, award)
             )
 
-            update_mission_img(member.id, 2)
             return
 
 
