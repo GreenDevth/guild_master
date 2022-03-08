@@ -125,6 +125,9 @@ def update_mission_status(discord_id):
             conn.close()
 
 
+
+
+
 def delete_player_mission(discord_id):
     conn = None
     try:

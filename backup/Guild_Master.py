@@ -262,5 +262,6 @@ class GuildMasster(commands.Cog):
                 return
         return
 
+
 def setup(bot):
     bot.add_cog(GuildMasster(bot))
