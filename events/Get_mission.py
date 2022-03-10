@@ -31,7 +31,7 @@ class GetMission(commands.Cog):
             mission_id = random.randint(0, lenght - 1)  # get mission id from random function
             data = get_mission[mission_id]  # result mission from random fuction
             embed = discord.Embed(
-                title='⚔ ภารกิจของคุณ คือ **{}**'.format(data[1]),
+                title='⚔ ภารกิจ**{}**'.format(data[1]),
                 description='{} ที่ Guild Master ตำแหน่ง C3N1 (ทะเลสาบ)'.format(data[1]),
                 timestamp=datetime.datetime.utcnow(),
                 color=discord.Colour.orange(),
