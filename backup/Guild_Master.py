@@ -32,7 +32,7 @@ class GuildMasster(commands.Cog):
                 mission_id = random.randint(0, list_length - 1)
                 data = get_mission[mission_id]  # แสดง mission data.
                 in_mission = mission_exists(member.id)  # check player mission already exists.
-                print(in_mission)
+                in_mission_channel = self.bot.get_channel(951453790316404797)
                 if in_mission == 0:
                     """ ถ้าผู้เล่นยังไม่ได้รับภารกิจ หรือ ภารกิจเป็น 0 """
                     """ Create new mission. """
@@ -52,6 +52,7 @@ class GuildMasster(commands.Cog):
                     embed.set_footer(text='กรุณานำส่งภารกิจให้เสร็จก่อนรับภารกิจใหม่')
                     message = embed
                     await interaction.respond(embed=message)
+                    await in_mission_channel.send(embed=message)
                     return
                 elif in_mission == 1:
                     player = players_mission(member.id)
@@ -221,7 +222,7 @@ class GuildMasster(commands.Cog):
                 else:
                     message = '⚠ คุณได้ส่งภารกิจเรียบร้อยแล้ว กรุณากดปุ่ม Close ' \
                               'เพิ่อรีเซ็ตภารกิจและปิดห้องส่งสินค้าของคุณ '
-            await interaction.respond(content=message)
+                    await interaction.respond(content=message)
             return
         elif btn == 'receipt':
             if players_mission(member.id)[5] == 2:
