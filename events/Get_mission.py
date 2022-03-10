@@ -233,10 +233,11 @@ class ReportMission(commands.Cog):
             return
 
         elif btn == 'yes_self_reset':
+            await interaction.edit_origin(
+                components=[]
+            )
             solf = reset_mission(member.id, btn)
             message = solf
-            await interaction.respond(content=message)
-            await asyncio.sleep(10)
-            await interaction.channel.delete()
+            await interaction.channel.send(content=message)
             return
 
