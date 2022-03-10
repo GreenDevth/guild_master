@@ -22,6 +22,7 @@ class GetMission(commands.Cog):
         btn = interaction.component.custom_id
         btn_list = ["1000", "1500", "500"]
         check = mission_status(member.id)  # return 0 or 1 for special events.
+        in_mission_channel = self.bot.get_channel(951453790316404797)
 
         if btn in btn_list:
             in_mission = mission_exists(member.id)  # check mission already exisits retur 0 or 1
@@ -57,6 +58,7 @@ class GetMission(commands.Cog):
                     )
                     embed.set_image(url=mission_img(player[3]))
                     message = await interaction.respond(embed=embed)
+                    await in_mission_channel.send(embed=embed)
                 else:
                     pass
             else:
