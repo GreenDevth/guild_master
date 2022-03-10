@@ -50,6 +50,7 @@ class GetMission(commands.Cog):
                 if in_mission == 0:
                     message = await interaction.respond(embed=embed)
                     new_mission(member.id, member.name, data[1], data[2])
+                    await in_mission_channel.send(embed=embed)
                 elif in_mission == 1:
                     player = players_mission(member.id)
                     embed = discord.Embed(
@@ -58,7 +59,6 @@ class GetMission(commands.Cog):
                     )
                     embed.set_image(url=mission_img(player[3]))
                     message = await interaction.respond(embed=embed)
-                    await in_mission_channel.send(embed=embed)
                 else:
                     pass
             else:
