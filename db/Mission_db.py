@@ -63,7 +63,7 @@ def mission(award):
     try:
         conn = MySQLConnection(**db)
         cur = conn.cursor()
-        cur.execute('SELECT * FROM scum_mission WHERE MISSION_AWARD = %s', (award,))
+        cur.execute('SELECT * FROM scum_mission WHERE MISSION_EXP = %s', (award,))
         row = cur.fetchall()
         return row
     except Error as e:

@@ -32,7 +32,7 @@ class GetMission(commands.Cog):
             data = get_mission[mission_id]  # result mission from random fuction
             embed = discord.Embed(
                 title='⚔ ภารกิจ**{}**'.format(data[1]),
-                description='{} ที่ Guild Master ตำแหน่ง C3N1 (ทะเลสาบ)'.format(data[1]),
+                description='{} ที่ สถานีขนส่ง ตำแหน่ง A4N3 (สนามบิน)'.format(data[1]),
                 timestamp=datetime.datetime.utcnow(),
                 color=discord.Colour.orange(),
             )
@@ -240,4 +240,3 @@ class ReportMission(commands.Cog):
             message = solf
             await interaction.channel.send(content=message)
             return
-

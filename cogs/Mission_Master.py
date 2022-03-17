@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 from discord_components import Button, ButtonStyle
-from mission.Mission_db import get_mission
+
 from events.Get_mission import GetMission, ReportMission
 
 
