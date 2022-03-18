@@ -30,7 +30,7 @@ class GuildMasterCommand(commands.Cog):
                 [
                     Button(style=ButtonStyle.gray, label='HUNTING', emoji='🥩', custom_id='1000'),
                     Button(style=ButtonStyle.gray, label='FISHERMAN', emoji='🎣', custom_id='1500'),
-                    Button(style=ButtonStyle.gray, label='FAMER', emoji='👨‍🌾', custom_id='500')
+                    Button(style=ButtonStyle.gray, label='FARMER', emoji='👨‍🌾', custom_id='500')
                 ],
                 [
                     Button(style=ButtonStyle.blue, label=' REPORT', emoji='✉', custom_id='mission_report'),
