@@ -233,10 +233,15 @@ class ReportMission(commands.Cog):
             return
 
         elif btn == 'yes_self_reset':
+            overwrites = {
+            interaction.guild.default_role: discord.PermissionOverwrite(read_messages=True),
+            member: discord.PermissionOverwrite(read_messages=False)
+            }
             await interaction.edit_origin(
                 components=[]
             )
+            await interaction.channel.edit(overwrites=overwrites)
             solf = reset_mission(member.id, btn)
             message = solf
-            await interaction.channel.send(content=message)
+            await discord.DMChannel(member, message)
             return
