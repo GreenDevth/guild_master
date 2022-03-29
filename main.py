@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 from db.config import get_token, config_cogs
 from discord_components import DiscordComponents
+
 bot = commands.Bot(command_prefix='.')
 DiscordComponents(bot)
 
@@ -12,6 +13,13 @@ token = get_token(7)  # old 7
 async def on_ready():
     print(f'Logged in as {bot.user.name} (ID : {bot.user.id})')
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name='Player Mission'))
+
+
+@bot.command()
+async def clear(ctx):
+    await ctx.channel.purge()
+    await ctx.message.delete()
+
 
 config_cogs(bot)
 bot.run(token)

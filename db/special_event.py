@@ -1,14 +1,14 @@
-from db.players_db import db, MySQLConnection, Error
+from db.Players_db import db, MySQLConnection, Error
 from datetime import datetime, date
 
 
-def events_recode(discord_id, coin, exp, ex_date):
+def events_recode(discord_id, coin, exp, ex_date, img, name):
     conn = None
     try:
         conn = MySQLConnection(**db)
         cur = conn.cursor()
-        sql = 'INSERT INTO scum_special_events(DISCORD_ID,COIN, EXP, EXPIRE_DATE) VALUES (%s,%s,%s,%s)'
-        cur.execute(sql, (discord_id, coin, exp, ex_date,))
+        sql = 'INSERT INTO scum_special_events(DISCORD_ID,COIN, EXP, EXPIRE_DATE, MISSION_IMAGE, MISSION_NAME) VALUES (%s,%s,%s,%s,%s,%s)'
+        cur.execute(sql, (discord_id, coin, exp, ex_date, img, name,))
         conn.commit()
         cur.close()
     except Error as e:
@@ -109,5 +109,17 @@ def get_event_exp(discord_id):
         while row is not None:
             res = list(row)
             return res[0]
+    except Error as e:
+        print(e)
+
+
+def special_name(mission_id):
+    try:
+        conn = MySQLConnection(**db)
+        cur = conn.cursor()
+        cur.execute('SELECT * FROM scum_special_mission WHERE MISSION_ID = %s', (mission_id,))
+        row = cur.fetchall()
+        for x in row:
+            return x
     except Error as e:
         print(e)

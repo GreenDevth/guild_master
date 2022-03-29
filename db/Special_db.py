@@ -9,7 +9,7 @@ def players_bank_id(discord_id):
     try:
         conn = MySQLConnection(**db)
         cur = conn.cursor()
-        sql = 'SELECT BANK_ID FROM scum_players WHERE DISCORD_ID=%s'
+        sql = 'SELECT GUILD_ID FROM scum_players WHERE DISCORD_ID=%s'
         cur.execute(sql, (discord_id,))
         row = cur.fetchone()
         while row is not None:

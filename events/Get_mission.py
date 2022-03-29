@@ -44,7 +44,7 @@ class GetMission(commands.Cog):
             embed.add_field(name='ค่าประสบการณ์', value=f"{data[3]} 🎖")
             embed.set_footer(text='กรุณานำส่งภารกิจให้เสร็จก่อนรับภารกิจใหม่')
             if check == 1:  # check (if) for player in special mission is TRUE
-                await interaction.respond(content='you have a pending mission')
+                await interaction.respond(content='คุณยังทำภารกิจพิเศษให้สำเร็จ กรุณาส่งภารกิจพิเศษก่อนรับภารกิจใหม่')
             elif check == 0:  # check (if) for player in special mission is FALSE
                 if in_mission == 0:
                     await interaction.respond(embed=embed)
@@ -237,7 +237,7 @@ class ReportMission(commands.Cog):
 
         elif btn == 'yes_self_reset':
             overwrites = {
-                interaction.guild.default_role: discord.PermissionOverwrite(read_messages=True),
+                interaction.guild.default_role: discord.PermissionOverwrite(read_messages=False),
                 member: discord.PermissionOverwrite(read_messages=False)
             }
             await interaction.edit_origin(
