@@ -43,12 +43,11 @@ class GetMission(commands.Cog):
             embed.add_field(name='รางวัลภารกิจ', value=f"{data[2]} 💵")
             embed.add_field(name='ค่าประสบการณ์', value=f"{data[3]} 🎖")
             embed.set_footer(text='กรุณานำส่งภารกิจให้เสร็จก่อนรับภารกิจใหม่')
-            message = None  # set golbal variable
             if check == 1:  # check (if) for player in special mission is TRUE
-                message = await interaction.respond(content='you have a pending mission')
+                await interaction.respond(content='you have a pending mission')
             elif check == 0:  # check (if) for player in special mission is FALSE
                 if in_mission == 0:
-                    message = await interaction.respond(embed=embed)
+                    await interaction.respond(embed=embed)
                     new_mission(member.id, member.name, data[1], data[2])
                     await in_mission_channel.send(embed=embed)
                 elif in_mission == 1:
@@ -58,7 +57,7 @@ class GetMission(commands.Cog):
                         color=discord.Color.red(),
                     )
                     embed.set_image(url=mission_img(player[3]))
-                    message = await interaction.respond(embed=embed)
+                    await interaction.respond(embed=embed)
                 else:
                     pass
             else:
@@ -75,7 +74,6 @@ class ReportMission(commands.Cog):
         member = interaction.author
         btn = interaction.component.custom_id
         btn_list = ["mission_report", "mission_check", "mission_reset", "yes_reset"]
-
         if btn in btn_list:
             in_mission = mission_exists(member.id)
             if in_mission == 1:
@@ -87,7 +85,7 @@ class ReportMission(commands.Cog):
                         color=discord.Color.red(),
                     )
                     embed.set_image(url=mission_img(player[3]))
-                    message = await interaction.respond(embed=embed)
+                    await interaction.respond(embed=embed)
                     return False
 
                 elif btn == 'mission_reset':
@@ -98,17 +96,19 @@ class ReportMission(commands.Cog):
                     return False
                 elif btn == 'yes_reset':
                     hard = reset_mission(member.id, btn)
-                    message = await interaction.respond(content=hard)
-                    await discord.DMChannel.send(member, '```css\nคุณจ่ายค่าบริการรีเซ็ตภารกิจจำนวน $100 : ยอดเงินในบัญชีปัจจุบันคือ ${:,d}\n```'.format(players_info(member.id)[5]))
+                    await interaction.respond(content=hard)
+                    await discord.DMChannel.send(member,
+                                                 '```css\nคุณจ่ายค่าบริการรีเซ็ตภารกิจจำนวน $100 : ยอดเงินในบัญชีปัจจุบันคือ ${:,d}\n```'.format(
+                                                     players_info(member.id)[5]))
                     return
 
                 channel_name = interaction.guild.get_channel(players_mission(member.id)[6])  # get channel name by id
                 mission_id = players_mission(member.id)[0]  # get mission id
                 room = str(mission_id)  # create room number
-                channel_id = players_mission(member.id)[6]  # get channel id
+                # channel_id = players_mission(member.id)[6]  # get channel id
                 if channel_name is None:
                     print('Create new report channel')
-                    msg = await interaction.respond(content='โปรดรอสักครู่ ระบบกำลังสร้างห้องส่งภารกิจให้กับคุณ')
+                    await interaction.respond(content='โปรดรอสักครู่ ระบบกำลังสร้างห้องส่งภารกิจให้กับคุณ')
                     categorys = discord.utils.get(interaction.guild.categories,
                                                   name='MISSION')  # get Category by name MISSION.
                     overwrites = {
@@ -117,7 +117,7 @@ class ReportMission(commands.Cog):
                     }
                     await categorys.edit(overwrites=overwrites)
                     new_channel = f'ห้องส่งภารกิจ-{room}'
-                    create = await interaction.guild.create_text_channel(new_channel, category=categorys)
+                    await interaction.guild.create_text_channel(new_channel, category=categorys)
                     channel = discord.utils.get(interaction.guild.channels, name=str(new_channel))
                     update_report_mission(member.id, channel.id)
                     include = self.bot.get_channel(channel.id)
@@ -148,16 +148,16 @@ class ReportMission(commands.Cog):
                             ]
                         ]
                     )
-                    message = await interaction.channel.send('🛣 ไปยังห้องส่งภารกิจของคุณที่ <#{}>'.format(channel.id),
-                                                             delete_after=5)
+                    await interaction.channel.send('🛣 ไปยังห้องส่งภารกิจของคุณที่ <#{}>'.format(channel.id),
+                                                   delete_after=5)
                     return
                 elif channel_name is not None:
-                    message = await interaction.respond(
+                    await interaction.respond(
                         content='🛣 ไปยังห้องส่งภารกิจของคุณที่ <#{}>'.format(players_mission(member.id)[6]))
                 return
 
             else:
-                message = await interaction.respond(content="⚠ คุณไม่มีข้อมูลภารกิจในระบบ กรุณากดรับภารกิจ.")
+                await interaction.respond(content="⚠ คุณไม่มีข้อมูลภารกิจในระบบ กรุณากดรับภารกิจ.")
             return
 
         elif btn == 'upload_img':
@@ -172,6 +172,7 @@ class ReportMission(commands.Cog):
                     attachment = attachments[0]
                     file_type = attachment.filename.endswith(('.jpg', '.png', 'jpeg'))
                     return res.author == interaction.author and res.channel == interaction.channel and file_type
+
                 try:
                     msg = await self.bot.wait_for('message', check=check, timeout=60)
                     if msg is not None:
@@ -191,7 +192,6 @@ class ReportMission(commands.Cog):
                         embed.add_field(name='รางวัล exp', value=f'🎖 {award}')
                         embed.set_footer(text='หากตรวจพบการทุจริต จะทำการยึดเงินและค่าประสบการณ์ทั้งหมดทันที')
                         award = players_mission(member.id)[7]
-                        coins = players_info(member.id)[5]
                         exp = exp_update(member.id, award)
                         y_int = isinstance(exp, int)
                         total_coins = plus_coins(member.id, award)
@@ -214,15 +214,18 @@ class ReportMission(commands.Cog):
                             "เงินรางวัล : {}\n"
                             "ค่าประสบการณ์ : ${:,d}\n"
                             "สถานะ : จ่ายแล้ว ✅\n"
-                            "=====================================\n```".format(member.display_name, member.display_name,
-                                                                                players_mission(member.id)[3], award, award)
+                            "=====================================\n```".format(member.display_name,
+                                                                                member.display_name,
+                                                                                players_mission(member.id)[3], award,
+                                                                                award)
                         )
                         await self.bot.get_channel(936149260540461106).send(embed=embed)
                         await interaction.channel.send(
                             embed=embed,
-                            components=[Button(style=ButtonStyle.red, label='CLOSE THIS CHANNEL', emoji='⛔', custom_id='yes_self_reset')]
+                            components=[Button(style=ButtonStyle.red, label='CLOSE THIS CHANNEL', emoji='⛔',
+                                               custom_id='yes_self_reset')]
                         )
-                        await msg.delete()
+                        # await msg.delete()
                 except asyncio.TimeoutError:
                     pass
                 return
@@ -234,8 +237,8 @@ class ReportMission(commands.Cog):
 
         elif btn == 'yes_self_reset':
             overwrites = {
-            interaction.guild.default_role: discord.PermissionOverwrite(read_messages=True),
-            member: discord.PermissionOverwrite(read_messages=False)
+                interaction.guild.default_role: discord.PermissionOverwrite(read_messages=True),
+                member: discord.PermissionOverwrite(read_messages=False)
             }
             await interaction.edit_origin(
                 components=[]
@@ -243,5 +246,5 @@ class ReportMission(commands.Cog):
             await interaction.channel.edit(overwrites=overwrites)
             solf = reset_mission(member.id, btn)
             message = solf
-            await discord.DMChannel(member, message)
+            await discord.DMChannel.send(member, message)
             return
