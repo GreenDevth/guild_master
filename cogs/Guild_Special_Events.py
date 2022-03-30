@@ -161,7 +161,9 @@ class GuildSpecialEventCommand(commands.Cog):
             await interaction.channel.edit(overwrites=overwrites)
             delete_mission(member.id)
             player = get_players_info(member.id)
+            message = f"{member.mention}\nยอดเงินปัจจุบันของคุณ **{player[5]}** ค่าประสบการณ์ปัจจุบันของคุณ **{player[7]}**"
             await interaction.channel.send(content="{}\nยอดเงินปัจจุบันของคุณคือ **{}** ค่าประสบการณ์ของคุณคือ **{}**".format(member.mention, player[5], player[7]))
+            await discord.DMChannel.send(member, message)
             return
 
     @commands.command(name='special_event')
