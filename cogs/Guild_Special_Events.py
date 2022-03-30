@@ -119,12 +119,13 @@ class GuildSpecialEventCommand(commands.Cog):
             await interaction.channel.send(
                 f"{member.mention}\n 📸 กรุณาอัพโหลดภาพสินค้าภารกิจพิเศษของคุณ และรอการนำจ่ายรางวัลให้คุณต่อไป")
 
-            def check(message):
-                attachments = message.attachments
+            def check(res):
+                attachments = res.attachments
                 if len(attachments) == 0:
                     return False
                 attachment = attachments[0]
-                return attachment.filename.endswith(('.jpg', '.png', 'jpeg'))
+                file_type = attachment.filename.endswith(('.jpg', '.png', 'jpeg'))
+                return res.author == interaction.author and res.channel == interaction.channel and file_type
 
             msg = await self.bot.wait_for('message', check=check)
             image = msg.attachments[0]
