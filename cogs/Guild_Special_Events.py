@@ -135,7 +135,7 @@ class GuildSpecialEventCommand(commands.Cog):
             award = get_event_exp(member.id)
             update_image_status(member.id)
             exp = player_exp + award
-            plus_coin = get_coin + award
+            plus_coin = get_coin + coin
             update_coin(member.id, plus_coin)
             exp_up(member.id, exp)
             embed = discord.Embed(
@@ -156,9 +156,7 @@ class GuildSpecialEventCommand(commands.Cog):
             )
             await discord.DMChannel.send(
                 member,
-                "=============================================\n"
-                "=========== Mission Statement ===============\n"
-                "=============================================\n"
+                "**=========== Mission Statement ===========**\n"
                 f"Bank Balane :{player[5]}\n"
                 f"Exp : {player[7]}\n"
                 f"กดปุ่ม Close Mission เพื่อกับไปยังภารกิจทั่วไปอีกครั้ง"
