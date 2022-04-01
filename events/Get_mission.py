@@ -48,7 +48,7 @@ class GetMission(commands.Cog):
             elif check == 0:  # check (if) for player in special mission is FALSE
                 if in_mission == 0:
                     await interaction.respond(embed=embed)
-                    new_mission(member.id, member.name, data[1], data[2])
+                    new_mission(member.id, member.name, data[1], data[2], data[3])
                     await in_mission_channel.send(embed=embed)
                 elif in_mission == 1:
                     player = players_mission(member.id)
@@ -178,6 +178,7 @@ class ReportMission(commands.Cog):
                     if msg is not None:
                         update_mission_img(member.id, 1)
                         award = players_mission(member.id)[7]
+                        exps = players_mission(member.id)[8]
                         img = msg.attachments[0]
                         embed = discord.Embed(
                             title='ภารกิจ {} สำเร็จ โดย {}'.format(players_mission(member.id)[3],
@@ -189,10 +190,10 @@ class ReportMission(commands.Cog):
                         embed.set_image(url=img)
                         embed.add_field(name='ผู้ส่งภารกิจ', value=member.mention)
                         embed.add_field(name='รางวันภารกิจ', value='💵 ${:,d}'.format(award))
-                        embed.add_field(name='รางวัล exp', value=f'🎖 {award}')
+                        embed.add_field(name='รางวัล exp', value=f'🎖 {exps}')
                         embed.set_footer(text='หากตรวจพบการทุจริต จะทำการยึดเงินและค่าประสบการณ์ทั้งหมดทันที')
                         award = players_mission(member.id)[7]
-                        exp = exp_update(member.id, award)
+                        exp = exp_update(member.id, exps)
                         y_int = isinstance(exp, int)
                         total_coins = plus_coins(member.id, award)
 

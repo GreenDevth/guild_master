@@ -70,15 +70,15 @@ def mission(award):
         print(e)
 
 
-def create_new_mission(discord_id, discord_name, mission_name, mission_award):
+def create_new_mission(discord_id, discord_name, mission_name, mission_award, mission_exp):
     conn = None
     try:
         conn = MySQLConnection(**db)
         cur = conn.cursor()
         cur.execute(
-            'INSERT INTO scum_players_mission(DISCORD_ID, DISCORD_NAME, MISSION_NAME, MISSION_STATUS, MISSION_AWARD) '
-            'VALUES (%s,%s,%s,%s,%s)',
-            (discord_id, discord_name, mission_name, 1, mission_award,))
+            'INSERT INTO scum_players_mission(DISCORD_ID, DISCORD_NAME, MISSION_NAME, MISSION_STATUS, MISSION_AWARD, MISSION_EXP) '
+            'VALUES (%s,%s,%s,%s,%s,%s)',
+            (discord_id, discord_name, mission_name, 1, mission_award,mission_exp,))
         conn.commit()
         cur.close()
     except Error as e:
@@ -104,8 +104,8 @@ def update_report_mission(discord_id, channel_id):
             conn.close()
 
 
-def new_mission(discord_id, discord_name, mission_name, mission_award):
-    create_new_mission(discord_id, discord_name, mission_name, mission_award)
+def new_mission(discord_id, discord_name, mission_name, mission_award, mission_exp):
+    create_new_mission(discord_id, discord_name, mission_name, mission_award, mission_exp)
     msg = players_mission(discord_id)
     return msg
 
