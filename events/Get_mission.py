@@ -218,7 +218,7 @@ class ReportMission(commands.Cog):
                             "=====================================\n```".format(member.display_name,
                                                                                 member.display_name,
                                                                                 players_mission(member.id)[3], award,
-                                                                                award)
+                                                                                exps)
                         )
                         await self.bot.get_channel(936149260540461106).send(embed=embed)
                         await interaction.channel.send(
