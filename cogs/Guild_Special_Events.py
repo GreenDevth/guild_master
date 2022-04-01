@@ -156,10 +156,12 @@ class GuildSpecialEventCommand(commands.Cog):
             )
             await discord.DMChannel.send(
                 member,
+                "```\n"
                 "**=========== Mission Statement ===========**\n"
                 f"Bank Balane :{player[5]}\n"
                 f"Exp : {player[7]}\n"
-                f"กดปุ่ม Close Mission เพื่อกับไปยังภารกิจทั่วไปอีกครั้ง"
+                f"กดปุ่ม Close Mission เพื่อกลับไปยังภารกิจทั่วไปอีกครั้ง"
+                "\n```"
             )
             return False
         if btn == "end_special_mission":
