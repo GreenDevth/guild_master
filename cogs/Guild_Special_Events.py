@@ -129,11 +129,14 @@ class GuildSpecialEventCommand(commands.Cog):
 
             msg = await self.bot.wait_for('message', check=check)
             image = msg.attachments[0]
+            get_coin = players_coins(member.id)
             player_exp = players_exp(member.id)
             coin = get_event_coin(member.id)
             award = get_event_exp(member.id)
             update_image_status(member.id)
             exp = player_exp + award
+            plus_coin = get_coin + award
+            update_coin(member.id, plus_coin)
             exp_up(member.id, exp)
             embed = discord.Embed(
                 title=f'ส่งภารกิจโดย {member.name}',
@@ -144,11 +147,21 @@ class GuildSpecialEventCommand(commands.Cog):
             embed.add_field(name='ผู้ส่งภารกิจ', value=member.mention, inline=False)
             embed.add_field(name='💰 รางวัลที่ได้รับ', value='${:,d}'.format(coin), inline=True)
             embed.add_field(name='🎚 EXP ที่ได้รับ', value=f"{award}", inline=True)
+            player = get_players_info(member.id)
             await interaction.channel.send(
                 embed=embed,
                 components=[
                     Button(style=ButtonStyle.red, label='CLOSE MISSION', emoji='⏱', custom_id='end_special_mission')
                 ]
+            )
+            await discord.DMChannel.send(
+                member,
+                "=============================================\n"
+                "=========== Mission Statement ===============\n"
+                "=============================================\n"
+                f"Bank Balane :{player[5]}\n"
+                f"Exp : {player[7]}\n"
+                f"กดปุ่ม Close Mission เพื่อกับไปยังภารกิจทั่วไปอีกครั้ง"
             )
             return False
         if btn == "end_special_mission":
@@ -164,7 +177,7 @@ class GuildSpecialEventCommand(commands.Cog):
             player = get_players_info(member.id)
             message = f"{member.mention}\nยอดเงินปัจจุบันของคุณ **{player[5]}** ค่าประสบการณ์ปัจจุบันของคุณ **{player[7]}**"
             await interaction.channel.send(content="{}\nยอดเงินปัจจุบันของคุณคือ **{}** ค่าประสบการณ์ของคุณคือ **{}**".format(member.mention, player[5], player[7]))
-            await discord.DMChannel.send(member, message)
+            # await discord.DMChannel.send(member, message)
             return
 
     @commands.command(name='special_event')
