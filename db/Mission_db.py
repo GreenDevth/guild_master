@@ -241,6 +241,22 @@ def update_exp(discord_id, exp):
         return
 
 
+def reset_exp(discord):
+    conn = None
+    try:
+        conn = MySQLConnection(**db)
+        cur = conn.cursor()
+        cur.execute("UPDATE scum_players SET EXP = 0 WHERE DISCORD_ID=%s", (discord,))
+        conn.commit()
+        cur.close()
+    except Error as e:
+        print(e)
+    finally:
+        if conn.is_connected():
+            conn.close()
+            return None
+
+
 def exp_update(discord_id, exp):
     player = players_info(discord_id)
     player_level = player[6]
@@ -253,6 +269,8 @@ def exp_update(discord_id, exp):
         level_update(discord_id, player_level + 1)
         update_exp(discord_id, exp_after)
         level = players_info(discord_id)
+        if level != 0:
+            reset_exp(discord_id)
         msg = f'Congratulation Your Level up! {level[6]}'
     elif exp_plus < default_level:
         update_exp(discord_id, exp_plus)
